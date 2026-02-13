@@ -1,0 +1,152 @@
+---
+title: "Reseller Portal"
+description: "Management portal for reseller administrators"
+---
+
+The Reseller Portal provides reseller-level administrators with the tools to manage their company accounts, allocate licenses, handle billing, and support their end customers. Resellers operate under a distributor in the platform hierarchy and serve as the direct point of contact for company administrators.
+
+## Overview
+
+Resellers are organizations that sell and support the IVT Platform to end-customer companies. The Reseller Portal gives these partners the ability to manage their client base and ensure successful deployments.
+
+```
+Super Admin
+  └── Distributor
+        └── Reseller (You are here)
+              └── Companies
+```
+
+<Note>
+  Reseller Portal access is available to users with the Reseller Admin or Reseller Viewer role. These roles are provisioned by the parent distributor during reseller setup.
+</Note>
+
+## Dashboard
+
+The Reseller Portal dashboard provides an at-a-glance view of your operations:
+
+- **Total companies** managed under your reseller account
+- **Active FMU devices** across all companies and their health status
+- **License utilization** showing allocated, in-use, and available licenses
+- **Recent activity** including new company registrations, device events, and alerts
+- **Support tickets** and pending action items
+- **Billing summary** for the current period
+
+## Managing Companies
+
+Company management is the core function of the Reseller Portal:
+
+<Steps>
+  <Step title="Create a Company">
+    Navigate to **Companies > Add Company**. Enter the company name, address, primary contact, and administrator email. The company admin receives an invitation to complete onboarding.
+  </Step>
+  <Step title="Assign Licenses">
+    Allocate licenses from your reseller pool to the new company. Specify the license type and quantity based on the company's subscription agreement.
+  </Step>
+  <Step title="Configure Company Settings">
+    Set the company's feature permissions, data retention policies, and integration access. These settings define what capabilities are available to the company.
+  </Step>
+  <Step title="Deploy FMU Devices">
+    Assign FMU devices to the company from the available device inventory. Coordinate physical installation and verify device connectivity.
+  </Step>
+  <Step title="Monitor and Support">
+    Track the company's usage, device health, and license consumption from the company detail page. Provide ongoing support as needed.
+  </Step>
+</Steps>
+
+<Tip>
+  After creating a company, walk the company administrator through the initial setup process. A successful onboarding experience reduces support requests and improves customer retention.
+</Tip>
+
+## License Management
+
+The Reseller Portal provides tools for managing license allocations across your companies:
+
+<Tabs>
+  <Tab title="License Pool">
+    View your total license allocation from the parent distributor. The pool shows total licenses, licenses assigned to companies, and available licenses remaining for new assignments.
+  </Tab>
+  <Tab title="Company Allocations">
+    See a breakdown of licenses assigned to each company. Identify underutilized licenses that could be reallocated and companies approaching their limits.
+  </Tab>
+  <Tab title="License History">
+    Review a chronological log of all license changes including allocations, revocations, and adjustments with timestamps and the user who made the change.
+  </Tab>
+</Tabs>
+
+<Info>
+  Licenses can be reclaimed from a deactivated company and reassigned to another. Navigate to the company's license settings and click **Revoke** to return licenses to your pool.
+</Info>
+
+## Billing and Invoices
+
+Manage billing for your company accounts:
+
+<CardGroup cols={2}>
+  <Card title="View Invoices" icon="file-invoice-dollar">
+    Access invoices generated for your reseller account by the parent distributor. Download invoices in PDF format for your records.
+  </Card>
+  <Card title="Company Billing" icon="receipt">
+    Generate and manage invoices for your company accounts based on their license usage, device counts, and subscription terms.
+  </Card>
+  <Card title="Payment Tracking" icon="credit-card">
+    Track payment status for all company accounts. Flag overdue payments and send reminders directly from the portal.
+  </Card>
+  <Card title="Revenue Reports" icon="chart-line">
+    View revenue summaries by company, billing period, and product line. Export reports for integration with your accounting systems.
+  </Card>
+</CardGroup>
+
+## User Management
+
+Manage users within your reseller organization:
+
+| Role | Description | Permissions |
+|------|-------------|-------------|
+| **Reseller Admin** | Full management access | Create/edit companies, manage licenses, billing, and users |
+| **Reseller Viewer** | Read-only access | View dashboards, reports, and company details without modification |
+| **Support Agent** | Limited management | View company details, access device diagnostics, manage support tickets |
+
+<Steps>
+  <Step title="Add a User">
+    Go to **Settings > Users > Add User**. Enter the user's name, email address, and select the appropriate role.
+  </Step>
+  <Step title="Configure Access">
+    Fine-tune the user's permissions by enabling or disabling access to specific sections such as billing, license management, or device diagnostics.
+  </Step>
+  <Step title="Send Invitation">
+    The user receives an email invitation to create their account and set up credentials. Two-factor authentication is enforced for all portal users.
+  </Step>
+</Steps>
+
+## FAQ and Documentation Access
+
+The Reseller Portal includes a knowledge base for self-service support:
+
+- **Product FAQ** covering common questions from end customers
+- **Setup guides** for company onboarding and device installation
+- **Troubleshooting guides** for resolving common issues without escalation
+- **API reference** for technical integrations
+- **Release notes** with details on platform updates and new features
+
+<Note>
+  The knowledge base is maintained by the platform team and updated with each release. Encourage your company administrators to review the documentation before submitting support tickets.
+</Note>
+
+## Notification Settings
+
+Configure notifications to stay informed about activity across your company accounts:
+
+| Notification | Description | Default |
+|--------------|-------------|---------|
+| **New company registration** | Alert when a company completes the onboarding process | Enabled |
+| **Device offline** | Alert when an FMU device goes offline at any company | Enabled |
+| **License threshold** | Alert when a company exceeds 80% license utilization | Enabled |
+| **Invoice generated** | Notification when a new invoice is created | Enabled |
+| **Payment overdue** | Alert when a company payment passes its due date | Enabled |
+| **Platform updates** | Notifications about new features and maintenance windows | Enabled |
+
+Notifications can be configured per user from **Settings > Notifications**. Each user can choose to receive notifications via email, in-portal alerts, or both.
+
+<Warning>
+  Critical notifications such as device offline and payment overdue alerts should remain enabled for at least one Reseller Admin to ensure timely response to operational and billing issues.
+</Warning>

@@ -1,0 +1,117 @@
+---
+title: "Common Galleries"
+sidebarTitle: "Common"
+description: "Create and manage custom face galleries for person identification"
+---
+
+Common galleries are manually curated collections of known individuals that you want the IVT Platform to identify when they appear on camera. Use common galleries for persons of interest, VIPs, known offenders, authorized personnel, or any group of people you need to actively track and identify.
+
+## Creating a New Gallery
+
+Set up a new common gallery and configure its matching behavior.
+
+<Steps>
+  <Step title="Navigate to Galleries">
+    Open the **Galleries** section from the main navigation and click **New Gallery**.
+  </Step>
+  <Step title="Select Gallery Type">
+    Choose **Common** as the gallery type. This creates a manually managed gallery where you control all entries.
+  </Step>
+  <Step title="Name and Describe the Gallery">
+    Enter a descriptive name (e.g., "VIP Clients," "Watchlist - Region A," "Authorized Contractors") and an optional description that explains the gallery's purpose.
+  </Step>
+  <Step title="Set Matching Threshold">
+    Configure the minimum confidence score required for a detection to be considered a match against this gallery. The threshold is expressed as a percentage from 0 to 100.
+  </Step>
+  <Step title="Configure Alert Rules">
+    Define what happens when a match is detected -- options include in-app notifications, email alerts, webhook triggers, or silent logging only.
+  </Step>
+  <Step title="Assign Cameras">
+    Select which cameras or camera groups should compare detections against this gallery. You can assign all cameras or limit matching to specific locations.
+  </Step>
+  <Step title="Save the Gallery">
+    Click **Create Gallery** to finalize. The gallery is now active and ready for face entries to be added.
+  </Step>
+</Steps>
+
+## Uploading Face Photos
+
+Populate your gallery with reference photos of the individuals you want the system to identify.
+
+<Tabs>
+  <Tab title="Manual Upload">
+    Click **Add Entry** within the gallery, then upload one or more photos of the individual. Provide a name and any relevant metadata (ID number, notes, tags). Each entry supports multiple reference photos for improved matching accuracy.
+  </Tab>
+  <Tab title="Bulk Import">
+    Use the **Import** function to upload a ZIP file containing images organized by individual. Each subfolder should be named with the person's identifier and contain their reference photos. A CSV manifest file can be included to map additional metadata.
+  </Tab>
+  <Tab title="Capture from Feed">
+    While viewing live camera feeds or search results, right-click any detected face and select **Add to Gallery**. Choose the target gallery and fill in the identity details. This is the fastest way to enroll someone you see on camera.
+  </Tab>
+</Tabs>
+
+<CardGroup cols={2}>
+  <Card title="Photo Requirements" icon="camera">
+    - Minimum 200 x 200 pixels per face
+    - JPEG, PNG, or BMP format
+    - Clear, unoccluded view of the face
+    - Neutral expression preferred for primary reference
+  </Card>
+  <Card title="Recommendations" icon="lightbulb">
+    - Upload 3-5 photos per person for best accuracy
+    - Include front-facing and slight angle variations
+    - Use images from different lighting conditions
+    - Update photos periodically to account for appearance changes
+  </Card>
+</CardGroup>
+
+## Editing Gallery Settings
+
+After creation, gallery settings can be modified at any time.
+
+<AccordionGroup>
+  <Accordion title="Rename or Update Description">
+    Open the gallery and click **Settings**. Update the name or description and click **Save**. Changes take effect immediately and are reflected across all references to this gallery.
+  </Accordion>
+  <Accordion title="Modify Matching Threshold">
+    Adjust the confidence threshold from the gallery settings panel. Raising the threshold reduces false matches but may miss lower-quality detections. Lowering it increases sensitivity but may produce more false positives.
+  </Accordion>
+  <Accordion title="Update Camera Assignments">
+    Add or remove cameras from the gallery's scope. Detections from cameras not assigned to the gallery are not compared against its entries, which reduces processing load and irrelevant matches.
+  </Accordion>
+  <Accordion title="Change Alert Rules">
+    Modify the notification behavior for this gallery. You can switch between alert types (visual, email, webhook) or disable alerts entirely while keeping the gallery active for identification logging.
+  </Accordion>
+</AccordionGroup>
+
+## AI Matching Thresholds
+
+The matching threshold determines how similar a detected face must be to a gallery entry for the system to classify it as a match.
+
+| Threshold Level | Range    | Behavior                                                    |
+| --------------- | -------- | ----------------------------------------------------------- |
+| **Strict**      | 90-100%  | Only very high-confidence matches. Minimal false positives.  |
+| **Standard**    | 75-89%   | Balanced accuracy. Suitable for most operational scenarios.   |
+| **Relaxed**     | 60-74%   | Broader matching. Useful when image quality varies.           |
+| **Permissive**  | Below 60%| Catches marginal matches. Requires manual review of results. |
+
+<Note>
+  Each gallery maintains its own threshold independently. A "VIP" gallery might use a standard threshold of 80%, while a security watchlist might require a strict threshold of 92% to minimize false identifications.
+</Note>
+
+## Configuring Gallery Rules
+
+Gallery rules define automated actions beyond basic alerting.
+
+- **Auto-Tag** -- Automatically apply tags to detections matching this gallery, making them easily filterable in search results and reports.
+- **Access Control Integration** -- Trigger door unlock commands or access control system events when a gallery match is confirmed (requires integration setup).
+- **Escalation** -- Route high-priority matches to specific users or teams for immediate review.
+- **Schedule** -- Restrict gallery matching to specific time windows. For example, a contractor gallery might only be active during business hours.
+
+<Tip>
+  Combine gallery rules with camera-specific settings for fine-grained control. For example, you can configure a watchlist gallery to generate high-priority alerts only on entry-point cameras while logging silently on interior cameras.
+</Tip>
+
+<Warning>
+  Modifying gallery thresholds or rules on a production system takes effect immediately. Changes apply to all future detections but do not retroactively alter past match results. Test threshold changes during low-traffic periods when possible.
+</Warning>

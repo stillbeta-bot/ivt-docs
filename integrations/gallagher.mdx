@@ -1,0 +1,110 @@
+---
+title: "Gallagher"
+description: "Integrate with Gallagher security systems for unified access control and video surveillance"
+---
+
+Gallagher is an enterprise-grade access control and security management platform used by organizations worldwide to manage physical access to buildings, zones, and restricted areas. The IVT Platform integrates with Gallagher to correlate access control events with facial recognition data, providing a unified security view.
+
+## Overview
+
+The Gallagher integration enables the IVT Platform to:
+
+- **Receive access events** -- Ingest door access, badge swipe, and alarm events from Gallagher Command Centre.
+- **Correlate with video** -- Match access events with facial recognition detections from cameras positioned at access points.
+- **Enrich audit trails** -- Combine cardholder identity with facial recognition data to verify authorized access.
+- **Trigger alerts** -- Generate notifications when access events conflict with facial recognition results (e.g., tailgating or credential sharing).
+
+<Note>
+  This integration requires Gallagher Command Centre with REST API access enabled. Contact your Gallagher administrator to obtain the necessary API credentials.
+</Note>
+
+## Integration Architecture
+
+The integration uses the Gallagher Command Centre REST API to pull access events and cardholder data. Events are matched against facial recognition data based on timestamp and camera-to-door mapping.
+
+```
+Gallagher Command Centre  -->  REST API  -->  IVT Platform  -->  Event Correlation Engine
+```
+
+The platform polls the Gallagher API at configurable intervals to retrieve recent events, then correlates them with video analytics data from cameras associated with the same access points.
+
+## Configuration
+
+<Steps>
+  <Step title="Enable the Gallagher REST API">
+    In Gallagher Command Centre, enable the REST API module. Create an API key with permissions to read access events, cardholders, and door status information.
+  </Step>
+  <Step title="Enable the Integration in IVT">
+    Navigate to **Settings > Integrations > Gallagher** in the IVT Platform and toggle the integration to enabled.
+  </Step>
+  <Step title="Enter Connection Details">
+    Provide the Gallagher Command Centre API endpoint URL and the API key generated in step one. Specify the polling interval for event retrieval (default: 30 seconds).
+  </Step>
+  <Step title="Map Doors to Cameras">
+    Associate Gallagher doors and access points with IVT Platform cameras. This mapping is essential for correlating access events with facial recognition detections.
+  </Step>
+  <Step title="Configure Event Types">
+    Select which Gallagher event types to ingest. Common selections include door access granted, door access denied, door forced open, and alarm events.
+  </Step>
+  <Step title="Test the Connection">
+    Click **Test Connection** to verify that the platform can reach the Gallagher API and retrieve events. Trigger a test badge swipe to confirm end-to-end correlation.
+  </Step>
+</Steps>
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Access Event Ingestion" icon="door-open">
+    Receive real-time access events including granted, denied, and alarm conditions from all configured doors.
+  </Card>
+  <Card title="Video Correlation" icon="magnifying-glass">
+    Automatically match access events with facial recognition detections occurring within configurable time windows.
+  </Card>
+  <Card title="Cardholder Sync" icon="users">
+    Import cardholder profiles to cross-reference badge holders with gallery subjects for identity verification.
+  </Card>
+  <Card title="Tailgating Detection" icon="triangle-exclamation">
+    Identify instances where multiple individuals pass through a door on a single badge swipe using facial detection counts.
+  </Card>
+</CardGroup>
+
+## Access Event Correlation
+
+When an access event is received from Gallagher, the platform performs the following correlation logic:
+
+1. **Identify the door** and its mapped camera(s) in the IVT Platform.
+2. **Query facial detections** from those cameras within a configurable time window around the event timestamp (default: +/- 15 seconds).
+3. **Match identities** by comparing detected faces against the cardholder's enrolled photo (if available in the gallery).
+4. **Generate a correlated event** that includes both the access record and the facial recognition result.
+
+<Tip>
+  For best results, position cameras to capture faces as individuals approach the access point, ensuring the face is detected before or at the time of badge presentation.
+</Tip>
+
+## Event Types
+
+| Gallagher Event | Platform Action |
+|-----------------|-----------------|
+| Access Granted | Correlate with face detection, verify identity match |
+| Access Denied | Log denial, check for face presence at the door |
+| Door Forced Open | Generate high-priority alert with associated video |
+| Door Held Open | Flag extended door-open duration with video context |
+| Alarm Activated | Forward to monitoring dashboard with video clip |
+
+<Warning>
+  The Gallagher REST API must be accessible from the IVT Platform's network. If Command Centre is hosted on-premises behind a firewall, ensure the appropriate network rules are in place to allow API traffic.
+</Warning>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No events appearing in the platform">
+    Verify the API key has read permissions for events and that the polling interval is configured. Check that at least one door is mapped to a camera.
+  </Accordion>
+  <Accordion title="Events appear but no video correlation">
+    Confirm that the door-to-camera mapping is correct and that the camera was actively recording at the time of the event. Adjust the correlation time window if events and detections are slightly offset.
+  </Accordion>
+  <Accordion title="Connection test fails">
+    Ensure the Command Centre API endpoint URL is correct and reachable. Verify the API key has not expired and that TLS certificates are valid.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,109 @@
+---
+title: "Historic Footage Search"
+sidebarTitle: "Historic Footage"
+description: "Search through recorded video footage to find specific people or events"
+---
+
+Historic Footage Search allows you to scan recorded video archives to locate specific individuals, review detection events, and reconstruct timelines for past incidents. The search engine processes archived footage using FaceVACS AI to extract and match faces across your selected cameras and time range.
+
+## Creating a New Search Query
+
+Follow these steps to configure and execute a historic footage search.
+
+<Steps>
+  <Step title="Navigate to Historic Search">
+    Open the **Search** section from the main navigation and select **Historic Footage** from the search mode options.
+  </Step>
+  <Step title="Define the Time Range">
+    Use the date and time pickers to set the **Start** and **End** timestamps for your search window. The search engine will only process footage recorded within this range.
+  </Step>
+  <Step title="Select Camera Sources">
+    Choose one or more cameras to include in the search. You can select individual cameras, camera groups, or use **Select All** to search across the entire network.
+  </Step>
+  <Step title="Set Search Parameters">
+    Configure the confidence threshold, face quality filter, and maximum result count. These parameters control the precision and scope of your search.
+  </Step>
+  <Step title="Provide a Reference (Optional)">
+    Optionally upload a reference photo or select a face from a gallery to search for a specific individual. Without a reference, the search returns all detected faces.
+  </Step>
+  <Step title="Execute the Search">
+    Click **Start Search** to begin processing. The system queues your search and begins scanning the selected footage. Progress is displayed in real time.
+  </Step>
+</Steps>
+
+<Note>
+  Search duration depends on the time range, number of cameras, and the volume of recorded footage. A 24-hour search across 10 cameras typically completes within 5-15 minutes.
+</Note>
+
+## Defining Time Ranges and Camera Sources
+
+Precise time range and camera selection are critical to getting accurate results efficiently.
+
+<Tabs>
+  <Tab title="Time Range">
+    The time range picker supports both absolute and relative selections:
+    - **Absolute** -- Specify exact start and end dates and times down to the minute.
+    - **Relative** -- Choose from presets like "Last Hour," "Last 24 Hours," or "Last 7 Days."
+
+    The maximum searchable range is 30 days per query. For longer investigations, run multiple sequential searches.
+  </Tab>
+  <Tab title="Camera Selection">
+    Cameras can be selected individually or by group:
+    - **Individual Cameras** -- Click specific cameras from the list to include them.
+    - **Camera Groups** -- Select a pre-configured group to include all cameras in that group.
+    - **Location Filter** -- Filter the camera list by physical location or site to quickly find relevant sources.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Narrowing your time range and camera selection significantly reduces search time and helps you find relevant results faster. Start with a focused scope and expand if needed.
+</Tip>
+
+## Viewing Search Results
+
+Once a search completes, results are displayed in a timeline-based interface that lets you review detections chronologically.
+
+**Result components include:**
+
+- **Detection Thumbnails** -- Cropped face images from each detection event, displayed in chronological order.
+- **Timeline View** -- A visual timeline showing when detections occurred across the search window. Clusters indicate periods of high activity.
+- **Detection Details** -- Click any thumbnail to view the full frame, camera source, exact timestamp, confidence score, and any matching gallery entries.
+- **Grouping** -- When a reference face is provided, results are grouped by identity with the best match shown first.
+
+<Info>
+  Results are sorted by timestamp in descending order by default. You can re-sort by confidence score, camera source, or detection quality using the sort controls above the result list.
+</Info>
+
+## Saving Searches for Future Use
+
+You can save search configurations to quickly re-run common queries without reconfiguring parameters each time.
+
+<AccordionGroup>
+  <Accordion title="Save a Search">
+    After configuring your search parameters, click the **Save** icon next to the search bar. Provide a descriptive name and optional notes. The saved search stores the time range type (relative or absolute), camera selection, and all filter settings.
+  </Accordion>
+  <Accordion title="Load a Saved Search">
+    Open the **Saved Searches** panel from the Historic Footage page. Select a previously saved search to load its configuration. Relative time ranges are recalculated from the current time when loaded.
+  </Accordion>
+  <Accordion title="Manage Saved Searches">
+    Edit, rename, or delete saved searches from the Saved Searches panel. Saved searches are stored per-user and are not shared across accounts unless an administrator enables shared search configurations.
+  </Accordion>
+</AccordionGroup>
+
+## Exporting Results
+
+Search results can be exported for external review, evidence packages, or integration with other systems.
+
+| Export Format | Contents                                          | Use Case                          |
+| ------------- | ------------------------------------------------- | --------------------------------- |
+| **CSV**       | Detection timestamps, camera IDs, confidence scores | Data analysis, database import    |
+| **PDF Report**| Thumbnails, timeline summary, metadata             | Evidence documentation, sharing   |
+| **Image Pack**| Full-resolution detection frames as a ZIP archive  | Forensic review, visual evidence  |
+
+<Warning>
+  Exported results may contain biometric data and personally identifiable information. Ensure all exports are handled in compliance with your organization's data retention policies and applicable privacy regulations such as GDPR or CCPA.
+</Warning>
+
+<Note>
+  Historic footage searches are logged in the system audit trail, including the user who initiated the search, parameters used, and the number of results returned. This log is accessible to administrators from the system settings.
+</Note>

@@ -1,0 +1,121 @@
+---
+title: "Real-Time Search"
+sidebarTitle: "Real-Time"
+description: "Monitor live camera feeds with real-time facial recognition and detection"
+---
+
+Real-Time Search enables continuous monitoring of live camera feeds with active facial recognition. As faces are detected on selected cameras, the system immediately compares them against your configured galleries and presents results in a live detection feed. Use this mode for active surveillance, access control monitoring, and immediate threat detection.
+
+## Setting Up Real-Time Monitoring
+
+Configure a real-time search session to begin monitoring live camera feeds with facial recognition.
+
+<Steps>
+  <Step title="Open Real-Time Search">
+    Navigate to the **Search** section and select **Real-Time** from the search mode options. The real-time monitoring interface loads with a live feed panel and a detection results panel.
+  </Step>
+  <Step title="Select Cameras">
+    Choose the cameras you want to monitor. You can select individual cameras, camera groups, or use location-based filtering. Selected cameras appear as live tiles in the feed panel.
+  </Step>
+  <Step title="Configure Gallery Matching">
+    Select one or more face galleries to match against. When a detected face matches a gallery entry, the system generates an alert. You can also run real-time search without a gallery to capture all detections.
+  </Step>
+  <Step title="Set Confidence Threshold">
+    Define the minimum confidence score required for a match to trigger an alert. A higher threshold reduces false alerts but may miss lower-quality matches.
+  </Step>
+  <Step title="Start Monitoring">
+    Click **Start** to activate real-time processing on the selected cameras. The system begins analyzing frames immediately and displays detections as they occur.
+  </Step>
+</Steps>
+
+<Note>
+  Real-time monitoring sessions remain active until you manually stop them or close the page. There is no automatic timeout. Be mindful of system resources when monitoring a large number of cameras simultaneously.
+</Note>
+
+## Configuring Camera Feeds
+
+Each camera in a real-time session can be individually configured to optimize detection performance for its specific environment.
+
+<Tabs>
+  <Tab title="Feed Layout">
+    The live feed panel supports multiple layout options:
+    - **Single View** -- Full-screen display of one camera feed with overlaid detection boxes.
+    - **Grid View** -- Displays 4, 9, or 16 camera feeds simultaneously in a grid.
+    - **Focus + Context** -- One large primary feed with smaller secondary feeds alongside it.
+
+    Switch layouts using the controls in the top-right corner of the feed panel.
+  </Tab>
+  <Tab title="Detection Overlay">
+    Each live feed displays bounding boxes around detected faces in real time. Overlay options include:
+    - **Bounding Boxes** -- Green for unmatched detections, red for gallery matches.
+    - **Confidence Labels** -- Display the matching confidence percentage above each bounding box.
+    - **Identity Labels** -- Show the matched gallery name when a known face is detected.
+
+    Toggle overlay options from the camera settings menu.
+  </Tab>
+  <Tab title="Stream Quality">
+    Adjust the stream quality per camera to balance video clarity with network bandwidth:
+    - **High** -- Full resolution. Best for facial recognition accuracy. Requires more bandwidth.
+    - **Medium** -- Balanced resolution. Suitable for most monitoring scenarios.
+    - **Low** -- Reduced resolution. Use when bandwidth is constrained or for wide-area overview monitoring.
+  </Tab>
+</Tabs>
+
+## Real-Time Face Detection Alerts
+
+When a face detected on a live feed matches a gallery entry above the configured confidence threshold, the system generates an alert.
+
+<CardGroup cols={2}>
+  <Card title="Visual Alert" icon="bell">
+    The matching camera feed flashes a notification overlay, and the detected face is highlighted with a red bounding box and the matched identity label.
+  </Card>
+  <Card title="Audio Alert" icon="volume-high">
+    An optional audio notification plays when a match is detected. Audio alerts can be enabled or disabled in the real-time search settings.
+  </Card>
+  <Card title="Alert Log Entry" icon="list">
+    Every match event is recorded in the detection log with the timestamp, camera source, matched gallery entry, and confidence score.
+  </Card>
+  <Card title="External Notification" icon="paper-plane">
+    If configured, the system sends notifications via email, SMS, or webhook to designated recipients when a match occurs.
+  </Card>
+</CardGroup>
+
+<Warning>
+  High-traffic camera feeds with low confidence thresholds can generate a large volume of alerts. Set thresholds appropriately and consider using the Ignored Gallery to suppress alerts for known individuals such as staff or regular visitors.
+</Warning>
+
+## Camera Settings for Real-Time Mode
+
+Fine-tune individual camera behavior within a real-time monitoring session.
+
+<AccordionGroup>
+  <Accordion title="Detection Zone">
+    Define a specific region within the camera frame where face detection is active. Restricting the detection zone to entry points or key areas reduces false detections from background movement and improves processing efficiency.
+  </Accordion>
+  <Accordion title="Minimum Face Size">
+    Set the minimum pixel size for a face to be processed. Faces smaller than this threshold are ignored. This prevents the system from attempting to match distant or low-resolution faces that would produce unreliable results.
+  </Accordion>
+  <Accordion title="Frame Processing Rate">
+    Control how many frames per second are analyzed for face detection. Higher rates improve detection coverage but require more processing power. The default is 10 FPS per camera.
+  </Accordion>
+  <Accordion title="Gallery Priority">
+    When multiple galleries are active, assign priority levels to control which gallery matches are surfaced first. High-priority gallery matches generate immediate alerts, while lower-priority matches are logged without notification.
+  </Accordion>
+</AccordionGroup>
+
+## Viewing Live Detection Results
+
+The detection results panel displays all face detections from the active monitoring session in real time.
+
+- **Live Feed** -- Detections appear as thumbnail cards the moment they are processed, with the most recent at the top.
+- **Match Indicators** -- Matched detections show the gallery entry name and confidence score. Unmatched detections display as "Unknown."
+- **Quick Actions** -- Click any detection to view the full frame, add the face to a gallery, or initiate a historic footage search for that individual.
+- **Filtering** -- Filter the live results by camera, match status (matched/unmatched), confidence range, or gallery.
+
+<Tip>
+  Use the **Pause** button on the detection feed to freeze the display and review results without new detections pushing them off-screen. The system continues monitoring in the background while the display is paused.
+</Tip>
+
+<Info>
+  Real-time detection data is stored for the duration configured in your system retention policy. After the retention period, detection records are automatically purged unless they have been saved to a case or exported.
+</Info>

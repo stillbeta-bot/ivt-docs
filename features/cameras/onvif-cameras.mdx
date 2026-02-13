@@ -1,0 +1,152 @@
+---
+title: "ONVIF Cameras"
+sidebarTitle: "ONVIF"
+description: "Add and configure on-premise ONVIF-compatible IP cameras"
+---
+
+## Overview
+
+ONVIF cameras are on-premise IP cameras that comply with the Open Network Video Interface Forum
+(ONVIF) standard. Unlike cloud-connected cameras, ONVIF devices are installed and managed on your
+local network. The IVT Platform supports direct integration with ONVIF-compatible cameras,
+allowing you to add, configure, and monitor them for facial recognition and video surveillance.
+
+<Note>
+  ONVIF is an industry standard for IP-based security products. Most modern IP cameras from
+  manufacturers such as Axis, Hikvision, Dahua, and Bosch support ONVIF profiles. Verify
+  that your camera supports ONVIF Profile S (streaming) before adding it to the platform.
+</Note>
+
+## Adding a New ONVIF Camera
+
+<Steps>
+  <Step title="Navigate to ONVIF Cameras">
+    Go to **Cameras > ONVIF** from the main navigation menu and click the **Add Camera** button.
+  </Step>
+  <Step title="Enter Camera Details">
+    Provide the basic information for the camera:
+    - **Camera name** -- a descriptive label for easy identification
+    - **Description** (optional) -- additional notes about the camera's purpose or location
+  </Step>
+  <Step title="Configure Connection Settings">
+    Enter the network connection parameters:
+    - **IP Address** -- the local network IP address of the camera
+    - **Port** -- the ONVIF service port (typically `80` or `8080`)
+    - **Username** -- the camera's authentication username
+    - **Password** -- the camera's authentication password
+  </Step>
+  <Step title="Configure RTSP Stream">
+    Specify the RTSP stream URL for the camera feed. This is typically in the format:
+    ```
+    rtsp://<ip>:<port>/stream1
+    ```
+    The exact path varies by camera manufacturer. Consult your camera's documentation for
+    the correct RTSP URI.
+  </Step>
+  <Step title="Test and Save">
+    Click **Test Connection** to verify that the platform can reach the camera. If the
+    test succeeds, click **Save** to add the camera to your inventory.
+  </Step>
+</Steps>
+
+<Warning>
+  Ensure that the camera's IP address is reachable from the IVT Platform or the FMU device
+  that will process the stream. Firewalls, VLANs, or network segmentation may prevent
+  connectivity. Work with your network administrator to allow the required traffic.
+</Warning>
+
+## Configuring Camera Connection Settings
+
+Each ONVIF camera requires proper network and credential configuration to function within the
+platform.
+
+<CardGroup cols={2}>
+  <Card title="Network Settings" icon="network-wired">
+    Configure the camera's IP address and port. Use a static IP assignment on your network
+    to prevent the camera from changing addresses after a DHCP renewal.
+  </Card>
+  <Card title="Authentication" icon="lock">
+    Provide the username and password configured on the camera. These credentials are stored
+    securely and used for ONVIF service calls and RTSP stream access.
+  </Card>
+</CardGroup>
+
+## RTSP Stream Configuration
+
+The Real-Time Streaming Protocol (RTSP) is used to deliver video from the camera to the
+IVT Platform and FMU devices. Proper RTSP configuration is critical for reliable video
+processing.
+
+<Tabs>
+  <Tab title="Common RTSP Formats">
+    | Manufacturer | Typical RTSP URL |
+    |---|---|
+    | Axis | `rtsp://<ip>/axis-media/media.amp` |
+    | Hikvision | `rtsp://<ip>:554/Streaming/Channels/101` |
+    | Dahua | `rtsp://<ip>:554/cam/realmonitor?channel=1&subtype=0` |
+    | Generic ONVIF | `rtsp://<ip>:<port>/stream1` |
+  </Tab>
+  <Tab title="Stream Parameters">
+    - **Resolution** -- use the highest resolution supported for optimal facial recognition
+    - **Frame rate** -- a minimum of 15 fps is recommended; 30 fps is ideal
+    - **Codec** -- H.264 is widely supported and recommended for compatibility
+    - **Bitrate** -- adjust based on available bandwidth; higher bitrates improve image quality
+  </Tab>
+</Tabs>
+
+<Tip>
+  For facial recognition accuracy, position cameras at a height of 2 to 3 meters and angle
+  them to capture faces at near-frontal view. Ensure adequate lighting at the camera location.
+</Tip>
+
+## Editing and Removing Cameras
+
+### Editing a Camera
+
+To modify an existing ONVIF camera configuration:
+
+1. Navigate to **Cameras > ONVIF** and select the camera you want to edit.
+2. Click the **Edit** button to open the configuration form.
+3. Update the desired fields such as name, IP address, port, credentials, or RTSP URL.
+4. Click **Save** to apply the changes.
+
+### Removing a Camera
+
+To remove an ONVIF camera from the platform:
+
+1. Navigate to **Cameras > ONVIF** and select the camera.
+2. Click the **Delete** or **Remove** button.
+3. Confirm the removal in the dialog prompt.
+
+<Warning>
+  Removing a camera will stop all active streams and disable any detection rules associated
+  with it. This action cannot be undone. Ensure that no critical monitoring workflows depend
+  on the camera before removing it.
+</Warning>
+
+## Camera Health Monitoring
+
+The IVT Platform tracks the health and status of each ONVIF camera to help you maintain
+reliable surveillance coverage.
+
+<AccordionGroup>
+  <Accordion title="Connection Status">
+    Indicates whether the platform can successfully reach the camera over the network.
+    A healthy camera shows an **Online** status. If the camera becomes unreachable, the
+    status changes to **Offline** and an alert may be generated.
+  </Accordion>
+  <Accordion title="Stream Health">
+    Monitors the quality and continuity of the RTSP video stream. Dropped frames,
+    excessive latency, or stream disconnections are flagged for review.
+  </Accordion>
+  <Accordion title="Authentication Errors">
+    If the camera credentials are changed on the device without updating them in the
+    IVT Platform, the connection will fail with an authentication error. Update the
+    credentials in the camera configuration to resolve this.
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  Regularly review camera health metrics in the dashboard to proactively identify
+  and resolve connectivity issues before they impact your surveillance operations.
+</Info>

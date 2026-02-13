@@ -1,0 +1,104 @@
+---
+title: "Face Galleries"
+sidebarTitle: "Overview"
+description: "Manage collections of known faces for identification and alert management"
+---
+
+Face galleries are organized collections of biometric face templates that the IVT Platform uses to identify individuals during search and monitoring operations. When a face is detected by any camera, the system compares it against your configured galleries to determine if the person is known, and triggers the appropriate action based on the gallery type.
+
+## What Are Face Galleries
+
+A gallery is a named collection of face entries, where each entry contains one or more reference photos of an individual along with metadata such as name, notes, and associated tags. The FaceVACS AI engine extracts biometric templates from these reference photos, which are then used for real-time and historic matching.
+
+Galleries serve as the foundation for:
+
+- **Identification** -- Recognizing known individuals when they appear on camera.
+- **Alerting** -- Triggering notifications when specific people are detected.
+- **Filtering** -- Suppressing alerts for individuals who should not trigger notifications.
+- **Analytics** -- Tracking visit frequency and movement patterns for known individuals.
+
+## Gallery Types
+
+IVT provides three distinct gallery types, each designed for a different operational purpose.
+
+<CardGroup cols={3}>
+  <Card title="Common Galleries" icon="address-book" href="/features/galleries/common-galleries">
+    Manually curated collections of known individuals. Use common galleries to identify persons of interest, VIPs, or any specific group of people you need to track.
+  </Card>
+  <Card title="Frequent Galleries" icon="arrow-trend-up" href="/features/galleries/frequent-galleries">
+    Automatically populated galleries of individuals detected repeatedly across your cameras. The system identifies frequent visitors without manual enrollment.
+  </Card>
+  <Card title="Ignored Galleries" icon="eye-slash" href="/features/galleries/ignored-galleries">
+    Collections of known faces that should be excluded from detection alerts. Use ignored galleries for employees, staff, and regular visitors who should not trigger notifications.
+  </Card>
+</CardGroup>
+
+## How Galleries Work with Facial Recognition
+
+When the FaceVACS engine detects a face -- whether during real-time monitoring or historic footage search -- it follows a multi-step matching process against your galleries.
+
+<Steps>
+  <Step title="Face Detection">
+    The engine identifies and extracts face regions from video frames or uploaded images.
+  </Step>
+  <Step title="Template Generation">
+    Each extracted face is converted into a biometric template -- a compact numerical representation of the face's unique features.
+  </Step>
+  <Step title="Gallery Comparison">
+    The template is compared against all entries in the active galleries. The system processes galleries in priority order: Ignored galleries first, then Common galleries, then Frequent galleries.
+  </Step>
+  <Step title="Match Evaluation">
+    Each comparison produces a confidence score. If the score exceeds the gallery's configured threshold, the detection is classified as a match.
+  </Step>
+  <Step title="Action Execution">
+    Based on the gallery type and match result, the system executes the appropriate action -- generating an alert, suppressing the notification, or logging the detection.
+  </Step>
+</Steps>
+
+<Info>
+  Ignored galleries are evaluated first in the matching pipeline. If a detected face matches an ignored gallery entry, no alert is generated regardless of matches in other galleries. This ensures that known staff and regulars do not produce unnecessary notifications.
+</Info>
+
+## Gallery Management Basics
+
+All gallery types share common management capabilities accessible through the **Galleries** section of the platform.
+
+<Tabs>
+  <Tab title="Creating Galleries">
+    Click **New Gallery** and select the gallery type. Provide a name, optional description, and configure the matching threshold. Common and Ignored galleries require manual population, while Frequent galleries are populated automatically by the system.
+  </Tab>
+  <Tab title="Adding Faces">
+    For Common and Ignored galleries, add faces by uploading photos, capturing from live feeds, or importing from search results. Each entry can have multiple reference photos to improve matching accuracy across different angles and lighting conditions.
+  </Tab>
+  <Tab title="Organizing Entries">
+    Use tags and custom fields to organize gallery entries. Tags allow you to categorize individuals within a gallery (e.g., "VIP," "Contractor," "Restricted") and filter results accordingly during search and monitoring.
+  </Tab>
+  <Tab title="Gallery Permissions">
+    Administrators can control which users and roles have access to view, edit, or manage each gallery. Sensitive galleries can be restricted to specific security personnel.
+  </Tab>
+</Tabs>
+
+<Warning>
+  Face gallery data constitutes biometric information and is subject to strict privacy regulations in many jurisdictions. Ensure that your gallery management practices comply with applicable laws such as GDPR, CCPA, BIPA, and other biometric data regulations. Maintain proper consent records and data retention schedules.
+</Warning>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use Multiple Reference Photos">
+    Adding 3 to 5 reference photos per individual, taken from different angles and lighting conditions, significantly improves matching accuracy. Front-facing, left profile, and right profile images provide the best coverage.
+  </Accordion>
+  <Accordion title="Keep Galleries Focused">
+    Create separate galleries for distinct use cases rather than placing all entries in a single gallery. This makes management easier and allows you to configure different matching thresholds and alert rules per gallery.
+  </Accordion>
+  <Accordion title="Review Frequent Gallery Regularly">
+    Periodically review the Frequent Gallery to identify individuals who should be promoted to a Common Gallery (for active tracking) or moved to the Ignored Gallery (to suppress alerts).
+  </Accordion>
+  <Accordion title="Set Appropriate Thresholds">
+    Each gallery can have its own confidence threshold. High-security galleries (e.g., watchlists) should use higher thresholds (85-95%) to minimize false matches. General identification galleries can use moderate thresholds (70-85%).
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  You can assign the same individual to multiple galleries. For example, a person might appear in both a "VIP" common gallery and be flagged in a frequent gallery. The system consolidates matches across galleries in the detection results.
+</Tip>

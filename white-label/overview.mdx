@@ -1,0 +1,140 @@
+---
+title: "White Label Overview"
+sidebarTitle: "Overview"
+description: "Customize the platform with your own branding, colors, and identity"
+---
+
+The IVT Platform supports full white-label customization, allowing partners to deploy the platform under their own brand identity. White-labeling transforms the look, feel, and identity of the platform so that end users experience it as a product of the partner organization rather than IVT.
+
+## What Is White-Labeling?
+
+White-labeling in the IVT Platform means replacing all visible brand elements -- logos, colors, product names, URLs, and legal text -- with those of the partner organization. The underlying functionality remains identical, but the visual presentation is fully customized.
+
+<Info>
+  White-label brands are configured at the platform infrastructure level. Each brand operates on its own domain, with its own visual identity, while sharing the same backend services and data architecture.
+</Info>
+
+## Available Brands
+
+The platform ships with several pre-configured brands:
+
+| Brand | Description | Status |
+|-------|-------------|--------|
+| **Verify** | The default IVT Platform brand | Default |
+| **EEN** | Eagle Eye Networks branded deployment | Partner |
+| **Totalplay** | Totalplay telecommunications branded deployment | Partner |
+| **Eye-D** | Eye-D security branded deployment | Partner |
+
+Each brand is a complete visual identity package that includes colors, logos, typography choices, and branded assets.
+
+## What Can Be Customized
+
+White-label customization covers every user-facing aspect of the platform:
+
+<CardGroup cols={2}>
+  <Card title="Color System" icon="palette">
+    11 color tokens that define the entire color palette including primary, secondary, background, text, borders, status indicators, and interactive elements.
+  </Card>
+  <Card title="Logos" icon="image">
+    Multiple logo variants for different contexts: full logo, icon-only, light background, dark background, login page, sidebar, email headers, and favicons.
+  </Card>
+  <Card title="Copyright and Legal" icon="copyright">
+    Custom copyright notice, terms of service URLs, privacy policy URLs, and company legal name displayed in footers and legal pages.
+  </Card>
+  <Card title="URLs and Domains" icon="globe">
+    Custom domain names for the web application, API endpoints, and documentation site.
+  </Card>
+  <Card title="Page Titles" icon="heading">
+    Custom browser tab titles and meta descriptions that appear throughout the application.
+  </Card>
+  <Card title="Auth Backdrop" icon="lock">
+    Custom background image or pattern displayed on the login, registration, and password reset pages.
+  </Card>
+  <Card title="Loading Spinner" icon="spinner">
+    Custom loading animation that replaces the default spinner throughout the application.
+  </Card>
+  <Card title="Email Templates" icon="envelope">
+    Branded email headers, footers, and color scheme for all platform-generated email notifications.
+  </Card>
+</CardGroup>
+
+## Color Token System
+
+The platform's visual identity is driven by 11 color tokens. All UI components reference these tokens, ensuring a consistent brand experience across every page and component.
+
+| Token | Purpose | Example Usage |
+|-------|---------|---------------|
+| `primary` | Main brand color | Buttons, links, active states |
+| `primaryHover` | Hover state of primary elements | Button hover, link hover |
+| `primaryLight` | Light tint of primary color | Backgrounds, badges, highlights |
+| `primaryDark` | Dark shade of primary color | Text on light backgrounds, borders |
+| `secondary` | Complementary brand color | Secondary buttons, accents |
+| `background` | Page background color | Main content area, panels |
+| `surface` | Surface/card background | Cards, modals, dropdowns |
+| `text` | Primary text color | Body text, headings |
+| `textSecondary` | Secondary text color | Captions, placeholders, metadata |
+| `border` | Border and divider color | Input borders, table dividers, card outlines |
+| `error` | Error and danger states | Error messages, destructive actions |
+
+<Tip>
+  When creating a new brand, you only need to provide the primary color. The automated brand creation script generates the remaining 10 tokens using a color algorithm that ensures proper contrast ratios and accessibility compliance.
+</Tip>
+
+## Logo Requirements
+
+Each white-label brand requires the following logo files:
+
+| Logo File | Format | Dimensions | Usage |
+|-----------|--------|------------|-------|
+| Full logo (light) | SVG or PNG | 200x50px min | Sidebar, navigation (dark backgrounds) |
+| Full logo (dark) | SVG or PNG | 200x50px min | Sidebar, navigation (light backgrounds) |
+| Icon only | SVG or PNG | 48x48px | Collapsed sidebar, mobile header |
+| Login logo | SVG or PNG | 300x80px min | Login and registration pages |
+| Email header | PNG | 200x50px | Email notification headers |
+| Favicon (16px) | ICO/PNG | 16x16px | Browser tab icon |
+| Favicon (32px) | ICO/PNG | 32x32px | Browser tab icon (high DPI) |
+| Apple touch icon | PNG | 180x180px | iOS home screen shortcut |
+| Open Graph image | PNG | 1200x630px | Social media link previews |
+| Loading spinner | SVG/GIF | 64x64px | Application loading states |
+
+<Warning>
+  Logo files must be provided before the brand creation script is executed. Missing logo files will cause the build process to fail. Prepare all 10 logo assets in advance.
+</Warning>
+
+## Brand Configuration Architecture
+
+Each brand is defined by a configuration file that specifies all customization values. The configuration is consumed by both the frontend application and the CI/CD pipeline:
+
+```
+brands/
+  ├── verify/          # Default brand
+  │   ├── config.ts    # Color tokens, metadata, URLs
+  │   ├── config.cjs   # CommonJS version for build tools
+  │   └── assets/      # Logos, icons, spinner
+  ├── een/             # Eagle Eye Networks brand
+  ├── totalplay/       # Totalplay brand
+  └── eye-d/           # Eye-D brand
+```
+
+The frontend application reads the brand configuration at build time and injects the appropriate colors, logos, and metadata into the compiled application.
+
+## Benefits for Partners
+
+<AccordionGroup>
+  <Accordion title="Complete Brand Ownership">
+    End users see only the partner's brand throughout the entire experience. There is no visible reference to IVT Platform in the white-labeled deployment.
+  </Accordion>
+  <Accordion title="Independent Deployment">
+    Each brand is deployed on its own domain with its own SSL certificate and CDN distribution. Partners maintain full control over their deployment URL.
+  </Accordion>
+  <Accordion title="Automated Setup">
+    The brand creation process is automated through a script that handles frontend configuration, backend setup, and AWS infrastructure provisioning. See [Creating a Brand](/white-label/creating-a-brand) for details.
+  </Accordion>
+  <Accordion title="Consistent Updates">
+    White-label brands receive the same platform updates as the default brand. New features and bug fixes are automatically applied to all brand deployments.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+To create a new white-label brand, see the [Creating a Brand](/white-label/creating-a-brand) guide for the complete step-by-step process.

@@ -1,0 +1,144 @@
+---
+title: "Admin Portal"
+description: "System-wide management portal for super administrators"
+---
+
+The Admin Portal is the top-level management interface for IVT Platform super administrators. It provides full visibility and control over the entire platform hierarchy, including distributors, resellers, companies, devices, licenses, billing, and reporting.
+
+## Overview
+
+Super administrators use the Admin Portal to manage every aspect of the platform. This portal sits at the top of the organizational hierarchy and has unrestricted access to all entities and configurations.
+
+<Note>
+  Access to the Admin Portal is restricted to users with the Super Admin role. This role is assigned by the platform operations team and cannot be self-assigned.
+</Note>
+
+## Dashboard
+
+The Admin Portal dashboard provides a real-time overview of the entire platform:
+
+- **Total distributors, resellers, and companies** across the platform
+- **Active devices** (FMUs) and their connection status
+- **License utilization** summary
+- **Recent activity** including new registrations and alerts
+- **System health** indicators for core services
+
+## Hierarchy Management
+
+The platform operates on a four-tier hierarchy. The Admin Portal manages all levels:
+
+```
+Super Admin (Admin Portal)
+  └── Distributors
+        └── Resellers
+              └── Companies
+```
+
+<CardGroup cols={2}>
+  <Card title="Manage Distributors" icon="building-columns">
+    Create, edit, suspend, and delete distributor accounts. Configure billing plans, assign user quotas, and manage distributor-level settings.
+  </Card>
+  <Card title="Manage Resellers" icon="shop">
+    Oversee resellers under each distributor. Create reseller accounts, configure billing, and manage reseller-to-company assignments.
+  </Card>
+  <Card title="Manage Companies" icon="building">
+    View and manage all companies across the platform. Assign licenses, configure FMU allocations, and oversee company-level settings.
+  </Card>
+  <Card title="Manage Users" icon="users">
+    Create and manage user accounts at any level. Assign roles, reset credentials, and audit user activity across the hierarchy.
+  </Card>
+</CardGroup>
+
+## Distributor Management
+
+<Steps>
+  <Step title="Create a Distributor">
+    Navigate to **Distributors > Add Distributor**. Enter the distributor's company name, contact information, and primary admin email. The primary admin receives an invitation to complete registration.
+  </Step>
+  <Step title="Configure Billing">
+    Set the distributor's billing plan, payment terms, and invoice schedule. Configure pricing tiers for the licenses they will distribute to resellers and companies.
+  </Step>
+  <Step title="Assign Quotas">
+    Define the maximum number of resellers, companies, and FMU devices the distributor can provision. Quotas can be adjusted as the distributor's business grows.
+  </Step>
+  <Step title="Manage Distributor Users">
+    Add additional users to the distributor account with appropriate roles (Distributor Admin, Distributor Viewer). Each user receives portal access based on their role.
+  </Step>
+</Steps>
+
+## Reseller Management
+
+From the Admin Portal, super administrators can manage resellers directly or through their parent distributors:
+
+- **Create resellers** under any distributor
+- **Transfer resellers** between distributors when business relationships change
+- **Override billing** settings at the reseller level
+- **View reseller activity** including company provisioning and license usage
+
+## Company Management
+
+Company management at the admin level provides complete control over all end-customer accounts:
+
+<Tabs>
+  <Tab title="Licenses">
+    Allocate and revoke licenses for facial recognition, video analytics, and integration features. Monitor license usage and expiration dates across all companies.
+  </Tab>
+  <Tab title="FMU Devices">
+    View all FMU devices deployed to companies. Monitor device health, firmware versions, and connectivity status. Reassign devices between companies when needed.
+  </Tab>
+  <Tab title="Billing">
+    Review company-level billing records, generate invoices, and manage payment status. Apply credits or adjustments as needed.
+  </Tab>
+  <Tab title="Settings">
+    Configure company-level settings including retention policies, feature toggles, integration permissions, and notification preferences.
+  </Tab>
+</Tabs>
+
+## Unregistered Device Management
+
+The Admin Portal includes a dedicated section for managing FMU devices that have connected to the platform but are not yet assigned to a company:
+
+- View all unregistered devices with their serial numbers, MAC addresses, and firmware versions
+- Assign unregistered devices to a specific company
+- Bulk-assign multiple devices simultaneously
+- Monitor device provisioning status
+
+<Warning>
+  Unregistered devices cannot process facial recognition data until they are assigned to a company with an active license. Regularly review the unregistered device list to ensure new deployments are properly configured.
+</Warning>
+
+## Reports
+
+The Admin Portal provides comprehensive reporting capabilities:
+
+| Report | Description |
+|--------|-------------|
+| **FMU Report** | Device health, uptime, firmware versions, and connectivity metrics across all deployments |
+| **Client Report** | Company activity, license usage, camera counts, and search volumes |
+| **Invoice Report** | Billing summary, payment status, and revenue metrics by distributor and reseller |
+| **User Report** | User activity, login frequency, and role distribution across the hierarchy |
+| **Audit Log** | Complete record of administrative actions performed across all portal levels |
+
+## Invoice Management
+
+Super administrators manage the platform's billing and invoicing:
+
+- **Generate invoices** for distributors based on their active companies and license usage
+- **Review payment status** and flag overdue accounts
+- **Apply adjustments** including credits, discounts, and one-time charges
+- **Export billing data** for integration with external accounting systems
+
+<Tip>
+  Use the bulk invoice generation feature at the end of each billing cycle to create invoices for all active distributors simultaneously, rather than processing them individually.
+</Tip>
+
+## Access Control
+
+The Admin Portal supports role-based access control for administrative users:
+
+| Role | Permissions |
+|------|-------------|
+| **Super Admin** | Full access to all portal features and all entities in the hierarchy |
+| **Support Admin** | Read access to all entities, write access to user management and device troubleshooting |
+| **Billing Admin** | Full access to billing, invoices, and license management; read-only access to other areas |
+| **Viewer** | Read-only access to dashboards and reports |

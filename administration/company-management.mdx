@@ -1,0 +1,132 @@
+---
+title: "Company Management"
+description: "Create and manage companies within the platform hierarchy"
+---
+
+## Overview
+
+Companies are the primary organizational units in the IVT Platform. Each company represents
+a customer organization that uses the platform for facial recognition and video surveillance.
+Companies are created and managed by resellers or distributors within the platform hierarchy,
+and each company has its own set of users, cameras, devices, zones, and detection rules.
+
+<Note>
+  The IVT Platform uses a hierarchical structure: **Distributors** manage **Resellers**,
+  and **Resellers** manage **Companies**. Your ability to create and configure companies
+  depends on your role within this hierarchy.
+</Note>
+
+## Company Hierarchy
+
+Understanding the platform hierarchy is essential for effective company management.
+
+<CardGroup cols={3}>
+  <Card title="Distributor" icon="building">
+    Top-level entity that oversees resellers and may manage companies directly. Distributors
+    handle licensing, billing, and platform-wide configuration.
+  </Card>
+  <Card title="Reseller" icon="handshake">
+    Mid-level entity that manages one or more companies. Resellers provision cameras,
+    devices, and licenses for their customer companies.
+  </Card>
+  <Card title="Company" icon="building-user">
+    The end-customer organization. Companies operate cameras, FMU devices, and detection
+    rules within their assigned resources.
+  </Card>
+</CardGroup>
+
+## Creating a Company
+
+Resellers and distributors can create new companies from the administration panel.
+
+<Steps>
+  <Step title="Navigate to Companies">
+    Go to **Administration > Companies** and click the **Create Company** button.
+  </Step>
+  <Step title="Enter Company Information">
+    Fill in the required company details:
+    - **Company name** -- the legal or display name of the organization
+    - **Contact email** -- the primary email address for the company
+    - **Phone number** (optional) -- a contact phone number
+    - **Address** -- the company's primary physical address
+  </Step>
+  <Step title="Configure Billing Address">
+    Enter the billing address if it differs from the primary address. This address will
+    appear on invoices and billing correspondence.
+  </Step>
+  <Step title="Assign Resources">
+    Allocate initial resources to the company:
+    - **Licenses** -- assign available licenses from your pool
+    - **FMU devices** -- assign enrolled devices to the company
+  </Step>
+  <Step title="Save and Confirm">
+    Review the company configuration and click **Save**. The new company will appear in
+    your company list and is ready for user invitations and camera setup.
+  </Step>
+</Steps>
+
+## Editing Company Information
+
+To update an existing company's details:
+
+1. Navigate to **Administration > Companies** and select the company.
+2. Click **Edit** to open the company settings form.
+3. Modify any of the following fields:
+   - Company name
+   - Contact information (email, phone)
+   - Physical address
+   - Billing address
+4. Click **Save** to apply the changes.
+
+<Info>
+  Changes to company information take effect immediately. Updated billing addresses will
+  appear on subsequent invoices.
+</Info>
+
+## Managing Billing Address
+
+Each company has a billing address used for invoicing and payment processing. The billing
+address can be set during company creation or updated at any time.
+
+<Tabs>
+  <Tab title="Setting Billing Address">
+    During company creation, enter the billing address in the designated section. If the
+    billing address is the same as the physical address, you can copy it directly.
+  </Tab>
+  <Tab title="Updating Billing Address">
+    Navigate to the company detail page, click **Edit**, and update the billing address
+    fields. Changes apply to all future invoices generated for the company.
+  </Tab>
+</Tabs>
+
+## Assigning Cameras and Devices
+
+Resources such as cameras and FMU devices are assigned to companies by resellers or
+distributors. This determines which hardware a company can use for its surveillance operations.
+
+<AccordionGroup>
+  <Accordion title="Assigning Eagle Eye Cameras">
+    Eagle Eye cameras are linked through the Eagle Eye Networks integration. Once the
+    company's Eagle Eye account is connected, cameras are automatically synchronized.
+  </Accordion>
+  <Accordion title="Assigning ONVIF Cameras">
+    ONVIF cameras are added directly by the company administrator or assigned by the
+    reseller. Each camera must be configured with the correct network settings.
+  </Accordion>
+  <Accordion title="Assigning FMU Devices">
+    FMU devices are assigned to companies during the device enrollment process or through
+    the device management interface. Each FMU can only be assigned to one company at a time.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Reassigning a device or camera from one company to another will remove all existing
+  associations, including zone assignments and detection rules. Plan resource transfers
+  carefully to avoid service disruption.
+</Warning>
+
+<Tip>
+  Maintain an up-to-date record of resource assignments across your companies. Regularly
+  review the company detail pages to ensure that licenses, devices, and cameras are
+  allocated appropriately.
+</Tip>

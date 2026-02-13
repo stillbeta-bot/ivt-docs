@@ -1,0 +1,139 @@
+---
+title: "Licensing"
+description: "Manage platform licenses and feature allocations"
+---
+
+## Overview
+
+The IVT Platform uses a license-based model to control access to features and services.
+Licenses determine which capabilities are available to each company, how many cameras and
+devices can be activated, and which recognition engines are enabled. License management is
+handled at the distributor and reseller levels, with allocations flowing down to individual
+companies.
+
+<Note>
+  Licenses are purchased through your distributor or reseller and allocated to companies
+  within the platform hierarchy. Each license unlocks specific functionality and is tied
+  to a company or device.
+</Note>
+
+## How Licensing Works
+
+Licenses are distributed through the platform hierarchy and activated at the company or
+device level.
+
+<Steps>
+  <Step title="Procurement">
+    Distributors acquire licenses from IVT and add them to their available license pool.
+  </Step>
+  <Step title="Allocation to Resellers">
+    Distributors allocate licenses from their pool to resellers based on customer needs.
+  </Step>
+  <Step title="Assignment to Companies">
+    Resellers assign licenses from their allocated pool to individual companies.
+  </Step>
+  <Step title="Activation">
+    Licenses are activated at the company level. For FMU-specific licenses such as FaceVACS,
+    activation occurs on the device itself during the FMU activation step.
+  </Step>
+</Steps>
+
+## Viewing License Status
+
+Navigate to **Administration > Licensing** to view the current license inventory. The
+licensing dashboard displays:
+
+- **Total licenses** -- the number of licenses in your pool
+- **Allocated licenses** -- licenses assigned to resellers or companies
+- **Available licenses** -- unallocated licenses ready for assignment
+- **Active licenses** -- licenses currently in use on devices or by companies
+- **Expiring soon** -- licenses approaching their expiration date
+
+<Tip>
+  Monitor the licensing dashboard regularly to ensure you have sufficient licenses for
+  upcoming deployments. Set up notifications to alert you when licenses are nearing
+  expiration.
+</Tip>
+
+## License Types and Capabilities
+
+The IVT Platform supports several license types, each enabling different features.
+
+<CardGroup cols={2}>
+  <Card title="Platform License" icon="id-card">
+    Grants access to the IVT Platform for a company, including camera management, zone
+    configuration, user management, and detection event viewing.
+  </Card>
+  <Card title="FaceVACS License" icon="face-viewfinder">
+    Enables the FaceVACS facial recognition engine on an FMU device. Required for
+    on-premise facial detection and identification processing.
+  </Card>
+  <Card title="Camera License" icon="camera">
+    Allows a specific number of cameras to be connected and processed within a company.
+    Additional camera licenses expand the supported camera count.
+  </Card>
+  <Card title="Analytics License" icon="chart-line">
+    Unlocks advanced analytics and reporting features, including detection trend analysis,
+    occupancy metrics, and custom dashboards.
+  </Card>
+</CardGroup>
+
+## Managing License Assignments
+
+<Tabs>
+  <Tab title="Distributor Level">
+    Distributors can:
+    - View the complete license inventory across all resellers
+    - Allocate licenses to resellers from the distributor pool
+    - Reclaim unassigned licenses from resellers
+    - Monitor license utilization across the entire hierarchy
+
+    Navigate to **Administration > Licensing** and use the **Allocate** button to assign
+    licenses to a reseller.
+  </Tab>
+  <Tab title="Reseller Level">
+    Resellers can:
+    - View licenses allocated by their distributor
+    - Assign licenses to companies under their management
+    - Track license usage per company
+    - Request additional licenses from their distributor
+
+    Navigate to **Administration > Licensing** and select a company to assign or manage
+    licenses.
+  </Tab>
+</Tabs>
+
+## FaceVACS License Activation on FMU Devices
+
+FaceVACS licenses are a specialized license type that must be activated on a specific FMU
+device to enable the facial recognition engine.
+
+<AccordionGroup>
+  <Accordion title="Activation Process">
+    1. Ensure the FMU device is enrolled and assigned to a company.
+    2. Navigate to the FMU device detail page.
+    3. Select **Activate License** and choose an available FaceVACS license.
+    4. The license is bound to the device and the FaceVACS engine starts.
+  </Accordion>
+  <Accordion title="License Transfer">
+    A FaceVACS license can be transferred from one FMU to another. First, deactivate the
+    license on the current device, then activate it on the target device. Only one device
+    can use a license at any given time.
+  </Accordion>
+  <Accordion title="License Expiration">
+    When a FaceVACS license expires, the recognition engine on the associated FMU device
+    stops processing. The device remains connected but will not perform facial identification
+    until a new or renewed license is activated.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  FaceVACS license activation requires the FMU device to be online and connected to the
+  platform. Ensure the device has a stable network connection before initiating the
+  activation process.
+</Warning>
+
+<Info>
+  License counts and availability are updated in real time. After assigning or revoking
+  a license, the dashboard reflects the change immediately.
+</Info>

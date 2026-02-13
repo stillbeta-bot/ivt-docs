@@ -1,0 +1,122 @@
+---
+title: "Photo Search"
+sidebarTitle: "Photo Search"
+description: "Search across all cameras using a reference photo for face matching"
+---
+
+Photo Search lets you upload a reference image of a person and search across all recorded camera footage to find every appearance of that individual. The FaceVACS AI engine extracts a biometric template from the uploaded photo and compares it against all stored detections, returning results ranked by confidence score.
+
+## Performing a Photo Search
+
+Follow these steps to upload a reference image and search for matching faces across your camera network.
+
+<Steps>
+  <Step title="Open Photo Search">
+    Navigate to the **Search** section and select **Photo Search** from the available search modes.
+  </Step>
+  <Step title="Upload a Reference Photo">
+    Click the **Upload** area or drag and drop an image file. The system accepts JPEG, PNG, and BMP formats. The photo should contain a clearly visible face with adequate resolution.
+  </Step>
+  <Step title="Confirm Face Detection">
+    After upload, the AI engine detects faces in the image and displays them with bounding boxes. If multiple faces are detected, select the specific face you want to search for.
+  </Step>
+  <Step title="Configure Search Scope">
+    Set the time range, camera selection, and confidence threshold for your search. Narrowing the scope improves search speed and result relevance.
+  </Step>
+  <Step title="Execute the Search">
+    Click **Search** to begin. The system compares the extracted biometric template against all detections within your defined scope and returns matching results.
+  </Step>
+  <Step title="Review Results">
+    Results appear ranked by confidence score. Review the matches, inspect detection details, and take action on relevant findings.
+  </Step>
+</Steps>
+
+## Uploading a Reference Photo
+
+The quality of the reference photo directly impacts the accuracy and completeness of search results.
+
+<CardGroup cols={2}>
+  <Card title="Image Requirements" icon="image">
+    - Minimum resolution: 200 x 200 pixels
+    - Supported formats: JPEG, PNG, BMP
+    - Maximum file size: 10 MB
+    - The face should occupy at least 20% of the image area
+  </Card>
+  <Card title="Best Practices" icon="circle-check">
+    - Use a front-facing photo with both eyes visible
+    - Ensure even lighting without harsh shadows
+    - Avoid heavy occlusions such as sunglasses or masks
+    - Higher resolution images yield more accurate templates
+  </Card>
+</CardGroup>
+
+<Tip>
+  If you do not have a standalone photo, you can capture a face from a previous detection result or from a gallery entry and use it as the reference for a photo search.
+</Tip>
+
+## AI-Powered Face Matching
+
+Once the reference photo is processed, the FaceVACS engine creates a biometric template and compares it against stored detection templates from your selected cameras and time range.
+
+<Tabs>
+  <Tab title="How Matching Works">
+    The engine converts the reference face into a numerical vector representing its unique features -- distances between eyes, nose shape, jawline contour, and hundreds of other metrics. This vector is then compared against every stored detection template, producing a similarity score for each comparison.
+  </Tab>
+  <Tab title="Matching Speed">
+    Photo search is optimized for speed through indexed template storage. The engine can compare against millions of stored templates in minutes. Search time scales primarily with the number of detections in the selected scope rather than raw footage duration.
+  </Tab>
+  <Tab title="Accuracy Factors">
+    Matching accuracy depends on:
+    - Quality of the reference photo
+    - Quality of the stored detection (lighting, angle, resolution)
+    - Confidence threshold setting
+    - Time elapsed between the reference photo and the detection (appearance changes)
+  </Tab>
+</Tabs>
+
+## Viewing Photo Search Results
+
+Results are presented in a ranked list with the highest-confidence matches displayed first.
+
+Each result entry includes:
+
+- **Detection Thumbnail** -- The cropped face image from the camera footage.
+- **Confidence Score** -- A percentage indicating how closely the detection matches the reference photo.
+- **Timestamp** -- The exact date and time the detection was recorded.
+- **Camera Source** -- The camera that captured the detection.
+- **Full Frame** -- Click to view the complete video frame surrounding the detection.
+
+<Info>
+  Results with confidence scores above 90% are highlighted as high-confidence matches. Scores between 70% and 90% are considered probable matches. Results below 70% are classified as possible matches and should be reviewed manually.
+</Info>
+
+## Matching Confidence Scores
+
+Understanding confidence scores helps you interpret results accurately and make informed decisions.
+
+| Score Range   | Classification      | Recommended Action                                   |
+| ------------- | ------------------- | ---------------------------------------------------- |
+| **90 - 100%** | High Confidence     | Strong match. Suitable for identification decisions.  |
+| **70 - 89%**  | Probable Match      | Likely match. Verify with additional evidence.        |
+| **50 - 69%**  | Possible Match      | Manual review required. May be affected by quality.   |
+| **Below 50%** | Low Confidence      | Unlikely match. Typically filtered out by thresholds. |
+
+<Warning>
+  Confidence scores are statistical measures and should not be used as the sole basis for identification in high-stakes scenarios. Always corroborate matches with additional evidence such as timestamps, location data, and visual verification.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Adjusting the Confidence Threshold">
+    Lower the threshold to increase recall (find more potential matches at the cost of more false positives). Raise the threshold to increase precision (fewer but more reliable results). The default threshold is 70%.
+  </Accordion>
+  <Accordion title="Re-Running with Different Parameters">
+    If results are insufficient, re-run the search with a wider time range, additional cameras, or a lower confidence threshold. You can also try a different reference photo of the same individual for better template quality.
+  </Accordion>
+  <Accordion title="Saving Results to a Case">
+    Select relevant results and click **Save to Case** to attach them to an investigation case file. Saved results preserve the detection image, metadata, and the confidence score for future reference.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Photo search queries and their results are logged in the system audit trail. The uploaded reference image is stored temporarily during the search session and is deleted automatically after 24 hours unless explicitly saved to a case.
+</Note>

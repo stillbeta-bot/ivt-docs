@@ -1,0 +1,154 @@
+---
+title: "Distributor Portal"
+description: "Management portal for distributor administrators"
+---
+
+The Distributor Portal provides distributor-level administrators with the tools to manage their reseller network, oversee company accounts, allocate licenses, handle billing, and manage users within their organization. Distributors operate one level below the Super Admin in the platform hierarchy.
+
+## Overview
+
+Distributors are organizations that partner with the IVT Platform to sell and support the service through a network of resellers. The Distributor Portal gives these partners full visibility into their downstream hierarchy.
+
+```
+Super Admin
+  └── Distributor (You are here)
+        └── Resellers
+              └── Companies
+```
+
+<Note>
+  Distributor Portal access is available to users with the Distributor Admin or Distributor Viewer role. These roles are provisioned by the Super Admin during distributor setup.
+</Note>
+
+## Dashboard
+
+The Distributor Portal dashboard displays key metrics for your organization:
+
+- **Total resellers** under your distributor account
+- **Total companies** across all your resellers
+- **Active FMU devices** and their health status
+- **License utilization** (allocated vs. available)
+- **Recent activity** feed showing new registrations, alerts, and notable events
+- **Revenue summary** for the current billing period
+
+## Managing Resellers
+
+Distributors create and manage reseller accounts through the portal:
+
+<Steps>
+  <Step title="Create a Reseller">
+    Navigate to **Resellers > Add Reseller**. Enter the reseller's organization name, contact details, and primary administrator email. The reseller admin receives an invitation to set up their account.
+  </Step>
+  <Step title="Configure Reseller Settings">
+    Set the reseller's license allocation limits, feature permissions, and billing terms. Define what capabilities the reseller can offer to their companies.
+  </Step>
+  <Step title="Monitor Reseller Activity">
+    View each reseller's company count, license usage, device deployments, and billing status from the reseller detail page.
+  </Step>
+  <Step title="Manage Reseller Users">
+    Add or remove users from the reseller account. Assign Reseller Admin or Reseller Viewer roles as appropriate.
+  </Step>
+</Steps>
+
+<Tip>
+  Regularly review reseller license utilization to identify resellers approaching their limits. Proactively increasing allocations prevents service disruptions for their end companies.
+</Tip>
+
+## Managing Companies
+
+Distributors can view and manage companies under their resellers:
+
+<Tabs>
+  <Tab title="Company Overview">
+    View all companies across your reseller network in a single list. Filter by reseller, status, license type, or creation date. Access any company's details to review their configuration and usage.
+  </Tab>
+  <Tab title="License Allocation">
+    Allocate licenses from your distributor pool to specific companies. Monitor license usage across all companies and reclaim unused licenses from deactivated accounts.
+  </Tab>
+  <Tab title="Device Management">
+    View FMU devices assigned to companies under your network. Monitor device health, firmware versions, and connectivity. Coordinate device replacements with resellers.
+  </Tab>
+</Tabs>
+
+## License Management
+
+The Distributor Portal provides a centralized view of license allocation:
+
+| License Level | Description |
+|---------------|-------------|
+| **Distributor Pool** | Total licenses allocated to your distributor account by the Super Admin |
+| **Reseller Allocation** | Licenses assigned from your pool to individual resellers |
+| **Company Assignment** | Licenses assigned by resellers to their end companies |
+| **Available** | Remaining unallocated licenses in your pool |
+
+<Info>
+  License allocation follows a cascading model. The Super Admin allocates to distributors, distributors allocate to resellers, and resellers assign to companies. Each level can only allocate from its available pool.
+</Info>
+
+## Billing and Invoices
+
+The Distributor Portal provides billing management for your reseller network:
+
+- **View invoices** generated for your distributor account by the platform
+- **Generate reseller invoices** based on their license usage and active companies
+- **Track payment status** across all resellers
+- **Download billing reports** for reconciliation with your accounting systems
+- **View revenue breakdown** by reseller and by billing period
+
+<CardGroup cols={2}>
+  <Card title="Invoice History" icon="file-invoice">
+    Access a complete history of all invoices issued to and by your distributor account, with filters for date range, reseller, and payment status.
+  </Card>
+  <Card title="Billing Configuration" icon="gear">
+    Configure billing cycles, payment terms, and pricing for your reseller network. Set up automatic invoice generation on recurring schedules.
+  </Card>
+</CardGroup>
+
+## User Management
+
+Manage users within your distributor organization:
+
+<Steps>
+  <Step title="Add a User">
+    Navigate to **Users > Add User**. Enter the user's name, email, and role. The user receives an email invitation to create their account.
+  </Step>
+  <Step title="Assign Roles">
+    Assign the appropriate role: **Distributor Admin** for full management access, or **Distributor Viewer** for read-only access to dashboards and reports.
+  </Step>
+  <Step title="Manage Permissions">
+    Fine-tune user access by enabling or disabling specific portal sections such as billing, reseller management, or device oversight.
+  </Step>
+  <Step title="Review User Activity">
+    Monitor login history and actions performed by each user for security and compliance auditing.
+  </Step>
+</Steps>
+
+## Document Library
+
+The Distributor Portal includes a document library with resources for your organization and resellers:
+
+- **Product documentation** and user guides
+- **Sales materials** and product brochures
+- **Training resources** and onboarding checklists
+- **Compliance documents** and data processing agreements
+- **API documentation** for technical integrations
+
+<Note>
+  Documents in the library are managed by the platform team and updated periodically. Check the library regularly for new materials and updated versions.
+</Note>
+
+## Notifications
+
+Configure notification preferences for your distributor account:
+
+| Notification | Channel | Description |
+|--------------|---------|-------------|
+| New reseller registration | Email | Triggered when a reseller completes registration |
+| License threshold alert | Email, Portal | Sent when license utilization exceeds 80% |
+| Device offline alert | Email, Portal | Sent when an FMU device goes offline in your network |
+| Invoice generated | Email | Sent when a new invoice is available |
+| Payment overdue | Email | Sent when a reseller payment passes its due date |
+
+<Warning>
+  Ensure at least one Distributor Admin has active email notifications enabled. Critical alerts such as device offline and license threshold warnings require prompt attention to prevent service disruptions.
+</Warning>

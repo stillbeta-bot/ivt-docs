@@ -1,0 +1,100 @@
+---
+title: "Eagle Eye Networks"
+description: "Integrate with Eagle Eye Networks for cloud-based video surveillance and camera management"
+---
+
+Eagle Eye Networks (EEN) is a leading cloud-based video management system (VMS) that provides secure, scalable video surveillance infrastructure. The IVT Platform integrates with EEN to access camera feeds, synchronize camera inventories, and leverage cloud-recorded video for facial recognition and search operations.
+
+## Overview
+
+The Eagle Eye Networks integration enables the IVT Platform to:
+
+- **Synchronize cameras** -- Automatically discover and import cameras registered in your EEN account.
+- **Access live video streams** -- View real-time camera feeds directly within the IVT Platform interface.
+- **Retrieve recorded footage** -- Pull historical video clips for facial recognition search and review.
+- **Map cameras to locations** -- Associate EEN cameras with specific sites and zones in the platform.
+
+<Note>
+  An active Eagle Eye Networks subscription is required. The IVT Platform connects to EEN using OAuth 2.0 credentials provided during setup.
+</Note>
+
+## How It Works
+
+The integration operates through the Eagle Eye Networks REST API. When enabled, the platform authenticates with EEN and maintains a persistent connection for camera synchronization and video retrieval.
+
+```
+IVT Platform  <-->  Eagle Eye Networks API  <-->  EEN Bridge/Cameras
+```
+
+Video streams are accessed on demand -- the platform does not store copies of EEN video. Facial recognition processing occurs on the FMU (Facial Matching Unit) devices, which receive video frames from the EEN cloud.
+
+## Configuration
+
+<Steps>
+  <Step title="Obtain EEN API Credentials">
+    Log into your Eagle Eye Networks account and navigate to the developer settings. Generate an OAuth 2.0 client ID and client secret for the IVT Platform integration.
+  </Step>
+  <Step title="Enable the Integration">
+    In the IVT Platform, navigate to **Settings > Integrations > Eagle Eye Networks** and toggle the integration to enabled.
+  </Step>
+  <Step title="Authenticate with EEN">
+    Enter your EEN client ID and client secret. Click **Connect** to initiate the OAuth flow. You will be redirected to Eagle Eye Networks to authorize the connection.
+  </Step>
+  <Step title="Synchronize Cameras">
+    Once authenticated, click **Sync Cameras** to import your EEN camera inventory. The platform will discover all available cameras and display them for mapping.
+  </Step>
+  <Step title="Map Cameras to Locations">
+    Assign each imported camera to a site and zone within the IVT Platform. This mapping determines where facial recognition events are associated.
+  </Step>
+  <Step title="Verify Video Access">
+    Select a mapped camera and confirm that both live and recorded video streams are accessible from the platform.
+  </Step>
+</Steps>
+
+## Camera Synchronization
+
+Camera synchronization keeps the IVT Platform in sync with your EEN account. When cameras are added or removed in EEN, the platform reflects those changes after the next sync cycle.
+
+<Tabs>
+  <Tab title="Automatic Sync">
+    The platform performs automatic camera synchronization on a scheduled interval (typically every 24 hours). New cameras are discovered and flagged for mapping.
+  </Tab>
+  <Tab title="Manual Sync">
+    You can trigger a manual sync at any time from **Settings > Integrations > Eagle Eye Networks > Sync Cameras**. This is useful after making changes in your EEN account.
+  </Tab>
+</Tabs>
+
+<Info>
+  Camera synchronization imports metadata only (camera name, ID, location, status). Video data is streamed on demand and is not stored by the platform.
+</Info>
+
+## Video Stream Access
+
+The platform supports two modes of video access from Eagle Eye Networks:
+
+| Mode | Description | Use Case |
+|------|-------------|----------|
+| **Live** | Real-time RTSP/HLS stream from the camera via EEN cloud | Monitoring, live facial recognition |
+| **Recorded** | Historical video clips retrieved by time range | Forensic search, incident review |
+
+<Warning>
+  Video stream quality and availability depend on your Eagle Eye Networks plan and the camera's recording configuration. Ensure cameras are set to record continuously for optimal facial recognition performance.
+</Warning>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Cameras not appearing after sync">
+    Verify that the OAuth token has not expired. Re-authenticate if necessary. Also confirm that the cameras are online and active in your EEN dashboard.
+  </Accordion>
+  <Accordion title="Video stream fails to load">
+    Check that the camera is currently recording in EEN. The IVT Platform requires an active stream to retrieve video. Also verify network connectivity between the FMU and the EEN cloud endpoints.
+  </Accordion>
+  <Accordion title="Authentication error during setup">
+    Ensure the client ID and secret are correct and have not been revoked. The OAuth application in EEN must have the required scopes for camera access and video retrieval.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Once cameras are synchronized and mapped, proceed to configure [facial recognition galleries](/features/galleries) and [search](/features/search) to begin identifying individuals across your EEN camera network.

@@ -1,0 +1,154 @@
+---
+title: "Navigating the Platform"
+sidebarTitle: "Navigation"
+description: "Understanding the IVT Platform interface and navigation structure"
+---
+
+The IVT Platform interface is designed around a sidebar navigation layout that adapts to your user role. This page explains the main areas of the interface, how to switch between companies, customize your experience, and find the features you need.
+
+## Main Navigation Structure
+
+The primary navigation is a **sidebar** on the left side of the screen. It provides access to all platform sections available to your role. The sidebar is organized into logical groups.
+
+<Tabs>
+  <Tab title="Core Sections">
+    | Menu Item | Description |
+    |---|---|
+    | **Dashboard** | Your default landing page with summary metrics, recent activity, and quick-access widgets |
+    | **Search** | Access real-time search, historic search, and photo-based person search |
+    | **Galleries** | Manage face galleries, enroll new faces, and organize gallery categories |
+    | **Cameras** | View and configure connected cameras, check camera status, and access live feeds |
+    | **Zones** | Define and manage logical zones that group cameras by location or purpose |
+    | **Alerts** | View facial recognition match alerts and configure notification rules |
+  </Tab>
+  <Tab title="Administration">
+    | Menu Item | Description |
+    |---|---|
+    | **Users** | Manage user accounts, assign roles, and control access within your organization |
+    | **Companies** | Create and manage companies (visible to Distributor and Reseller Admins) |
+    | **Resellers** | Manage reseller accounts (visible to Distributor Admins only) |
+    | **Distributors** | Manage distributor accounts (visible to Super Admins only) |
+    | **FMU Devices** | Monitor and configure Facial Matching Unit edge devices |
+    | **Settings** | Company-level settings including branding, integrations, and security policies |
+    | **Audit Log** | Review a chronological record of system events, user actions, and configuration changes |
+  </Tab>
+</Tabs>
+
+<Note>
+  The menu items you see depend on your assigned role. For example, a Staff member will see Search, Galleries, and Alerts but will not see Users, Companies, or FMU Devices. See [Roles & Permissions](/getting-started/roles-and-permissions) for a detailed breakdown.
+</Note>
+
+## Dashboard Overview
+
+The Dashboard is your default landing page after signing in. It provides an at-a-glance summary of your organization's security status.
+
+Key dashboard elements include:
+
+- **Activity Feed** -- Recent facial recognition matches, alerts, and system events
+- **Camera Status Summary** -- Count of online, offline, and degraded cameras
+- **Search Statistics** -- Number of searches performed over the current period
+- **Gallery Summary** -- Total enrolled faces and gallery counts
+- **Alert Summary** -- Unacknowledged alerts and recent match events
+- **Quick Actions** -- Shortcuts to frequently used operations such as starting a new search or enrolling a face
+
+<Tip>
+  Dashboard widgets may vary depending on your role and your organization's configuration. Administrators see operational metrics, while security officers see a more alert-focused view.
+</Tip>
+
+## Company Selector
+
+If your account has access to multiple companies (common for Distributor Admins, Reseller Admins, and multi-company users), the **Company Selector** appears at the top of the sidebar or in the header area.
+
+The Company Selector allows you to:
+
+- **Switch context** between companies you have access to
+- **View the current company name** so you always know which data you are working with
+- **Search** for a specific company by name when the list is long
+
+<Warning>
+  When you switch companies, all displayed data -- including cameras, galleries, search results, and alerts -- changes to reflect the selected company. Always verify the active company before performing searches or making configuration changes.
+</Warning>
+
+## Theme Toggle
+
+The IVT Platform supports both **dark** and **light** themes to suit your visual preference and working environment.
+
+- **Light Theme** -- Standard bright interface, ideal for well-lit environments
+- **Dark Theme** -- Reduced-brightness interface, suitable for control rooms and low-light settings
+
+You can toggle between themes using the **theme switch** located in the sidebar footer or in your profile menu. Your preference is saved to your account and persists across sessions and devices.
+
+## Profile Menu
+
+The **Profile Menu** is accessible by clicking your avatar or name in the lower-left corner of the sidebar. It provides access to:
+
+| Option | Description |
+|---|---|
+| **My Profile** | View and edit your personal information, including name, email, phone number, and profile photo |
+| **Change Password** | Update your account password |
+| **Notification Preferences** | Configure how and when you receive alerts (email, in-app, or both) |
+| **Language Settings** | Select your preferred interface language (where multiple languages are supported) |
+| **Theme** | Toggle between dark and light mode |
+| **Sign Out** | End your current session and return to the login page |
+
+## Quick Actions
+
+The platform provides **quick actions** accessible from the Dashboard and from contextual menus throughout the interface. Common quick actions include:
+
+<CardGroup cols={3}>
+  <Card title="New Search" icon="magnifying-glass">
+    Launch a new real-time or historic search from anywhere in the platform.
+  </Card>
+  <Card title="Upload Photo" icon="upload">
+    Upload a photo to search for a person across your camera network.
+  </Card>
+  <Card title="Enroll Face" icon="user-plus">
+    Add a new face to an existing gallery directly from a search result or photo upload.
+  </Card>
+</CardGroup>
+
+## Role-Based Menu Visibility
+
+The sidebar navigation adapts based on your assigned role. The table below summarizes which menu sections are visible to each role.
+
+| Menu Section | Super Admin | Distributor Admin | Reseller Admin | Company Admin | Security Officer | Staff |
+|---|---|---|---|---|---|---|
+| Dashboard | Yes | Yes | Yes | Yes | Yes | Yes |
+| Search | Yes | Yes | Yes | Yes | Yes | Yes |
+| Galleries | Yes | Yes | Yes | Yes | Yes | View Only |
+| Cameras | Yes | Yes | Yes | Yes | Yes | No |
+| Zones | Yes | Yes | Yes | Yes | Yes | No |
+| Alerts | Yes | Yes | Yes | Yes | Yes | Yes |
+| Users | Yes | Yes | Yes | Yes | No | No |
+| Companies | Yes | Yes | Yes | No | No | No |
+| Resellers | Yes | Yes | No | No | No | No |
+| Distributors | Yes | No | No | No | No | No |
+| FMU Devices | Yes | Yes | Yes | Yes | No | No |
+| Settings | Yes | Yes | Yes | Yes | No | No |
+| Audit Log | Yes | Yes | Yes | Yes | No | No |
+
+<Info>
+  This table represents the default configuration. Your organization may have customized role permissions, which could result in slight variations from the defaults shown above.
+</Info>
+
+## Keyboard Shortcuts
+
+For power users, the platform supports keyboard shortcuts to speed up common operations:
+
+| Shortcut | Action |
+|---|---|
+| `/` | Open the global search bar |
+| `N` then `S` | Start a new search |
+| `N` then `G` | Create a new gallery |
+| `Esc` | Close the current modal or dialog |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Roles & Permissions" icon="shield-halved" href="/getting-started/roles-and-permissions">
+    Understand the full permission model behind the navigation.
+  </Card>
+  <Card title="Search Features" icon="magnifying-glass" href="/features/search">
+    Learn how to perform facial recognition searches.
+  </Card>
+</CardGroup>

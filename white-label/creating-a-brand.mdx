@@ -1,0 +1,205 @@
+---
+title: "Creating a Brand"
+description: "Step-by-step guide to creating a new white-label brand for the platform"
+---
+
+Creating a new white-label brand for the IVT Platform is an automated process driven by the `create-white-label.mjs` script. This guide walks through the prerequisites, the script's execution phases, available run modes, and post-setup steps.
+
+## Prerequisites
+
+Before running the brand creation script, ensure you have the following:
+
+<CardGroup cols={2}>
+  <Card title="Brand Identity" icon="tag">
+    - Brand ID (lowercase, no spaces, e.g., `acme`)
+    - Brand display name (e.g., `Acme Security`)
+    - Primary brand color (hex code, e.g., `#2563EB`)
+  </Card>
+  <Card title="Logo Assets" icon="image">
+    10 logo files in the required formats and dimensions. See [White Label Overview](/white-label/overview) for the complete list of required assets.
+  </Card>
+  <Card title="Domain Configuration" icon="globe">
+    - Frontend domain (e.g., `app.acme-security.com`)
+    - API domain (e.g., `api.acme-security.com`)
+    - DNS access to configure CNAME records
+  </Card>
+  <Card title="AWS Credentials" icon="cloud">
+    AWS access key and secret with permissions to create S3 buckets, CloudFront distributions, ACM certificates, EC2 target groups, and ALB listener rules.
+  </Card>
+</CardGroup>
+
+<Warning>
+  The AWS credentials used must have sufficient IAM permissions for S3, CloudFront, ACM, EC2, and Elastic Load Balancing. Insufficient permissions will cause the infrastructure phase to fail mid-execution.
+</Warning>
+
+## Running the Script
+
+The brand creation script is located at the root of the repository:
+
+```bash
+node scripts/create-white-label.mjs
+```
+
+## Run Modes
+
+The script supports multiple run modes to execute specific phases independently or to perform a dry run:
+
+| Mode | Command | Description |
+|------|---------|-------------|
+| **Full** | `node scripts/create-white-label.mjs` | Runs all phases interactively |
+| **Frontend Only** | `node scripts/create-white-label.mjs --frontend-only` | Generates frontend configuration and assets only |
+| **Backend Only** | `node scripts/create-white-label.mjs --backend-only` | Updates backend CI/CD and deployment scripts only |
+| **AWS Only** | `node scripts/create-white-label.mjs --aws-only` | Provisions AWS infrastructure only |
+| **AWS Finalize** | `node scripts/create-white-label.mjs --aws-finalize` | Completes AWS setup after DNS validation |
+| **Dry Run** | `node scripts/create-white-label.mjs --dry-run` | Simulates all phases without making changes |
+
+<Tip>
+  Run with `--dry-run` first to preview all changes that will be made. This is especially useful for verifying AWS infrastructure changes before provisioning real resources.
+</Tip>
+
+## Phase 1: Interactive Prompts
+
+The script begins with an interactive session that collects brand information:
+
+<Steps>
+  <Step title="Brand Information">
+    The script prompts for the brand ID, display name, and primary hex color. The brand ID must be unique, lowercase, and contain only alphanumeric characters and hyphens.
+  </Step>
+  <Step title="Color Generation">
+    From the primary color, the script automatically generates all 11 color tokens using a color algorithm. The algorithm produces lighter and darker variants, hover states, and complementary colors while maintaining WCAG AA contrast ratios.
+  </Step>
+  <Step title="Domain Configuration">
+    Enter the frontend and API domains for the new brand. The script validates the domain format and checks for conflicts with existing brands.
+  </Step>
+  <Step title="Review and Confirm">
+    The script displays a summary of all collected information, the generated color palette, and the changes that will be made. Confirm to proceed or cancel to abort.
+  </Step>
+</Steps>
+
+## Phase 2: Frontend Code Generation
+
+After confirmation, the script generates all frontend artifacts for the new brand:
+
+<Tabs>
+  <Tab title="TypeScript Config">
+    A TypeScript configuration file (`config.ts`) is generated containing all 11 color tokens, brand metadata, logo paths, URLs, and feature flags. This file is imported by the frontend application at build time.
+  </Tab>
+  <Tab title="CommonJS Config">
+    A CommonJS version (`config.cjs`) of the same configuration is generated for use by build tools, webpack plugins, and Node.js scripts that cannot consume ES modules directly.
+  </Tab>
+  <Tab title="Asset Directory">
+    The script creates the brand's asset directory and copies the provided logo files into the correct structure. File names are standardized to match the frontend application's expectations.
+  </Tab>
+  <Tab title="CI/CD Pipeline">
+    The frontend CI/CD configuration (GitHub Actions or equivalent) is updated to include the new brand as a build target. This ensures the brand is built and deployed alongside existing brands during releases.
+  </Tab>
+</Tabs>
+
+The generated frontend structure:
+
+```
+brands/{brand-id}/
+  ├── config.ts          # TypeScript brand configuration
+  ├── config.cjs         # CommonJS brand configuration
+  └── assets/
+      ├── logo-full-light.svg
+      ├── logo-full-dark.svg
+      ├── logo-icon.svg
+      ├── logo-login.svg
+      ├── email-header.png
+      ├── favicon-16.png
+      ├── favicon-32.png
+      ├── apple-touch-icon.png
+      ├── og-image.png
+      └── spinner.svg
+```
+
+## Phase 3: Backend CI/CD Update
+
+The script updates the backend deployment infrastructure to support the new brand:
+
+- **Deploy scripts** are updated to include the new brand's environment variables and domain mappings.
+- **Environment configuration** files are generated with the brand's API domain, database schema prefix, and service-specific settings.
+- **Nginx/reverse proxy** configuration templates are updated to route traffic from the new domain to the correct backend services.
+
+<Info>
+  Backend changes are additive. Existing brand configurations are not modified during this phase. The script appends the new brand's configuration alongside existing entries.
+</Info>
+
+## Phase 4: AWS Infrastructure
+
+The final phase provisions the cloud infrastructure required for the new brand deployment:
+
+<Steps>
+  <Step title="S3 Bucket Creation">
+    An S3 bucket is created to host the frontend application's static assets. The bucket is configured with static website hosting and appropriate CORS policies.
+  </Step>
+  <Step title="ACM Certificate Request">
+    An SSL/TLS certificate is requested from AWS Certificate Manager for the brand's frontend domain. The certificate requires DNS validation.
+  </Step>
+  <Step title="DNS Validation">
+    The script outputs the CNAME record(s) required for certificate validation. You must add these records to your DNS provider. The script pauses here until validation completes, or you can use `--aws-finalize` later.
+  </Step>
+  <Step title="CloudFront Distribution">
+    A CloudFront distribution is created pointing to the S3 bucket. The distribution is configured with the ACM certificate, gzip compression, and caching policies.
+  </Step>
+  <Step title="EC2 Target Group">
+    A target group is created for the backend services serving the new brand's API domain.
+  </Step>
+  <Step title="ALB Listener Rules">
+    Listener rules are added to the Application Load Balancer to route traffic from the new API domain to the appropriate target group.
+  </Step>
+</Steps>
+
+<Warning>
+  DNS validation for the ACM certificate can take anywhere from a few minutes to several hours. If validation does not complete within the script's timeout, use `--aws-finalize` to resume after the certificate is validated.
+</Warning>
+
+## Color Auto-Generation
+
+The script generates 11 color tokens from a single primary color input using the following algorithm:
+
+| Token | Generation Method |
+|-------|------------------|
+| `primary` | Input color (unchanged) |
+| `primaryHover` | Primary darkened by 10% |
+| `primaryLight` | Primary with 15% opacity on white |
+| `primaryDark` | Primary darkened by 25% |
+| `secondary` | Complementary hue, matched saturation |
+| `background` | Near-white with slight primary tint |
+| `surface` | White or near-white |
+| `text` | Near-black with slight primary undertone |
+| `textSecondary` | Medium gray with slight primary undertone |
+| `border` | Light gray with slight primary tint |
+| `error` | Standard red, adjusted for palette harmony |
+
+All generated colors are validated for WCAG AA contrast compliance against their intended usage backgrounds (e.g., `text` on `background`, `primary` on `surface`).
+
+## Post-Setup Manual Steps
+
+After the script completes, the following manual steps are required:
+
+<Steps>
+  <Step title="Configure DNS">
+    Add CNAME records pointing the frontend domain to the CloudFront distribution and the API domain to the ALB endpoint. Your DNS provider must support CNAME records.
+  </Step>
+  <Step title="Verify SSL Certificate">
+    Confirm the ACM certificate status is "Issued" in the AWS Console. If validation is pending, ensure the DNS validation records are correctly configured.
+  </Step>
+  <Step title="Deploy Frontend">
+    Trigger a frontend deployment for the new brand. The CI/CD pipeline will build the brand-specific bundle and upload it to the S3 bucket.
+  </Step>
+  <Step title="Deploy Backend">
+    Trigger a backend deployment to apply the new routing configuration and environment variables.
+  </Step>
+  <Step title="Smoke Test">
+    Access the new brand's domain in a browser. Verify that the login page displays the correct logo, colors, and auth backdrop. Test the full login flow.
+  </Step>
+  <Step title="Register in Admin Portal">
+    Add the new brand to the Admin Portal's brand registry so that administrators can assign companies to the new brand.
+  </Step>
+</Steps>
+
+<Note>
+  Keep the script output and generated configuration files for your records. The output includes all resource identifiers (S3 bucket name, CloudFront distribution ID, ACM certificate ARN) needed for future maintenance and troubleshooting.
+</Note>

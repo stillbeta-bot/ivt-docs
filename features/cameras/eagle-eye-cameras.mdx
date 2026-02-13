@@ -1,0 +1,123 @@
+---
+title: "Eagle Eye Cameras"
+sidebarTitle: "Eagle Eye"
+description: "Manage and monitor cloud-connected Eagle Eye Networks cameras"
+---
+
+## Overview
+
+Eagle Eye Networks cameras are cloud-connected video surveillance devices managed through the
+Eagle Eye Networks platform. The IVT Platform integrates directly with Eagle Eye Networks,
+allowing you to monitor camera feeds, track device status, and leverage cloud-based video
+streams for facial recognition and detection workflows.
+
+<Note>
+  Eagle Eye cameras are managed through the Eagle Eye Networks cloud platform. The IVT Platform
+  pulls camera data and streams from your connected Eagle Eye account. Camera provisioning and
+  network configuration are handled within Eagle Eye Networks directly.
+</Note>
+
+## Viewing Connected Cameras
+
+All Eagle Eye cameras linked to your account are displayed in the **Cameras > Eagle Eye** section.
+Each camera entry shows:
+
+- **Camera name** -- the display name assigned in Eagle Eye Networks
+- **Camera ID** -- the unique identifier from Eagle Eye Networks
+- **Status** -- current connectivity state (online, offline, or error)
+- **Location** -- the physical location or zone assignment
+- **Last seen** -- timestamp of the most recent activity
+
+<Tip>
+  Use the search and filter controls at the top of the camera list to quickly locate specific
+  cameras by name, status, or assigned zone.
+</Tip>
+
+## Camera Status Monitoring
+
+The IVT Platform continuously monitors the health and connectivity of your Eagle Eye cameras.
+Status indicators provide real-time feedback on each device.
+
+<CardGroup cols={3}>
+  <Card title="Online" icon="circle-check">
+    The camera is connected and streaming successfully. Video feeds are available for
+    viewing and processing.
+  </Card>
+  <Card title="Offline" icon="circle-xmark">
+    The camera is not reachable. This may indicate a network issue, power loss, or a
+    problem with the Eagle Eye Networks connection.
+  </Card>
+  <Card title="Error" icon="triangle-exclamation">
+    The camera is experiencing a fault condition. Check the Eagle Eye Networks dashboard
+    for detailed diagnostics.
+  </Card>
+</CardGroup>
+
+<Warning>
+  If a camera remains offline for an extended period, facial recognition and detection
+  rules associated with that camera will not execute. Verify the camera's network
+  connectivity and Eagle Eye account status.
+</Warning>
+
+## Stream Viewing
+
+You can view live and recorded video streams from your Eagle Eye cameras directly within the
+IVT Platform.
+
+<Steps>
+  <Step title="Navigate to Eagle Eye Cameras">
+    Go to **Cameras > Eagle Eye** from the main navigation menu.
+  </Step>
+  <Step title="Select a Camera">
+    Click on a camera from the list to open its detail view.
+  </Step>
+  <Step title="View the Stream">
+    The camera detail panel displays the live video feed. Use the playback controls to
+    pause, rewind, or jump to a specific time if recorded footage is available.
+  </Step>
+</Steps>
+
+<Info>
+  Stream quality and availability depend on your Eagle Eye Networks subscription plan and the
+  camera's current bandwidth. High-resolution streams may require a stable network connection.
+</Info>
+
+## Integration with Eagle Eye Networks
+
+The IVT Platform connects to Eagle Eye Networks through a secure API integration. This
+connection enables the platform to:
+
+- **Discover cameras** automatically from your Eagle Eye account
+- **Pull live video streams** for real-time monitoring and facial recognition
+- **Retrieve recorded footage** for post-event analysis and search
+- **Sync camera metadata** including names, locations, and configuration
+
+<AccordionGroup>
+  <Accordion title="How is the connection established?">
+    Your IVT Platform account is linked to Eagle Eye Networks during the initial setup process.
+    An administrator configures the Eagle Eye API credentials, and the platform authenticates
+    using OAuth to maintain a persistent connection.
+  </Accordion>
+  <Accordion title="Can I add or remove cameras from the IVT Platform?">
+    Camera inventory is managed within Eagle Eye Networks. Adding or removing a camera in your
+    Eagle Eye account will automatically reflect in the IVT Platform after synchronization.
+  </Accordion>
+  <Accordion title="What happens if the Eagle Eye connection is lost?">
+    If the API connection to Eagle Eye Networks is interrupted, camera streams and status
+    updates will become unavailable in the IVT Platform. Detection rules relying on these
+    cameras will be paused until the connection is restored. Contact your administrator
+    to re-establish the integration.
+  </Accordion>
+</AccordionGroup>
+
+## Assigning Cameras to Zones
+
+Eagle Eye cameras can be assigned to detection zones to enable location-based facial recognition
+and alerting. See the [Zone Management](/features/zones) documentation for details on creating
+zones and assigning cameras.
+
+<Tip>
+  Assigning cameras to specific zones allows you to create targeted detection rules that only
+  trigger for cameras within a defined geographic area, reducing false positives and improving
+  operational focus.
+</Tip>

@@ -1,0 +1,114 @@
+---
+title: "DocuSign"
+description: "Electronic signature integration for user registration and document signing"
+---
+
+DocuSign is an industry-leading electronic signature platform that enables legally binding document signing from any device. The IVT Platform integrates with DocuSign to streamline the user registration and onboarding process by collecting required signatures electronically.
+
+## Overview
+
+The DocuSign integration is used during the platform's registration and onboarding workflows. When new users, companies, or partners are registered, required agreements and contracts are sent for electronic signature through DocuSign, eliminating the need for paper-based processes.
+
+<Info>
+  The DocuSign integration is pre-configured at the platform level. Company and reseller administrators do not need to set up their own DocuSign accounts -- the integration is managed centrally by the platform.
+</Info>
+
+## How DocuSign Is Used
+
+The platform uses DocuSign in the following scenarios:
+
+<CardGroup cols={2}>
+  <Card title="User Registration" icon="user-plus">
+    New users signing up for the platform receive terms of service and acceptable use agreements for electronic signature during the registration process.
+  </Card>
+  <Card title="Company Onboarding" icon="building">
+    When a new company is created, authorized representatives sign service agreements, data processing agreements, and licensing terms.
+  </Card>
+  <Card title="Partner Agreements" icon="handshake">
+    Distributors and resellers signing up for the partner program complete partnership agreements and commercial terms through DocuSign.
+  </Card>
+  <Card title="Policy Updates" icon="file-lines">
+    When platform policies are updated, existing users may be prompted to review and sign amended agreements.
+  </Card>
+</CardGroup>
+
+## E-Signature Flow
+
+The electronic signature process follows a standard flow initiated by the IVT Platform:
+
+<Steps>
+  <Step title="Document Generation">
+    The platform generates the required document based on the registration type (user, company, or partner). The document is pre-populated with relevant details such as names, dates, and agreement terms.
+  </Step>
+  <Step title="Envelope Creation">
+    The platform creates a DocuSign envelope containing the document and specifies the signer's name and email address. Signature and date fields are placed at the appropriate locations within the document.
+  </Step>
+  <Step title="Signing Invitation">
+    The signer receives an email from DocuSign with a link to review and sign the document. Alternatively, the signing experience may be embedded directly within the platform's registration interface.
+  </Step>
+  <Step title="Document Review and Signing">
+    The signer reviews the document, agrees to the terms, and applies their electronic signature. DocuSign captures a complete audit trail including IP address, timestamp, and authentication method.
+  </Step>
+  <Step title="Completion Notification">
+    Once signed, DocuSign notifies the IVT Platform via a webhook callback. The platform records the signed document and advances the registration or onboarding workflow to the next step.
+  </Step>
+  <Step title="Document Storage">
+    The signed document is stored securely and associated with the user or company record. It can be retrieved later from the administration portal for audit purposes.
+  </Step>
+</Steps>
+
+## Signing Experience
+
+<Tabs>
+  <Tab title="Embedded Signing">
+    For the smoothest experience, the platform embeds the DocuSign signing interface directly within the registration flow. Users sign documents without leaving the platform, and the workflow continues automatically after signing.
+  </Tab>
+  <Tab title="Email-based Signing">
+    In some cases, signing invitations are sent via email. The signer clicks the link, reviews the document on DocuSign's website, and completes the signature. The platform receives a callback when signing is complete.
+  </Tab>
+</Tabs>
+
+## Document Types
+
+The platform manages the following document types through DocuSign:
+
+| Document | Trigger | Signer |
+|----------|---------|--------|
+| Terms of Service | User registration | New user |
+| Acceptable Use Policy | User registration | New user |
+| Service Agreement | Company onboarding | Company administrator |
+| Data Processing Agreement | Company onboarding | Company administrator |
+| Partner Agreement | Distributor/reseller registration | Partner administrator |
+| License Agreement | License activation | Company administrator |
+
+<Note>
+  Document templates are managed by the platform team. If you require custom agreements or modifications to standard templates, contact your distributor or the IVT Platform support team.
+</Note>
+
+## Compliance and Legal
+
+DocuSign electronic signatures comply with:
+
+- **ESIGN Act** (United States) -- Electronic Signatures in Global and National Commerce Act
+- **eIDAS Regulation** (European Union) -- Electronic identification and trust services
+- **UETA** (United States) -- Uniform Electronic Transactions Act
+
+All signed documents include a Certificate of Completion with a detailed audit trail, ensuring legal enforceability.
+
+<Warning>
+  Do not bypass the DocuSign signing step during registration. Unsigned agreements may result in incomplete onboarding and restricted platform access until the required documents are signed.
+</Warning>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Signing email not received">
+    Check the signer's spam or junk mail folder. DocuSign emails are sent from dse@docusign.net. If the email is not found, the platform administrator can resend the signing invitation from the user management interface.
+  </Accordion>
+  <Accordion title="Embedded signing window does not load">
+    Ensure pop-up blockers are disabled for the platform domain. The embedded signing experience requires JavaScript and cookies to be enabled. Try using a supported browser (Chrome, Firefox, Edge, or Safari).
+  </Accordion>
+  <Accordion title="Registration stuck after signing">
+    If the registration does not advance after signing, the DocuSign callback may have failed. Contact the platform administrator to manually verify the signing status and advance the workflow.
+  </Accordion>
+</AccordionGroup>

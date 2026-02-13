@@ -1,0 +1,148 @@
+---
+title: "Billing & Invoices"
+sidebarTitle: "Billing"
+description: "Manage billing, view invoices, and track payments across the platform"
+---
+
+## Overview
+
+The IVT Platform provides integrated billing and invoice management for all levels of the
+platform hierarchy. Invoices are generated based on license usage, device activations, and
+service subscriptions. Payment processing is handled through Stripe, providing secure and
+reliable transaction management.
+
+<Note>
+  Billing visibility depends on your role in the platform hierarchy. Distributors see
+  billing across all resellers, resellers see billing for their companies, and company
+  administrators see only their own invoices.
+</Note>
+
+## Viewing Invoices
+
+Navigate to **Administration > Billing** to access the invoice management interface.
+Each invoice entry includes:
+
+- **Invoice number** -- unique identifier for the invoice
+- **Date** -- the billing period or issue date
+- **Amount** -- the total amount due or paid
+- **Status** -- current payment status (paid, pending, overdue, or failed)
+- **Company / Reseller** -- the entity the invoice is associated with
+
+<Tip>
+  Use the date range filter and status filter to narrow down the invoice list. This is
+  especially helpful for distributors and resellers managing billing across many accounts.
+</Tip>
+
+## Invoice Hierarchy
+
+Invoices flow through the platform hierarchy, reflecting the organizational structure of
+your deployment.
+
+<Steps>
+  <Step title="Distributor Level">
+    Distributors receive consolidated invoices that cover all reseller accounts and any
+    directly managed companies. These invoices reflect the total license and service usage
+    across the entire distribution network.
+  </Step>
+  <Step title="Reseller Level">
+    Resellers receive invoices for the companies they manage. Each reseller invoice
+    itemizes license allocations and service usage per company.
+  </Step>
+  <Step title="Company Level">
+    Companies receive invoices for their direct platform usage, including active licenses,
+    device activations, and any additional service charges.
+  </Step>
+</Steps>
+
+## Billing Levels
+
+The billing interface adapts based on your portal role, showing relevant information for
+your scope of management.
+
+<Tabs>
+  <Tab title="Distributor Billing">
+    Distributors have access to:
+    - Aggregated billing summaries across all resellers
+    - Individual reseller billing breakdowns
+    - License procurement and allocation costs
+    - Payment history for the entire network
+  </Tab>
+  <Tab title="Reseller Billing">
+    Resellers have access to:
+    - Billing summaries for all managed companies
+    - Per-company invoice details
+    - License assignment costs
+    - Payment tracking for their reseller account
+  </Tab>
+  <Tab title="Company Billing">
+    Company administrators have access to:
+    - Invoices for their organization
+    - Payment history and receipts
+    - Billing address management
+    - Current subscription and license details
+  </Tab>
+</Tabs>
+
+## Payment Integration with Stripe
+
+The IVT Platform integrates with Stripe for secure payment processing. Stripe handles
+credit card transactions, automatic payment retries, and receipt generation.
+
+<CardGroup cols={2}>
+  <Card title="Secure Payments" icon="shield-check">
+    All payment transactions are processed through Stripe's PCI-compliant infrastructure.
+    Card details are never stored on IVT Platform servers.
+  </Card>
+  <Card title="Automatic Billing" icon="clock-rotate-left">
+    Recurring charges are processed automatically based on your billing cycle. Failed
+    payments are retried according to the configured retry schedule.
+  </Card>
+</CardGroup>
+
+<Info>
+  To update your payment method, navigate to **Administration > Billing** and select
+  **Payment Methods**. You will be redirected to a secure Stripe-hosted page to enter
+  or update your card details.
+</Info>
+
+## Billing Address Management
+
+Each company and reseller has a billing address that appears on invoices and payment
+receipts. The billing address can be configured during company creation or updated at
+any time.
+
+To update a billing address:
+
+1. Navigate to **Administration > Billing** or the company settings page.
+2. Click **Edit Billing Address**.
+3. Update the address fields (street, city, state/province, postal code, country).
+4. Click **Save** to apply the changes.
+
+<Warning>
+  Changes to the billing address apply to future invoices only. Previously generated
+  invoices retain the billing address that was active at the time of generation.
+</Warning>
+
+## Invoice Filtering and Export
+
+The billing interface provides filtering and export capabilities to help you manage
+financial records.
+
+<AccordionGroup>
+  <Accordion title="Filtering Invoices">
+    Filter invoices by:
+    - **Date range** -- select a start and end date to view invoices within a specific period
+    - **Status** -- filter by paid, pending, overdue, or failed invoices
+    - **Entity** -- filter by company or reseller name (available for distributors and resellers)
+  </Accordion>
+  <Accordion title="Exporting Invoices">
+    Export invoices in PDF format for record-keeping and accounting purposes. Select one or
+    more invoices and click **Export** to download the files. Bulk export is available for
+    exporting multiple invoices at once.
+  </Accordion>
+  <Accordion title="Email Receipts">
+    Payment receipts are automatically sent to the billing contact email after each
+    successful transaction. You can also manually resend a receipt from the invoice
+    detail page.
+  </Accordion>
+</AccordionGroup>

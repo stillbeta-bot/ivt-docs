@@ -1,0 +1,110 @@
+---
+title: "Ignored Galleries"
+sidebarTitle: "Ignored"
+description: "Manage lists of known faces to exclude from detection alerts"
+---
+
+Ignored galleries contain faces of individuals who should be excluded from triggering detection alerts. When a face detected on camera matches an entry in an ignored gallery, the system suppresses all notifications for that detection. This is essential for preventing alert fatigue caused by employees, building staff, security personnel, and other known regulars who are captured by cameras throughout the day.
+
+## Purpose of Ignored Galleries
+
+In a typical surveillance environment, cameras detect hundreds or thousands of faces daily. Without ignored galleries, every detection of a known employee or regular visitor would generate an alert, quickly overwhelming security operators with irrelevant notifications.
+
+<CardGroup cols={2}>
+  <Card title="Reduce Alert Fatigue" icon="bell-slash">
+    Suppress notifications for known individuals so that operators can focus on genuine alerts from unknown or flagged persons.
+  </Card>
+  <Card title="Improve Operational Efficiency" icon="gauge-high">
+    By filtering out routine detections, security teams spend their time reviewing meaningful events rather than dismissing false alerts.
+  </Card>
+  <Card title="Maintain Detection Logging" icon="database">
+    Ignored faces are still detected and logged in the system -- only the alert is suppressed. Detection records remain available for historic searches and audit purposes.
+  </Card>
+  <Card title="Priority-Based Suppression" icon="layer-group">
+    Ignored galleries are evaluated before common galleries in the matching pipeline, ensuring suppression takes effect even if the individual also appears in a common gallery.
+  </Card>
+</CardGroup>
+
+<Info>
+  Ignored gallery matching does not prevent the face from being detected or recorded. It only suppresses the alert notification. All detection events, including those matched to ignored galleries, are stored in the detection database and can be retrieved through historic searches.
+</Info>
+
+## Adding Faces to the Ignored List
+
+There are several ways to add individuals to an ignored gallery.
+
+<Tabs>
+  <Tab title="Upload Photos">
+    Open the ignored gallery and click **Add Entry**. Upload one or more reference photos of the individual, provide a name or identifier, and save the entry. Follow the same photo quality guidelines as for common galleries -- front-facing images with clear visibility of facial features produce the best results.
+  </Tab>
+  <Tab title="From Live Detection">
+    During real-time monitoring, right-click any detected face in the results panel and select **Add to Ignored Gallery**. The system captures the detection image and creates a new ignored entry. This is the fastest method for suppressing a face you see repeatedly on camera.
+  </Tab>
+  <Tab title="From Search Results">
+    When reviewing historic footage or photo search results, select one or more detections and choose **Add to Ignored Gallery** from the action menu. This is useful when you discover during an investigation that certain recurring faces are known individuals who should be excluded.
+  </Tab>
+  <Tab title="Promote from Frequent Gallery">
+    If the frequent gallery identifies a recurring individual who turns out to be an employee or regular, promote them directly to the ignored gallery. The system transfers the best reference images and detection history automatically.
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Open the Ignored Gallery">
+    Navigate to **Galleries** and select the ignored gallery you want to add entries to, or create a new ignored gallery.
+  </Step>
+  <Step title="Click Add Entry">
+    Click the **Add Entry** button to open the enrollment form.
+  </Step>
+  <Step title="Upload Reference Photos">
+    Upload one or more photos of the individual. Multiple photos from different angles improve suppression accuracy.
+  </Step>
+  <Step title="Enter Identity Information">
+    Provide a name, role, department, or any other identifying information. This metadata helps you manage the gallery and understand why the individual was added.
+  </Step>
+  <Step title="Save the Entry">
+    Click **Save**. The entry becomes active immediately and future detections of this individual will have their alerts suppressed.
+  </Step>
+</Steps>
+
+## Managing Ignored Entries
+
+Keep your ignored galleries current to ensure suppression remains accurate as personnel change.
+
+<AccordionGroup>
+  <Accordion title="Review Entries Periodically">
+    Schedule regular reviews of your ignored galleries -- quarterly at minimum. Remove entries for individuals who are no longer associated with your organization (former employees, expired contractors). Stale entries waste matching resources and could inadvertently suppress alerts for individuals who should now be tracked.
+  </Accordion>
+  <Accordion title="Update Reference Photos">
+    If an individual's appearance changes significantly (new hairstyle, facial hair, aging), update their reference photos to maintain suppression accuracy. Outdated reference images may result in the system failing to recognize the person, causing unwanted alerts.
+  </Accordion>
+  <Accordion title="Organize with Tags">
+    Use tags to categorize ignored entries by role or department (e.g., "Security," "Maintenance," "Executive"). Tags make it easier to manage large ignored galleries and to perform bulk operations such as removing all entries for a specific department.
+  </Accordion>
+  <Accordion title="Audit the Gallery">
+    The system logs all additions, removals, and modifications to ignored gallery entries. Administrators can review this audit trail from the gallery settings to track who made changes and when.
+  </Accordion>
+</AccordionGroup>
+
+## When to Use Ignored Galleries
+
+Ignored galleries are appropriate for individuals who appear frequently on camera and whose presence is expected and non-actionable.
+
+| Category                | Examples                                             |
+| ----------------------- | ---------------------------------------------------- |
+| **Employees**           | Full-time staff who work on-site daily               |
+| **Security Personnel**  | Guards and security operators visible to cameras      |
+| **Maintenance Staff**   | Cleaning crews, facilities teams, IT support          |
+| **Regular Contractors** | Long-term contractors with recurring on-site access   |
+| **Frequent Visitors**   | Delivery drivers, vendor representatives, regulars    |
+
+<Warning>
+  Be cautious about adding individuals to ignored galleries. Once added, their detections will not trigger alerts regardless of context. If an individual's status changes (e.g., a terminated employee), remove them from the ignored gallery promptly to restore alert functionality.
+</Warning>
+
+<Tip>
+  You can create multiple ignored galleries to organize different groups. For example, maintain separate galleries for "Employees," "Contractors," and "Regular Visitors." This makes it easier to manage entries when personnel in a specific category change.
+</Tip>
+
+<Note>
+  Ignored galleries do not affect photo search results. When you perform a photo search, matches against ignored gallery entries are still returned in the results -- they are simply tagged as "Ignored" for your reference. This ensures that ignored individuals can still be found through deliberate searches.
+</Note>

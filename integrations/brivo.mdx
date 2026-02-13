@@ -1,0 +1,107 @@
+---
+title: "Brivo"
+description: "Integrate with Brivo for cloud-based access control alongside video surveillance"
+---
+
+Brivo is a cloud-based access control platform that enables organizations to manage door access, credentials, and security policies from anywhere. The IVT Platform integrates with Brivo to synchronize access events, unify credential management, and correlate badge activity with facial recognition data.
+
+## Overview
+
+The Brivo integration enables the IVT Platform to:
+
+- **Synchronize access events** -- Receive real-time door access events from Brivo-managed access points.
+- **Unify credential management** -- View Brivo user credentials alongside facial recognition identities in a single interface.
+- **Correlate access with video** -- Match door events with facial detections from cameras positioned at entry points.
+- **Cloud-to-cloud connectivity** -- Both platforms operate in the cloud, eliminating the need for on-premises API gateways.
+
+<Note>
+  A Brivo Access subscription with API access is required. Contact Brivo support to obtain your API client credentials for the IVT Platform integration.
+</Note>
+
+## How It Works
+
+The integration uses the Brivo API to establish a cloud-to-cloud connection. Access events are pushed or polled from Brivo and ingested into the IVT Platform's event correlation engine.
+
+```
+Brivo Cloud  <-->  Brivo API  <-->  IVT Platform Cloud  <-->  Event Correlation
+```
+
+Because both systems are cloud-native, the integration does not require any on-premises hardware or network configuration beyond API credentials.
+
+## Configuration
+
+<Steps>
+  <Step title="Generate Brivo API Credentials">
+    Log into the Brivo Access portal and navigate to **API Management**. Create a new API application and note the client ID and client secret.
+  </Step>
+  <Step title="Enable the Integration">
+    In the IVT Platform, go to **Settings > Integrations > Brivo** and enable the integration.
+  </Step>
+  <Step title="Authenticate">
+    Enter the Brivo client ID and client secret. Click **Connect** to authenticate. The platform will establish an OAuth 2.0 connection with the Brivo API.
+  </Step>
+  <Step title="Import Sites and Doors">
+    After authentication, the platform will discover your Brivo sites and access points. Review the imported list and confirm the sites to monitor.
+  </Step>
+  <Step title="Map Doors to Cameras">
+    Associate each Brivo-managed door or access point with the corresponding camera in the IVT Platform. This mapping enables event-to-video correlation.
+  </Step>
+  <Step title="Configure Event Filters">
+    Select which event types to ingest from Brivo. Options include access granted, access denied, door held open, and lockdown events.
+  </Step>
+</Steps>
+
+## Access Management Features
+
+<Tabs>
+  <Tab title="Event Synchronization">
+    Access events from Brivo are ingested in near real-time. Each event includes the credential used, the door accessed, the timestamp, and the result (granted or denied). The platform correlates these events with facial detections from mapped cameras.
+  </Tab>
+  <Tab title="Credential Linking">
+    Brivo user profiles can be linked to IVT Platform gallery subjects. When a linked user badges into a door, the platform verifies that the face detected matches the expected individual, adding a biometric verification layer to credential-based access.
+  </Tab>
+  <Tab title="Multi-site Management">
+    Organizations with multiple Brivo sites can manage all locations from a single IVT Platform instance. Events from all sites are aggregated and searchable from the central dashboard.
+  </Tab>
+</Tabs>
+
+## Event Synchronization Details
+
+The platform processes Brivo events through the following pipeline:
+
+| Stage | Description |
+|-------|-------------|
+| **Ingestion** | Events are received from the Brivo API via polling or webhook callback |
+| **Enrichment** | Events are enriched with camera mappings, site information, and user profiles |
+| **Correlation** | Facial detections from mapped cameras are matched by timestamp and location |
+| **Storage** | Correlated events are stored and made available for search and reporting |
+
+<Info>
+  Event synchronization latency is typically under 10 seconds from the time of the access event in Brivo to the correlated event appearing in the IVT Platform.
+</Info>
+
+## Security and Permissions
+
+The integration follows the principle of least privilege:
+
+- **Read-only by default** -- The platform only reads events and credential data from Brivo. It does not modify access policies or credentials.
+- **Scoped API access** -- The Brivo API application should be configured with the minimum scopes required: event read, site read, and user read.
+- **Token rotation** -- OAuth tokens are refreshed automatically. If a refresh fails, the platform will alert administrators to re-authenticate.
+
+<Warning>
+  Do not share Brivo API credentials across multiple integrations. Create a dedicated API application in Brivo specifically for the IVT Platform to ensure proper audit trails and revocation capability.
+</Warning>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Authentication fails during setup">
+    Confirm the client ID and secret are correct. Ensure the Brivo API application has been activated and the required scopes are assigned.
+  </Accordion>
+  <Accordion title="Events are delayed or missing">
+    Check the polling interval configuration. If using webhook delivery, verify the callback URL is reachable from the Brivo cloud. Review Brivo's API status page for any service disruptions.
+  </Accordion>
+  <Accordion title="Door-to-camera correlation not working">
+    Verify the door-to-camera mapping in the integration settings. Ensure the camera is online and recording at the time of access events.
+  </Accordion>
+</AccordionGroup>

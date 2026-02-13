@@ -1,0 +1,152 @@
+---
+title: "FAQ"
+description: "Frequently asked questions about the IVT Platform"
+---
+
+Find answers to the most common questions about the IVT Platform. Questions are organized by category for easy navigation.
+
+## General
+
+<AccordionGroup>
+  <Accordion title="What is the IVT Platform?">
+    The IVT Platform is a B2B facial recognition and video surveillance SaaS platform. It enables organizations to deploy intelligent video analytics, facial recognition search, real-time monitoring, and access control integration across distributed camera networks. The platform operates on a multi-tier model with distributors, resellers, and end-customer companies.
+  </Accordion>
+  <Accordion title="Which browsers are supported?">
+    The platform supports the latest versions of:
+    - **Google Chrome** (recommended)
+    - **Mozilla Firefox**
+    - **Microsoft Edge**
+    - **Apple Safari**
+
+    Internet Explorer is not supported. For the best experience, use Chrome with hardware acceleration enabled.
+  </Accordion>
+  <Accordion title="What user roles are available?">
+    The platform supports a hierarchical role system:
+    - **Super Admin** -- Full platform management (Admin Portal)
+    - **Distributor Admin / Viewer** -- Manage resellers and companies (Distributor Portal)
+    - **Reseller Admin / Viewer** -- Manage companies (Reseller Portal)
+    - **Company Admin** -- Full company management
+    - **Company Operator** -- Day-to-day monitoring and search
+    - **Company Viewer** -- Read-only access to dashboards and search results
+
+    Each role has specific permissions tailored to its level in the hierarchy.
+  </Accordion>
+  <Accordion title="Is the platform available on mobile devices?">
+    The web application is responsive and works on tablets and mobile browsers. However, for optimal experience with video playback and search workflows, a desktop browser is recommended. A dedicated mobile application is not currently available.
+  </Accordion>
+  <Accordion title="How is data secured on the platform?">
+    The platform employs multiple layers of security:
+    - All data in transit is encrypted with TLS 1.2+
+    - Data at rest is encrypted using AES-256
+    - Two-factor authentication is supported for all user accounts
+    - Role-based access control enforces least-privilege access
+    - Audit logs track all administrative actions
+    - Facial recognition data is processed on edge devices (FMUs) to minimize data exposure
+  </Accordion>
+</AccordionGroup>
+
+## Search and Facial Recognition
+
+<AccordionGroup>
+  <Accordion title="What types of search does the platform support?">
+    The platform supports several search types:
+    - **Face Search** -- Upload a photo to find matching faces across camera footage within a specified time range.
+    - **Appearance Search** -- Search for individuals based on visual attributes such as clothing color, gender, or age range.
+    - **Gallery Match Search** -- Find all detections that match subjects enrolled in a specific gallery.
+    - **Cross-camera Tracking** -- Follow an individual's path across multiple cameras by linking detections.
+  </Accordion>
+  <Accordion title="How accurate is the facial recognition?">
+    Accuracy depends on several factors including image quality, camera angle, lighting, and subject distance. Under optimal conditions (frontal face, good lighting, minimum 80px face width), the platform achieves match accuracy above 99%. Accuracy decreases with poor lighting, extreme angles, low resolution, or partial face occlusion.
+  </Accordion>
+  <Accordion title="What is the similarity threshold?">
+    The similarity threshold is a configurable value (typically between 0.6 and 0.95) that determines how closely a detected face must match a gallery subject to be considered a positive match. A higher threshold reduces false positives but may miss some valid matches. A lower threshold captures more matches but increases false positives. The default threshold is set per gallery and can be adjusted based on operational requirements.
+  </Accordion>
+  <Accordion title="Can I search across multiple sites simultaneously?">
+    Yes. Search queries can be scoped to a single camera, a site, or all sites within a company. Cross-site search queries are processed in parallel across all relevant FMU devices and results are aggregated in the platform.
+  </Accordion>
+</AccordionGroup>
+
+## Cameras
+
+<AccordionGroup>
+  <Accordion title="What camera types are supported?">
+    The platform supports:
+    - **ONVIF-compliant IP cameras** (Profile S) -- Connected directly to FMU devices
+    - **Eagle Eye Networks cameras** -- Accessed via the EEN cloud integration
+    - **RTSP cameras** -- Any camera that exposes an RTSP stream URL
+
+    Analog cameras are supported when connected through a digital encoder that provides an ONVIF or RTSP output.
+  </Accordion>
+  <Accordion title="What is ONVIF and why does it matter?">
+    ONVIF (Open Network Video Interface Forum) is an industry standard for IP-based security devices. ONVIF Profile S enables the platform to automatically discover cameras on the network, retrieve video streams, and control PTZ (pan-tilt-zoom) functions without manufacturer-specific drivers. Using ONVIF-compliant cameras simplifies deployment and ensures compatibility.
+  </Accordion>
+  <Accordion title="How many cameras can be connected to one FMU?">
+    The number of cameras per FMU depends on the FMU hardware model and the resolution/framerate of the video streams. Typical configurations support 4 to 16 cameras per FMU. High-resolution streams (4K) or high framerates (30fps) reduce the per-device capacity. Consult your reseller for capacity planning guidance specific to your hardware model.
+  </Accordion>
+  <Accordion title="Can I use Eagle Eye Networks cameras alongside ONVIF cameras?">
+    Yes. The platform supports mixed camera environments. ONVIF cameras connect directly through FMU devices, while Eagle Eye Networks cameras are accessed through the cloud integration. Both types appear in the same interface and support the same search and monitoring features.
+  </Accordion>
+</AccordionGroup>
+
+## Galleries
+
+<AccordionGroup>
+  <Accordion title="What types of galleries are available?">
+    The platform supports several gallery types:
+    - **Whitelist** -- Known authorized individuals (employees, residents, VIPs). Matches generate informational events.
+    - **Watchlist** -- Individuals of interest that require immediate attention. Matches generate high-priority alerts.
+    - **Blacklist** -- Banned or restricted individuals. Matches trigger security escalation workflows.
+    - **General** -- Open-purpose galleries for custom use cases.
+  </Accordion>
+  <Accordion title="How do I set the matching threshold for a gallery?">
+    Navigate to the gallery settings and adjust the similarity threshold slider. The threshold ranges from 0.0 (match everything) to 1.0 (exact match only). Recommended starting values:
+    - **Whitelist:** 0.75 - 0.85 (moderate strictness)
+    - **Watchlist:** 0.70 - 0.80 (slightly lower to avoid missing threats)
+    - **Blacklist:** 0.70 - 0.80 (prioritize recall over precision)
+
+    Fine-tune based on your operational experience and false positive/negative rates.
+  </Accordion>
+  <Accordion title="How many subjects can a gallery contain?">
+    There is no hard limit on the number of subjects per gallery. The platform has been tested with galleries containing over 100,000 subjects. However, very large galleries may slightly increase match processing time. For optimal performance, consider organizing subjects into purpose-specific galleries rather than a single large gallery.
+  </Accordion>
+</AccordionGroup>
+
+## Billing
+
+<AccordionGroup>
+  <Accordion title="How is billing structured?">
+    Billing follows the platform hierarchy. The Super Admin bills distributors, distributors bill resellers, and resellers bill companies. Each level manages its own billing relationships. Licensing is based on the number of active cameras, FMU devices, and enabled features.
+  </Accordion>
+  <Accordion title="What happens when a license expires?">
+    When a license expires, the associated features are disabled. Cameras assigned to expired licenses stop processing facial recognition but may continue basic video streaming depending on the license type. Data collected during the active license period is retained according to the configured retention policy.
+  </Accordion>
+  <Accordion title="Can I upgrade or downgrade my license mid-term?">
+    Yes. License changes can be made at any time by your reseller or distributor. Upgrades take effect immediately. Downgrades take effect at the end of the current billing cycle unless an immediate change is requested.
+  </Accordion>
+</AccordionGroup>
+
+## Technical
+
+<AccordionGroup>
+  <Accordion title="What is an FMU?">
+    An FMU (Facial Matching Unit) is an edge computing device deployed at the customer's premises. It connects to cameras, processes video streams locally for facial detection and recognition, and sends only metadata and match results to the cloud platform. This architecture minimizes bandwidth usage and keeps raw video data on-premises.
+  </Accordion>
+  <Accordion title="What are the network requirements for the FMU?">
+    The FMU requires:
+    - Outbound HTTPS access (port 443) to the platform API endpoints
+    - Local network access to ONVIF/RTSP cameras
+    - Minimum 10 Mbps upload bandwidth for metadata synchronization
+    - Stable internet connection (a wired Ethernet connection is strongly recommended)
+    - DNS resolution for platform API domains
+  </Accordion>
+  <Accordion title="Does the platform support edge computing?">
+    Yes. The FMU devices perform all computationally intensive operations (face detection, feature extraction, and matching) at the edge. Only lightweight metadata, match results, and thumbnail images are transmitted to the cloud. This design reduces latency, minimizes bandwidth costs, and keeps sensitive video data on-premises.
+  </Accordion>
+  <Accordion title="What happens if the FMU loses internet connectivity?">
+    If the FMU loses connectivity, it continues to process video locally and buffers events. When connectivity is restored, buffered events are synchronized with the cloud platform. During the offline period, live monitoring and search from the cloud portal are unavailable for cameras on that FMU.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  If your question is not answered here, check the [Troubleshooting](/troubleshooting) guide for issue-specific solutions, or contact your reseller for direct support.
+</Note>

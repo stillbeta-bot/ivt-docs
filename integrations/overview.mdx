@@ -1,0 +1,79 @@
+---
+title: "Integrations"
+sidebarTitle: "Overview"
+description: "Connect IVT Platform with third-party security, access control, and monitoring systems"
+---
+
+The IVT Platform is designed to work seamlessly with the security and access control systems your organization already relies on. Through native integrations, you can unify video surveillance, facial recognition, access control, monitoring, and document signing into a single cohesive workflow.
+
+## Why Integrate?
+
+Integrations allow you to extend the capabilities of the IVT Platform beyond standalone video analytics. By connecting with third-party systems, you can:
+
+- **Correlate access events with video** -- Match badge swipes and door access with facial recognition data for complete audit trails.
+- **Centralize monitoring** -- Forward alerts and alarms to central station monitoring platforms for 24/7 oversight.
+- **Automate workflows** -- Use webhooks to trigger actions in external systems whenever key events occur on the platform.
+- **Streamline onboarding** -- Collect electronic signatures during registration without leaving the platform.
+
+## Available Integrations
+
+<CardGroup cols={3}>
+  <Card title="Eagle Eye Networks" icon="video" href="/integrations/eagle-eye-networks">
+    Cloud-based video surveillance and camera management. Synchronize cameras, access live and recorded video streams directly from the platform.
+  </Card>
+  <Card title="Gallagher" icon="shield-halved" href="/integrations/gallagher">
+    Enterprise access control integration. Correlate door access events with facial recognition data for unified security management.
+  </Card>
+  <Card title="Brivo" icon="key" href="/integrations/brivo">
+    Cloud-based access control platform. Manage credentials and synchronize access events alongside video surveillance.
+  </Card>
+  <Card title="Immix" icon="bell" href="/integrations/immix">
+    Central station monitoring and alarm management. Forward real-time alerts to monitoring operators for immediate response.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/integrations/webhooks">
+    Send real-time event notifications to any external system. Configure custom endpoints, select event types, and monitor delivery logs.
+  </Card>
+  <Card title="DocuSign" icon="file-signature" href="/integrations/docusign">
+    Electronic signature integration for user registration and document signing during the onboarding process.
+  </Card>
+</CardGroup>
+
+## How Integrations Work
+
+Each integration connects the IVT Platform to an external system through secure APIs. The general pattern is:
+
+<Steps>
+  <Step title="Enable the Integration">
+    Navigate to the integration settings within your portal and enable the desired integration.
+  </Step>
+  <Step title="Provide Credentials">
+    Enter the API keys, client credentials, or connection details required by the third-party system.
+  </Step>
+  <Step title="Configure Mapping">
+    Map cameras, doors, zones, or other entities between the IVT Platform and the external system.
+  </Step>
+  <Step title="Verify Connectivity">
+    Test the connection to confirm data flows correctly between systems.
+  </Step>
+</Steps>
+
+<Note>
+  Integration availability depends on your subscription tier and the portal level you are operating from. Contact your distributor or reseller if an integration is not visible in your account.
+</Note>
+
+## Integration Architecture
+
+All integrations follow a secure, event-driven architecture:
+
+- **Outbound connections** use TLS-encrypted HTTPS requests to third-party APIs.
+- **Inbound data** is validated and processed asynchronously to avoid impacting platform performance.
+- **Credentials** are stored encrypted and are never exposed in logs or API responses.
+- **Rate limiting** is applied to respect third-party API quotas and ensure reliable delivery.
+
+<Tip>
+  If you need an integration that is not listed here, contact the IVT Platform team. Custom integrations can be developed for enterprise customers with specific requirements.
+</Tip>
+
+## Next Steps
+
+Select an integration from the list above to view detailed setup instructions and configuration options. If you are new to the platform, we recommend starting with [Eagle Eye Networks](/integrations/eagle-eye-networks) for video surveillance or [Webhooks](/integrations/webhooks) for custom event-driven workflows.

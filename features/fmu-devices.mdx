@@ -1,0 +1,137 @@
+---
+title: "FMU Devices"
+sidebarTitle: "FMU Devices"
+description: "Manage Field Management Unit edge devices for on-premise facial recognition"
+---
+
+## Overview
+
+Field Management Units (FMUs) are edge computing devices -- typically Intel NUC hardware --
+deployed on-premise at your facility. FMUs perform facial recognition processing locally,
+eliminating the need to stream video to the cloud for analysis. Each FMU connects to your
+local ONVIF cameras and processes video feeds in real time, sending only detection results
+and metadata back to the IVT Platform.
+
+<Note>
+  FMUs are the backbone of on-premise facial recognition in the IVT Platform. They run
+  the FaceVACS recognition engine locally, providing fast, reliable identification without
+  depending on cloud connectivity for processing.
+</Note>
+
+## Why Edge Computing
+
+FMU devices provide several advantages over purely cloud-based processing architectures.
+
+<CardGroup cols={3}>
+  <Card title="Low Latency" icon="bolt">
+    Facial recognition is performed on-site, delivering sub-second identification results
+    without the round-trip delay of cloud processing.
+  </Card>
+  <Card title="Offline Capability" icon="wifi-slash">
+    FMUs continue to operate and perform facial recognition even when internet connectivity
+    is lost. Detection results are queued and synced when the connection is restored.
+  </Card>
+  <Card title="Bandwidth Efficiency" icon="gauge-high">
+    Video streams stay on the local network. Only lightweight detection metadata is transmitted
+    to the cloud, significantly reducing bandwidth consumption.
+  </Card>
+</CardGroup>
+
+## FMU Lifecycle
+
+Each FMU device follows a defined lifecycle from initial enrollment to active operation.
+
+<Steps>
+  <Step title="Enrollment">
+    The FMU device is registered in the IVT Platform. During enrollment, the device receives
+    a unique identifier and is prepared for configuration. This step is typically performed
+    by a distributor or system administrator.
+  </Step>
+  <Step title="Assignment">
+    The enrolled FMU is assigned to a specific company and location. This associates the
+    device with the correct tenant and determines which galleries and detection rules it
+    will use.
+  </Step>
+  <Step title="Activation">
+    The FMU is activated with a valid FaceVACS license, enabling the facial recognition
+    engine. Activation also provisions the device with the required configuration and
+    gallery data.
+  </Step>
+  <Step title="Operation">
+    The FMU is fully operational and processing video feeds from assigned cameras. It
+    performs facial detection and recognition in real time and reports results to the
+    IVT Platform.
+  </Step>
+</Steps>
+
+## Viewing Device Status and Health
+
+The **FMU Devices** section displays all registered devices along with their current status
+and health metrics.
+
+<Tabs>
+  <Tab title="Status Indicators">
+    | Status | Description |
+    |---|---|
+    | **Online** | Device is connected and processing normally |
+    | **Offline** | Device is not reachable from the platform |
+    | **Pending Activation** | Device is enrolled but not yet activated with a license |
+    | **Error** | Device is reporting a fault or configuration issue |
+  </Tab>
+  <Tab title="Health Metrics">
+    Each FMU reports the following health data:
+    - **CPU utilization** -- processing load on the edge device
+    - **Memory usage** -- current RAM consumption
+    - **Uptime** -- time since last reboot
+    - **Last heartbeat** -- timestamp of the most recent communication with the platform
+    - **FaceVACS engine status** -- whether the recognition engine is running
+  </Tab>
+</Tabs>
+
+## Device Management
+
+Company administrators can manage FMU devices assigned to their organization.
+
+<AccordionGroup>
+  <Accordion title="View Device Details">
+    Select an FMU from the device list to view its full configuration, including assigned
+    cameras, active license, software version, and connection history.
+  </Accordion>
+  <Accordion title="Assign Cameras to an FMU">
+    Each FMU can process streams from one or more ONVIF cameras. Assign cameras by
+    navigating to the device detail page and selecting cameras from the available list.
+  </Accordion>
+  <Accordion title="Restart or Reconfigure">
+    If an FMU is experiencing issues, you can trigger a remote restart or push updated
+    configuration from the platform. This forces the device to re-download its gallery
+    data and detection rules.
+  </Accordion>
+  <Accordion title="Decommission a Device">
+    When an FMU is no longer needed, it can be decommissioned from the platform. This
+    releases the associated license and removes the device from active inventory.
+  </Accordion>
+</AccordionGroup>
+
+## Monitoring Device Connectivity
+
+The IVT Platform monitors each FMU's connectivity through periodic heartbeat signals. If a
+device fails to send a heartbeat within the expected interval, its status is updated to
+**Offline** and a notification may be triggered.
+
+<Warning>
+  An offline FMU will continue to perform local facial recognition if it was operational
+  before losing connectivity. However, detection results will not appear in the platform
+  until the device reconnects and syncs its queued data.
+</Warning>
+
+<Tip>
+  Deploy FMU devices on a reliable network with a stable power supply. Consider using an
+  uninterruptible power supply (UPS) to maintain operation during brief power outages.
+  Ensure the device has a static IP address or a reserved DHCP lease.
+</Tip>
+
+<Info>
+  FMU device management capabilities vary by portal role. Distributors and resellers can
+  manage devices across multiple companies, while company administrators can only view
+  and configure devices assigned to their organization.
+</Info>

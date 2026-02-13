@@ -1,0 +1,159 @@
+---
+title: "System Settings"
+description: "Configure platform-wide settings, notifications, and emergency response"
+---
+
+## Overview
+
+System Settings provides centralized configuration for platform-wide preferences,
+notification behavior, emergency response integrations, and access to system resources.
+Administrators use this section to customize the IVT Platform to meet their operational
+and compliance requirements.
+
+<Note>
+  Access to system settings requires administrator privileges. Changes made in this
+  section may affect all users within your organization or portal scope.
+</Note>
+
+## General Configuration
+
+The general settings section covers core platform preferences that apply across your
+organization.
+
+<CardGroup cols={2}>
+  <Card title="Organization Profile" icon="building">
+    Update your organization's display name, logo, contact information, and primary
+    address. These details appear throughout the platform and on generated reports.
+  </Card>
+  <Card title="Regional Settings" icon="globe">
+    Configure timezone, date format, and language preferences for your organization.
+    These settings affect how timestamps, dates, and detection events are displayed.
+  </Card>
+</CardGroup>
+
+## Notification Settings
+
+Configure how and when the platform sends notifications for detection events, system
+alerts, and administrative actions.
+
+<Tabs>
+  <Tab title="Detection Notifications">
+    Set up notifications for facial recognition and detection events:
+    - **Email alerts** -- receive email notifications when a detection rule triggers
+    - **Push notifications** -- receive real-time alerts on mobile devices
+    - **In-app notifications** -- view alerts within the platform dashboard
+    - **Notification frequency** -- choose between immediate alerts or digest summaries
+  </Tab>
+  <Tab title="System Alerts">
+    Configure alerts for system-level events:
+    - **Device offline** -- receive a notification when an FMU device goes offline
+    - **Camera disconnected** -- alert when a camera loses connectivity
+    - **License expiration** -- warning notifications before a license expires
+    - **Storage threshold** -- alert when storage capacity reaches a defined limit
+  </Tab>
+  <Tab title="Administrative Notifications">
+    Manage notifications for administrative activities:
+    - **New user registration** -- notification when a new user accepts an invitation
+    - **Role changes** -- alert when user roles are modified
+    - **Configuration changes** -- notification for significant settings modifications
+  </Tab>
+</Tabs>
+
+<Tip>
+  Configure notification channels to match your operational workflow. Critical alerts
+  like device failures should use immediate email and push notifications, while routine
+  events can use daily digest summaries to reduce notification fatigue.
+</Tip>
+
+## Emergency Response Settings (RapidSOS)
+
+The IVT Platform integrates with RapidSOS to enable 911 and emergency response capabilities.
+When configured, detection events can automatically trigger emergency notifications with
+location data and event context.
+
+<Steps>
+  <Step title="Enable RapidSOS Integration">
+    Navigate to **System Settings > Emergency Response** and toggle the RapidSOS
+    integration to **Enabled**.
+  </Step>
+  <Step title="Configure API Credentials">
+    Enter the RapidSOS API credentials provided by your RapidSOS account representative.
+    These credentials authenticate the connection between the IVT Platform and the
+    RapidSOS emergency data platform.
+  </Step>
+  <Step title="Define Trigger Rules">
+    Specify which detection events should trigger an emergency response. For example,
+    configure the system to initiate a RapidSOS alert when a person on a threat
+    watchlist is identified.
+  </Step>
+  <Step title="Set Location Data">
+    Ensure that zone and camera location data is accurate. RapidSOS uses this information
+    to provide emergency responders with the precise location of the detected event.
+  </Step>
+</Steps>
+
+<Warning>
+  Emergency response integration should be configured and tested carefully. False
+  emergency alerts can have serious consequences. Work with your security team and
+  local authorities to establish appropriate trigger thresholds and response protocols
+  before enabling this feature in production.
+</Warning>
+
+## Release Notes
+
+The Release Notes section provides a changelog of platform updates, new features, bug
+fixes, and improvements.
+
+<AccordionGroup>
+  <Accordion title="Accessing Release Notes">
+    Navigate to **System Settings > Release Notes** to view the full history of platform
+    updates. Each entry includes the version number, release date, and a summary of
+    changes.
+  </Accordion>
+  <Accordion title="Update Notifications">
+    When a new platform version is released, administrators receive a notification with
+    a link to the release notes. Major updates may include migration steps or configuration
+    changes that require administrator action.
+  </Accordion>
+</AccordionGroup>
+
+## Document Library
+
+The Document Library provides access to platform documentation, compliance certificates,
+user guides, and technical reference materials.
+
+<CardGroup cols={2}>
+  <Card title="User Guides" icon="book">
+    Access step-by-step guides for common platform operations, including camera setup,
+    zone configuration, and detection rule creation.
+  </Card>
+  <Card title="Compliance Documents" icon="file-certificate">
+    Download compliance certificates, data processing agreements, and security audit
+    reports for your records and regulatory requirements.
+  </Card>
+</CardGroup>
+
+## System Preferences
+
+Additional system-level preferences for platform behavior and data management.
+
+<AccordionGroup>
+  <Accordion title="Data Retention">
+    Configure how long detection events, video recordings, and audit logs are retained.
+    Retention policies may be subject to regulatory requirements in your jurisdiction.
+  </Accordion>
+  <Accordion title="Session Management">
+    Set session timeout duration, concurrent session limits, and multi-factor authentication
+    requirements for users within your organization.
+  </Accordion>
+  <Accordion title="API Access">
+    Manage API keys and webhook configurations for integrating the IVT Platform with
+    third-party systems. API access is available for authorized administrators only.
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  System settings changes are logged in the platform audit trail. All modifications
+  include a timestamp, the user who made the change, and the previous and new values
+  for accountability and compliance purposes.
+</Info>

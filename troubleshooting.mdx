@@ -1,0 +1,182 @@
+---
+title: "Troubleshooting"
+description: "Common issues and their solutions for the IVT Platform"
+---
+
+This guide covers the most common issues encountered on the IVT Platform and provides step-by-step solutions. If your issue is not listed here, contact your reseller or the platform support team for assistance.
+
+## Login Issues
+
+<AccordionGroup>
+  <Accordion title="Cannot log in with correct credentials">
+    **Symptoms:** The login page rejects valid credentials or displays a generic error message.
+
+    **Solutions:**
+    1. Verify you are using the correct email address (check for typos and ensure the correct case).
+    2. Reset your password using the "Forgot Password" link on the login page.
+    3. Clear your browser cache and cookies, then try again.
+    4. Ensure your account has not been deactivated by your administrator.
+    5. If two-factor authentication is enabled, verify your authenticator app is synced with the correct time.
+  </Accordion>
+  <Accordion title="Two-factor authentication code not working">
+    **Symptoms:** The 2FA code is rejected even though it appears correct.
+
+    **Solutions:**
+    1. Ensure your device's clock is accurate. TOTP codes are time-sensitive and even a 30-second drift can cause failures.
+    2. Wait for a new code cycle and try the fresh code immediately.
+    3. If you have lost access to your authenticator app, contact your administrator to reset 2FA on your account.
+  </Accordion>
+  <Accordion title="Account locked after multiple failed attempts">
+    **Symptoms:** A message indicates the account is temporarily locked.
+
+    **Solutions:**
+    1. Wait 15 minutes for the lockout period to expire, then try again with the correct credentials.
+    2. If you cannot remember your password, use the "Forgot Password" flow after the lockout expires.
+    3. Contact your administrator if the lockout persists beyond the expected duration.
+  </Accordion>
+</AccordionGroup>
+
+## Camera Connection Problems
+
+<AccordionGroup>
+  <Accordion title="Camera shows as offline in the dashboard">
+    **Symptoms:** A camera that was previously working now shows an offline or disconnected status.
+
+    **Solutions:**
+    1. Verify the camera is powered on and connected to the network.
+    2. Check that the camera's IP address has not changed (relevant for ONVIF cameras with DHCP).
+    3. Ensure the FMU device connected to the camera is online.
+    4. For Eagle Eye Networks cameras, verify the camera is online in the EEN dashboard.
+    5. Restart the camera and wait 2-3 minutes for it to reconnect.
+  </Accordion>
+  <Accordion title="Live video feed not loading">
+    **Symptoms:** The live view shows a black screen, loading spinner, or error message.
+
+    **Solutions:**
+    1. Check your browser supports the required video codecs (H.264 is recommended).
+    2. Disable browser extensions that may block video playback (ad blockers, privacy extensions).
+    3. Verify your network allows WebSocket connections, as live video uses WebSocket-based streaming.
+    4. Try a different browser to rule out browser-specific issues.
+    5. If using a VPN, try disconnecting it -- some VPNs interfere with video streaming.
+  </Accordion>
+  <Accordion title="Camera not discovered during ONVIF scan">
+    **Symptoms:** The camera does not appear in the ONVIF discovery results.
+
+    **Solutions:**
+    1. Confirm the camera supports ONVIF Profile S.
+    2. Ensure the FMU and the camera are on the same network subnet, or that multicast traffic is routed between subnets.
+    3. Check that ONVIF is enabled in the camera's settings (some manufacturers disable it by default).
+    4. Try adding the camera manually by IP address instead of relying on auto-discovery.
+  </Accordion>
+</AccordionGroup>
+
+## FMU Device Issues
+
+<AccordionGroup>
+  <Accordion title="FMU device showing offline">
+    **Symptoms:** The FMU device appears offline in the dashboard and is not processing video.
+
+    **Solutions:**
+    1. Verify the FMU device is powered on and the status LEDs indicate normal operation.
+    2. Check the network cable connection and verify the device has a valid IP address.
+    3. Ensure the FMU can reach the platform's API endpoints (outbound HTTPS on port 443).
+    4. Restart the FMU device by power cycling it. Wait 3-5 minutes for it to reconnect.
+    5. If the device remains offline, check for firmware updates that may resolve connectivity issues.
+  </Accordion>
+  <Accordion title="FMU not processing facial recognition">
+    **Symptoms:** The FMU is online but no facial detections or matches appear.
+
+    **Solutions:**
+    1. Verify that at least one camera is assigned to the FMU and is streaming video.
+    2. Check that the company has an active facial recognition license.
+    3. Ensure galleries are configured and contain at least one enrolled subject.
+    4. Verify the camera angle and lighting provide clear facial captures (faces should be at least 80 pixels wide in the frame).
+    5. Review the FMU's processing logs from the device management page for error messages.
+  </Accordion>
+</AccordionGroup>
+
+## Search Issues
+
+<AccordionGroup>
+  <Accordion title="Search not returning expected results">
+    **Symptoms:** A facial search returns no matches or misses known subjects.
+
+    **Solutions:**
+    1. Verify the search image is clear, well-lit, and shows the face at a near-frontal angle.
+    2. Check that the subject is enrolled in the appropriate gallery and that the gallery is active.
+    3. Adjust the similarity threshold -- a threshold that is too high may exclude valid matches.
+    4. Ensure the date and time range of the search covers the period when the subject was present.
+    5. Verify the correct cameras and sites are selected in the search filters.
+  </Accordion>
+  <Accordion title="Search takes too long to complete">
+    **Symptoms:** Search results take several minutes to return or time out.
+
+    **Solutions:**
+    1. Narrow the date range to reduce the volume of data being searched.
+    2. Select specific cameras instead of searching all cameras.
+    3. Ensure FMU devices are online and responsive, as search queries are processed on the edge devices.
+    4. For very large deployments, consider breaking the search into multiple smaller queries.
+  </Accordion>
+</AccordionGroup>
+
+## Webhook Delivery Failures
+
+<AccordionGroup>
+  <Accordion title="Webhooks not being delivered">
+    **Symptoms:** The webhook log shows failed deliveries or the endpoint is not receiving requests.
+
+    **Solutions:**
+    1. Verify the webhook endpoint URL is correct and accessible from the public internet.
+    2. Ensure the endpoint returns a 2xx HTTP status code within 10 seconds.
+    3. Check that the endpoint's SSL certificate is valid (the platform does not send webhooks to endpoints with invalid certificates).
+    4. Review the webhook logs for specific HTTP error codes that indicate the cause of failure.
+    5. If the webhook was automatically disabled due to consecutive failures, re-enable it after fixing the endpoint.
+  </Accordion>
+  <Accordion title="Webhook payloads arriving with incorrect data">
+    **Symptoms:** The payload structure or content does not match expectations.
+
+    **Solutions:**
+    1. Verify you are parsing the JSON payload correctly (check Content-Type header handling).
+    2. Review the webhook event type configuration to ensure you are subscribed to the correct events.
+    3. Check the [Webhooks documentation](/integrations/webhooks) for the current payload schema.
+  </Accordion>
+</AccordionGroup>
+
+## White-Label Script Errors
+
+<AccordionGroup>
+  <Accordion title="Script fails during AWS infrastructure phase">
+    **Symptoms:** The `create-white-label.mjs` script exits with AWS permission or resource errors.
+
+    **Solutions:**
+    1. Verify the AWS credentials have sufficient IAM permissions for S3, CloudFront, ACM, EC2, and ELB.
+    2. Check that the target AWS region is correct and the services are available in that region.
+    3. If a resource already exists with the same name, the script may fail on conflict. Use `--dry-run` to identify the conflict before re-running.
+    4. Review the script's error output for the specific AWS API error code and message.
+  </Accordion>
+  <Accordion title="ACM certificate validation stuck">
+    **Symptoms:** The script is waiting for certificate validation but it never completes.
+
+    **Solutions:**
+    1. Verify the DNS CNAME records for certificate validation are correctly configured at your DNS provider.
+    2. Allow up to 30 minutes for DNS propagation, especially if using a provider with slower propagation times.
+    3. Use `dig` or `nslookup` to confirm the validation CNAME record resolves correctly.
+    4. If validation fails, cancel and re-run with `--aws-only` to request a new certificate.
+  </Accordion>
+  <Accordion title="Color generation produces poor results">
+    **Symptoms:** The auto-generated color palette does not look good or has contrast issues.
+
+    **Solutions:**
+    1. Ensure the input primary color has sufficient saturation (avoid very dark, very light, or highly desaturated colors).
+    2. Run the script with `--dry-run` to preview the generated palette before committing.
+    3. After generation, manually adjust individual tokens in the `config.ts` file if specific colors need refinement.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  If you encounter an issue that is not covered in this guide, collect the following information before contacting support: the error message or screenshot, the browser and operating system in use, the steps to reproduce the issue, and any relevant timestamps.
+</Note>
+
+<Tip>
+  Many issues can be resolved by clearing the browser cache, verifying network connectivity, and ensuring all devices and services are online. Start with these basic checks before investigating further.
+</Tip>

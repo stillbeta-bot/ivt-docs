@@ -1,0 +1,162 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "IVT Platform",
+  "logo": {
+    "light": "/logo/logo-light.svg",
+    "dark": "/logo/logo-dark.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#2563EB",
+    "light": "#60A5FA",
+    "dark": "#1E40AF"
+  },
+  "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "API Reference",
+          "icon": "square-terminal",
+          "href": "https://api.ivt.com/docs"
+        },
+        {
+          "anchor": "Support",
+          "icon": "life-ring",
+          "href": "mailto:support@ivt.com"
+        }
+      ]
+    },
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket",
+            "pages": [
+              "introduction",
+              "getting-started/overview",
+              "getting-started/signing-up",
+              "getting-started/signing-in",
+              "getting-started/navigating-the-platform",
+              "getting-started/roles-and-permissions"
+            ]
+          },
+          {
+            "group": "Dashboard & Analytics",
+            "icon": "chart-line",
+            "pages": [
+              "features/dashboard"
+            ]
+          },
+          {
+            "group": "Search",
+            "icon": "magnifying-glass",
+            "pages": [
+              "features/search/overview",
+              "features/search/historic-footage",
+              "features/search/real-time-search",
+              "features/search/photo-search"
+            ]
+          },
+          {
+            "group": "Galleries",
+            "icon": "images",
+            "pages": [
+              "features/galleries/overview",
+              "features/galleries/common-galleries",
+              "features/galleries/frequent-galleries",
+              "features/galleries/ignored-galleries"
+            ]
+          },
+          {
+            "group": "Cameras & Devices",
+            "icon": "video",
+            "pages": [
+              "features/cameras/eagle-eye-cameras",
+              "features/cameras/onvif-cameras",
+              "features/zones",
+              "features/fmu-devices"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Administration",
+        "icon": "gear",
+        "groups": [
+          {
+            "group": "Management",
+            "icon": "building",
+            "pages": [
+              "administration/company-management",
+              "administration/user-management",
+              "administration/licensing",
+              "administration/billing-and-invoices",
+              "administration/system-settings"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "icon": "plug",
+            "pages": [
+              "integrations/overview",
+              "integrations/eagle-eye-networks",
+              "integrations/gallagher",
+              "integrations/brivo",
+              "integrations/immix",
+              "integrations/webhooks",
+              "integrations/docusign"
+            ]
+          },
+          {
+            "group": "Portals",
+            "icon": "users",
+            "pages": [
+              "portals/admin-portal",
+              "portals/distributor-portal",
+              "portals/reseller-portal"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "White Label",
+        "icon": "palette",
+        "groups": [
+          {
+            "group": "Branding",
+            "pages": [
+              "white-label/overview",
+              "white-label/creating-a-brand"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Help",
+        "icon": "circle-question",
+        "groups": [
+          {
+            "group": "Support",
+            "pages": [
+              "troubleshooting",
+              "faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footerSocials": {
+    "website": "https://ivt.com"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "search": {
+    "prompt": "Search documentation..."
+  }
+}

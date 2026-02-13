@@ -1,0 +1,119 @@
+---
+title: "Dashboard & Analytics"
+sidebarTitle: "Dashboard"
+description: "Monitor visitor statistics, detection analytics, and system performance metrics"
+---
+
+The IVT Dashboard provides a centralized view of all visitor activity, detection events, and system performance across your surveillance network. Use it to identify trends, monitor real-time traffic, and generate reports for stakeholders.
+
+## Dashboard Overview
+
+When you open the Dashboard, you are presented with a summary of key metrics collected from all connected cameras and detection engines. The layout is organized into cards that surface the most important data at a glance.
+
+<CardGroup cols={2}>
+  <Card title="Visitor Count" icon="users">
+    Total unique visitors detected across all cameras within the selected time period.
+  </Card>
+  <Card title="Detection Events" icon="eye">
+    Number of face detection events, including matched and unmatched detections.
+  </Card>
+  <Card title="Gallery Matches" icon="address-book">
+    Count of detections that matched a face in one of your configured galleries.
+  </Card>
+  <Card title="Active Cameras" icon="video">
+    Real-time status of cameras currently streaming and processing video feeds.
+  </Card>
+</CardGroup>
+
+## Visitor Count Metrics and Trends
+
+The visitor count panel tracks unique individuals detected by your cameras over time. The system uses FaceVACS AI to deduplicate detections, ensuring the same person appearing on multiple cameras is counted only once.
+
+<Tabs>
+  <Tab title="Daily View">
+    Displays an hourly breakdown of visitor counts for the selected day. Use this view to identify peak traffic hours and allocate resources accordingly.
+  </Tab>
+  <Tab title="Weekly View">
+    Aggregates visitor data by day across a seven-day window. Useful for spotting day-of-week patterns in foot traffic.
+  </Tab>
+  <Tab title="Monthly View">
+    Shows daily totals across the full month. This view is ideal for long-term trend analysis and monthly reporting.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Hover over any data point on the trend chart to see the exact visitor count and timestamp for that interval.
+</Tip>
+
+## Detection Analytics
+
+The detection analytics section breaks down all face detection events by type, confidence level, and source camera.
+
+**Key metrics include:**
+
+- **Total Detections** -- The raw number of faces detected across all feeds.
+- **Matched Detections** -- Faces that correspond to entries in your common or frequent galleries.
+- **Unmatched Detections** -- Faces detected that do not match any gallery entry.
+- **Average Confidence Score** -- The mean matching confidence across all gallery matches.
+
+<Info>
+  Detection analytics are updated in near real-time. There may be a delay of up to 30 seconds between a detection event and its appearance on the dashboard.
+</Info>
+
+## Configuring Dashboard Settings
+
+You can customize the dashboard to display the metrics most relevant to your operation.
+
+<Steps>
+  <Step title="Open Dashboard Settings">
+    Click the **Settings** icon in the top-right corner of the dashboard view.
+  </Step>
+  <Step title="Select Visible Widgets">
+    Toggle widgets on or off to control which metric cards appear on your dashboard. Available widgets include visitor count, detection events, gallery matches, camera status, and alert history.
+  </Step>
+  <Step title="Set Default Time Range">
+    Choose a default time period that the dashboard loads with. Options include Today, Last 7 Days, Last 30 Days, or a custom range.
+  </Step>
+  <Step title="Configure Refresh Interval">
+    Set how frequently the dashboard auto-refreshes. Options range from 30 seconds to 10 minutes.
+  </Step>
+  <Step title="Save Configuration">
+    Click **Save** to apply your settings. Your configuration is stored per-user and persists across sessions.
+  </Step>
+</Steps>
+
+## Time Period Filters
+
+All dashboard data can be filtered by time period using the date range selector at the top of the page.
+
+| Filter          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| **Today**       | Data from midnight to the current time            |
+| **Yesterday**   | Full 24-hour data from the previous day           |
+| **Last 7 Days** | Rolling seven-day window ending today             |
+| **Last 30 Days**| Rolling thirty-day window ending today            |
+| **Custom Range**| Specify an exact start and end date and time      |
+
+<Note>
+  When using a custom range, the maximum selectable window is 90 days. For longer historical analysis, use the export feature to download raw data.
+</Note>
+
+## Export Capabilities
+
+Dashboard data can be exported for external reporting, compliance audits, or integration with third-party analytics tools.
+
+<AccordionGroup>
+  <Accordion title="Export as CSV">
+    Generates a comma-separated file containing all visible metric data for the selected time period. CSV exports are suitable for spreadsheet analysis and database imports.
+  </Accordion>
+  <Accordion title="Export as PDF Report">
+    Creates a formatted PDF document that includes charts, summary statistics, and the selected time range. PDF reports are ideal for sharing with stakeholders who do not have platform access.
+  </Accordion>
+  <Accordion title="Scheduled Reports">
+    Configure automatic report generation on a daily, weekly, or monthly cadence. Scheduled reports are delivered via email to the recipients you specify in the report settings.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Exported data may contain personally identifiable information (PII) including facial images and detection timestamps. Handle exported files in accordance with your organization's data privacy policies and applicable regulations.
+</Warning>

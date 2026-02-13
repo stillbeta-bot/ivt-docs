@@ -1,0 +1,89 @@
+---
+title: "Search Overview"
+sidebarTitle: "Overview"
+description: "AI-powered search capabilities for video surveillance and facial recognition"
+---
+
+The IVT Platform provides three distinct search modes, each designed for a specific investigative workflow. All search capabilities are powered by the FaceVACS AI engine, delivering high-accuracy facial recognition across your entire camera network.
+
+## Search Modes
+
+IVT offers three complementary approaches to finding people across your surveillance infrastructure. Choose the mode that best fits your investigation scenario.
+
+<CardGroup cols={3}>
+  <Card title="Historic Footage" icon="clock-rotate-left" href="/features/search/historic-footage">
+    Search through recorded video archives to locate specific individuals or review past events within a defined time range.
+  </Card>
+  <Card title="Real-Time Search" icon="satellite-dish" href="/features/search/real-time-search">
+    Monitor live camera feeds with active facial recognition to detect persons of interest as they appear.
+  </Card>
+  <Card title="Photo Search" icon="image" href="/features/search/photo-search">
+    Upload a reference photo and search across all camera footage to find matching faces using AI-powered comparison.
+  </Card>
+</CardGroup>
+
+## When to Use Each Search Type
+
+Selecting the right search mode ensures you get results efficiently. The table below outlines the primary use case, data source, and response time for each mode.
+
+| Search Mode        | Best For                                  | Data Source           | Response Time       |
+| ------------------ | ----------------------------------------- | --------------------- | ------------------- |
+| **Historic Footage** | Reviewing past incidents, forensic analysis | Recorded archives     | Minutes to hours    |
+| **Real-Time**        | Active monitoring, immediate alerts        | Live camera feeds     | Sub-second          |
+| **Photo Search**     | Locating a known individual across footage | Reference image + archives | Minutes         |
+
+<Tabs>
+  <Tab title="Investigation Workflow">
+    When investigating a past incident, start with **Historic Footage Search** to narrow down the time window and cameras involved. Once you identify a person of interest, use **Photo Search** to find all other appearances of that individual across your network.
+  </Tab>
+  <Tab title="Surveillance Workflow">
+    For active threat monitoring, configure **Real-Time Search** on your entry-point cameras. Combine it with face galleries to receive immediate alerts when a person of interest is detected on any live feed.
+  </Tab>
+  <Tab title="Identification Workflow">
+    When you have a photo of a person but need to determine their activity history, use **Photo Search** to scan all recorded footage. The AI engine will return all matching detections ranked by confidence score.
+  </Tab>
+</Tabs>
+
+## FaceVACS AI Engine
+
+All search modes are powered by the FaceVACS facial recognition engine, which provides the core detection and matching capabilities within IVT.
+
+<AccordionGroup>
+  <Accordion title="Face Detection">
+    The engine automatically locates and extracts faces from video frames, regardless of angle, lighting conditions, or partial occlusion. Detection operates at up to 30 frames per second per camera stream.
+  </Accordion>
+  <Accordion title="Feature Extraction">
+    Each detected face is converted into a compact biometric template -- a mathematical representation of the face's unique features. These templates are used for all subsequent matching operations.
+  </Accordion>
+  <Accordion title="Face Matching">
+    The matching algorithm compares biometric templates against galleries or reference images and returns results ranked by confidence score. Matching thresholds are configurable per search and per gallery.
+  </Accordion>
+  <Accordion title="Liveness and Quality Scoring">
+    The engine assigns a quality score to each detection, factoring in resolution, pose angle, blur, and illumination. Low-quality detections can be automatically filtered to improve result accuracy.
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  FaceVACS processes biometric templates, not raw images, during matching operations. This approach ensures high-speed comparisons even when searching across millions of stored detections.
+</Info>
+
+## Search Permissions
+
+Access to search features is controlled by role-based permissions. Administrators can configure which user roles have access to each search mode.
+
+<Note>
+  Users must have the **Search** permission enabled in their role to access any search functionality. Individual search modes (Historic, Real-Time, Photo) can be enabled or disabled independently per role. Contact your system administrator if you do not see a search mode you need.
+</Note>
+
+## Common Search Settings
+
+Several settings apply across all search modes and can be configured globally or per-search.
+
+- **Confidence Threshold** -- The minimum matching score (0-100) required for a result to be included. Higher thresholds reduce false positives but may miss lower-quality matches.
+- **Camera Selection** -- Choose specific cameras or camera groups to include in the search scope. Narrowing the camera set reduces search time.
+- **Face Quality Filter** -- Set minimum quality requirements for detections included in results. This filters out blurry or partially occluded faces.
+- **Result Limit** -- Define the maximum number of results returned per search to manage performance and review time.
+
+<Tip>
+  For most use cases, a confidence threshold between 70 and 85 provides a good balance between recall and precision. Adjust based on your environment's lighting and camera quality.
+</Tip>

@@ -1,0 +1,140 @@
+---
+title: "Creating Your Account"
+sidebarTitle: "Sign Up"
+description: "How to create and activate your IVT Platform account"
+---
+
+The IVT Platform supports two registration paths: **invitation-based registration**, where an administrator sends you a direct link, and **self-registration**, where you sign up independently and are assigned to an organization. Both paths include identity verification and e-signature steps to ensure compliance and security.
+
+## Registration Methods
+
+<Tabs>
+  <Tab title="Invitation Link">
+    The most common way to join the platform is through an invitation from your organization's administrator. When an admin adds you to the system, you will receive an email containing a personalized registration link.
+
+    This method is used when:
+    - A Company Admin provisions a new user account
+    - A Distributor or Reseller onboards a new partner organization
+    - An existing user is migrated to a new company
+
+    The invitation link is tied to your email address and pre-assigns your role and company.
+  </Tab>
+  <Tab title="Self-Registration">
+    Some platform deployments allow self-registration, where you can create an account without a prior invitation. Self-registration is typically available on public-facing or partner-facing portals.
+
+    With self-registration:
+    - You provide your name, email, and organization details
+    - Your account may require admin approval before activation
+    - You may be placed into a default company or a pending state until an administrator assigns you
+
+    <Note>
+      Self-registration availability depends on your platform deployment and brand configuration. Not all portals offer this option. Contact your administrator if you are unsure how to register.
+    </Note>
+  </Tab>
+</Tabs>
+
+## Registration Flow
+
+<Steps>
+  <Step title="Receive Your Invitation">
+    Check your email inbox for an invitation from the IVT Platform (or the white-labeled brand name your organization uses). The email contains a unique registration link. Click the link to begin.
+
+    <Warning>
+      Invitation links expire after a set period, typically 72 hours. If your link has expired, ask your administrator to resend the invitation.
+    </Warning>
+  </Step>
+
+  <Step title="Complete the Registration Form">
+    On the registration page, fill in the required fields:
+    - **Full Name** -- Your first and last name as they should appear in the system
+    - **Email Address** -- Pre-filled if you arrived via invitation; editable for self-registration
+    - **Phone Number** -- Optional, but recommended for account recovery
+    - **Password** -- Must meet the platform's complexity requirements (minimum 8 characters, including uppercase, lowercase, number, and special character)
+    - **Confirm Password** -- Re-enter your password to verify
+
+    Review the information carefully before proceeding.
+  </Step>
+
+  <Step title="Sign the Service Agreement via DocuSign">
+    After submitting the registration form, you will be redirected to a DocuSign e-signature flow. This step requires you to review and sign the platform's terms of service and data processing agreement.
+
+    The DocuSign process includes:
+    - Reviewing the service agreement document
+    - Providing your electronic signature
+    - Receiving a signed copy via email for your records
+
+    <Info>
+      The e-signature step is a legal requirement for platform access. Your account will not be activated until the agreement is signed. If you close the DocuSign window before completing the signature, you can resume by clicking the registration link again.
+    </Info>
+  </Step>
+
+  <Step title="Verify Your Email Address">
+    Once the e-signature is complete, the platform sends a verification email to the address you provided. Open this email and click the **Verify Email** button or link.
+
+    Email verification confirms that you own the email address and enables secure communication for future notifications, alerts, and password resets.
+
+    <Tip>
+      If you do not see the verification email within a few minutes, check your spam or junk folder. You can also request a new verification email from the login page by selecting **Resend Verification**.
+    </Tip>
+  </Step>
+
+  <Step title="Account Activation">
+    After email verification, your account is activated. Depending on your organization's configuration, one of the following will happen:
+
+    - **Immediate access:** You are redirected to the login page and can sign in right away.
+    - **Admin approval required:** Your account enters a pending state and an administrator must approve it before you can log in. You will receive an email notification once approved.
+  </Step>
+
+  <Step title="First Login">
+    Navigate to the platform login page and enter your email and password. On your first login, you may be prompted to:
+    - Complete your user profile with additional details
+    - Set notification preferences
+    - Review a brief platform orientation
+
+    You are now ready to use the IVT Platform.
+  </Step>
+</Steps>
+
+## Password Requirements
+
+The platform enforces the following password policy to protect your account:
+
+| Requirement | Detail |
+|---|---|
+| Minimum length | 8 characters |
+| Uppercase letter | At least one (A-Z) |
+| Lowercase letter | At least one (a-z) |
+| Number | At least one (0-9) |
+| Special character | At least one (e.g., !@#$%^&*) |
+| Password reuse | Cannot reuse your last 5 passwords |
+
+## Troubleshooting Registration
+
+<AccordionGroup>
+  <Accordion title="My invitation link has expired">
+    Invitation links are valid for a limited time. Contact your company administrator or the person who invited you and request a new invitation.
+  </Accordion>
+  <Accordion title="I did not receive the verification email">
+    Check your spam or junk folder. If the email is not there, return to the login page and use the **Resend Verification** option. Ensure that your email provider is not blocking messages from the platform domain.
+  </Accordion>
+  <Accordion title="The DocuSign step did not complete">
+    If you closed the DocuSign window before signing, click your original registration link to resume the process. The system will detect your incomplete signature and redirect you back to DocuSign.
+  </Accordion>
+  <Accordion title="My account is pending approval">
+    Some organizations require administrator approval for new accounts. Contact your Company Admin or Reseller Admin to check the status of your registration.
+  </Accordion>
+  <Accordion title="I see an error saying my email is already registered">
+    Your email address may already be associated with an existing account. Try using the **Forgot Password** flow on the login page to recover access. If the issue persists, contact your administrator.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Sign In" icon="right-to-bracket" href="/getting-started/signing-in">
+    Learn how to log in and manage your session.
+  </Card>
+  <Card title="Navigate the Platform" icon="compass" href="/getting-started/navigating-the-platform">
+    Get familiar with the platform interface.
+  </Card>
+</CardGroup>

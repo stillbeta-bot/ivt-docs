@@ -1,0 +1,122 @@
+---
+title: "Immix"
+description: "Integrate with Immix for central station monitoring and alarm management"
+---
+
+Immix is a central station monitoring platform used by security monitoring centers to receive, manage, and respond to alarms from diverse security systems. The IVT Platform integrates with Immix to forward facial recognition alerts, unauthorized access events, and system alarms directly to monitoring operators for immediate response.
+
+## Overview
+
+The Immix integration enables the IVT Platform to:
+
+- **Forward alerts to monitoring stations** -- Send facial recognition matches, watchlist hits, and access anomalies to Immix-connected central stations.
+- **Include video context** -- Attach video clips and snapshots to forwarded alerts so operators can visually verify events.
+- **Prioritize alarms** -- Configure alert severity levels to ensure critical events are escalated appropriately.
+- **Enable two-way communication** -- Receive acknowledgment and disposition data back from monitoring operators.
+
+<Note>
+  An active Immix CS or Immix CS/NX license is required at the receiving central station. Coordinate with your monitoring provider to obtain the Immix integration endpoint and credentials.
+</Note>
+
+## How It Works
+
+The platform forwards alerts to Immix using the Immix alarm receiver protocol. Each alert is packaged with metadata, a snapshot image, and an optional video clip, then transmitted to the central station's Immix server.
+
+```
+IVT Platform  -->  Alert Engine  -->  Immix Protocol  -->  Central Station (Immix CS)
+```
+
+Monitoring operators receive the alert in their Immix console, review the attached video and metadata, and take appropriate action.
+
+## Configuration
+
+<Steps>
+  <Step title="Obtain Immix Connection Details">
+    Contact your central station monitoring provider to obtain the Immix server endpoint, port, account number, and authentication credentials.
+  </Step>
+  <Step title="Enable the Integration">
+    In the IVT Platform, navigate to **Settings > Integrations > Immix** and toggle the integration to enabled.
+  </Step>
+  <Step title="Enter Immix Server Details">
+    Provide the Immix server hostname or IP address, port number, and account credentials. Specify the protocol (typically HTTPS or SIA).
+  </Step>
+  <Step title="Configure Alert Rules">
+    Define which platform events should be forwarded to Immix. Assign severity levels and priority classifications for each event type.
+  </Step>
+  <Step title="Map Cameras to Zones">
+    Associate platform cameras with Immix alarm zones. This mapping ensures alerts are routed to the correct zone in the monitoring operator's console.
+  </Step>
+  <Step title="Send a Test Alert">
+    Click **Send Test Alert** to transmit a test alarm to the Immix server. Coordinate with your central station to confirm receipt and proper formatting.
+  </Step>
+</Steps>
+
+## Alert Forwarding
+
+The platform can forward the following event types to Immix:
+
+<CardGroup cols={2}>
+  <Card title="Watchlist Match" icon="user-check">
+    A face detected on camera matches an individual in a watchlist gallery. Includes the matched profile, confidence score, and camera snapshot.
+  </Card>
+  <Card title="Unauthorized Access" icon="ban">
+    A face is detected at a restricted access point that does not match any authorized individual in the gallery.
+  </Card>
+  <Card title="Tailgating Detected" icon="people-arrows">
+    Multiple individuals detected passing through an access point on a single credential event.
+  </Card>
+  <Card title="System Alarm" icon="siren">
+    FMU device offline, camera disconnected, or other system health alerts that require operator attention.
+  </Card>
+</CardGroup>
+
+## Alert Payload
+
+Each alert forwarded to Immix includes:
+
+| Field | Description |
+|-------|-------------|
+| **Account Number** | The Immix account identifier for routing |
+| **Zone** | The alarm zone mapped to the originating camera |
+| **Event Type** | Classification of the alert (watchlist, unauthorized, system) |
+| **Severity** | Priority level (critical, high, medium, low) |
+| **Timestamp** | UTC timestamp of the event |
+| **Snapshot** | JPEG image captured at the time of the event |
+| **Video Clip** | Optional short video clip surrounding the event (configurable duration) |
+| **Metadata** | Additional context such as matched identity, confidence score, and camera name |
+
+<Tip>
+  Configure video clip duration to 10-15 seconds for optimal balance between context and file size. Longer clips increase transmission time and storage requirements at the central station.
+</Tip>
+
+## Monitoring Capabilities
+
+<Tabs>
+  <Tab title="Real-time Monitoring">
+    Alerts are transmitted to the central station within seconds of detection. Monitoring operators receive a pop-up notification in their Immix console with the full alert payload, enabling immediate assessment and response.
+  </Tab>
+  <Tab title="Video Verification">
+    Operators can review the attached snapshot and video clip directly in the Immix console without needing separate access to the IVT Platform. This accelerates verification and reduces false alarm dispatches.
+  </Tab>
+  <Tab title="Disposition Tracking">
+    When operators acknowledge or close an alert in Immix, the disposition status can be sent back to the IVT Platform for audit and reporting purposes.
+  </Tab>
+</Tabs>
+
+<Warning>
+  Ensure the network path between the IVT Platform and the Immix server is reliable and low-latency. Alert forwarding failures are retried automatically, but persistent network issues may delay critical alerts.
+</Warning>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Test alert not received at the central station">
+    Verify the Immix server endpoint and port are correct. Confirm the account number matches the configuration in the Immix console. Check firewall rules for outbound connectivity from the IVT Platform.
+  </Accordion>
+  <Accordion title="Alerts arrive without video or snapshot">
+    Ensure the originating camera is online and recording. Check that video clip generation is enabled in the alert rule configuration. Large clips may time out on slow connections.
+  </Accordion>
+  <Accordion title="Duplicate alerts in the monitoring console">
+    Review the alert rule configuration for overlapping conditions. Ensure deduplication settings are enabled to suppress repeated alerts for the same event within a configurable time window.
+  </Accordion>
+</AccordionGroup>

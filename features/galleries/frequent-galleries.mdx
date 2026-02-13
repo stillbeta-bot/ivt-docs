@@ -1,0 +1,118 @@
+---
+title: "Frequent Galleries"
+sidebarTitle: "Frequent"
+description: "Automatically tracked galleries of frequently detected individuals"
+---
+
+Frequent galleries are system-managed collections that automatically track individuals who appear repeatedly across your camera network. Unlike common galleries that require manual enrollment, frequent galleries are populated by the FaceVACS AI engine as it identifies recurring faces over time. This feature helps you discover patterns and identify regular visitors without prior knowledge of who they are.
+
+## How the System Identifies Frequent Visitors
+
+The IVT Platform continuously analyzes detection events and groups them by identity using biometric template matching. When the same individual is detected across multiple sessions exceeding the configured frequency threshold, they are automatically enrolled in the frequent gallery.
+
+<Steps>
+  <Step title="Detection Accumulation">
+    As cameras detect faces during normal operation, each detection generates a biometric template that is stored in the detection database.
+  </Step>
+  <Step title="Identity Clustering">
+    The system periodically runs a clustering process that groups detection templates by similarity, effectively identifying which detections belong to the same individual.
+  </Step>
+  <Step title="Frequency Evaluation">
+    Each identity cluster is evaluated against the configured frequency thresholds -- minimum number of detections and minimum number of distinct visits (separate days or sessions).
+  </Step>
+  <Step title="Automatic Enrollment">
+    When an identity cluster meets the threshold criteria, the system creates a frequent gallery entry using the highest-quality detection image as the primary reference. Additional detection images are stored as supplementary references.
+  </Step>
+</Steps>
+
+<Info>
+  The clustering process runs on a configurable schedule, typically every few hours. There is a delay between when someone becomes a frequent visitor and when they appear in the frequent gallery. The system prioritizes accuracy over immediacy in the enrollment process.
+</Info>
+
+## Auto-Populated Gallery Behavior
+
+Frequent gallery entries differ from common gallery entries in several ways.
+
+<CardGroup cols={2}>
+  <Card title="Automatic Updates" icon="rotate">
+    The system continuously updates frequent gallery entries with new detection images, improving the biometric template quality over time as more data is collected.
+  </Card>
+  <Card title="Visit History" icon="calendar-days">
+    Each frequent entry includes a complete visit history showing every detection event, camera location, and timestamp associated with that individual.
+  </Card>
+  <Card title="Unnamed Entries" icon="user-question">
+    Frequent entries are initially unnamed and identified only by a system-generated ID. You can assign names and metadata as you identify individuals through review.
+  </Card>
+  <Card title="Quality Ranking" icon="ranking-star">
+    The system automatically selects the best-quality detection as the primary thumbnail, ranked by resolution, face angle, lighting, and sharpness.
+  </Card>
+</CardGroup>
+
+## Configuring Frequency Thresholds
+
+Control how the system determines which individuals qualify as "frequent" by adjusting the threshold settings.
+
+<Tabs>
+  <Tab title="Detection Count">
+    Set the minimum number of times an individual must be detected before being enrolled. The default is 5 detections. Higher values ensure that only truly recurring visitors are included, while lower values capture individuals who appear less often.
+  </Tab>
+  <Tab title="Visit Count">
+    Define the minimum number of distinct visits (separate sessions or days) required for enrollment. This distinguishes between someone who was detected many times in a single visit versus someone who returns regularly. The default is 3 distinct visits.
+  </Tab>
+  <Tab title="Time Window">
+    Specify the rolling time window over which frequency is evaluated. The default is 30 days. Detections older than this window are excluded from the frequency calculation, keeping the gallery focused on currently active frequent visitors.
+  </Tab>
+  <Tab title="Camera Scope">
+    Choose which cameras contribute to frequency tracking. You can include all cameras or limit tracking to specific camera groups. Detections from excluded cameras are not counted toward frequency thresholds.
+  </Tab>
+</Tabs>
+
+<Note>
+  Changes to frequency thresholds trigger a re-evaluation of all existing identity clusters. This may result in new entries being added to or removed from the frequent gallery based on the updated criteria.
+</Note>
+
+## Managing Frequent Face Entries
+
+Review and manage the automatically enrolled entries in your frequent galleries.
+
+<AccordionGroup>
+  <Accordion title="Reviewing New Entries">
+    New frequent gallery entries appear in the **Unreviewed** tab. Each entry shows the primary thumbnail, detection count, visit count, first and last seen timestamps, and the cameras where the individual was detected. Mark entries as reviewed after you have assessed them.
+  </Accordion>
+  <Accordion title="Assigning Identity Information">
+    Click any frequent entry to open its detail view. Add a name, notes, tags, or any relevant metadata. This information persists and is displayed in future detection results when the individual is matched.
+  </Accordion>
+  <Accordion title="Viewing Visit History">
+    The detail view includes a complete timeline of all detection events for the individual, organized chronologically. Each event shows the camera, timestamp, and detection thumbnail. Use this to understand the person's movement patterns and visit frequency.
+  </Accordion>
+  <Accordion title="Removing Entries">
+    Delete entries that are no longer relevant or that were incorrectly clustered. Deleted entries are excluded from future matching. If the individual continues to be detected and meets the frequency threshold again, a new entry may be created.
+  </Accordion>
+</AccordionGroup>
+
+## Converting Frequent Faces to Common Gallery Entries
+
+When you identify a frequent visitor who should be actively tracked or managed, promote them to a common gallery for enhanced control.
+
+<Steps>
+  <Step title="Select the Frequent Entry">
+    Open the frequent gallery and click the entry you want to promote.
+  </Step>
+  <Step title="Click Promote to Gallery">
+    In the entry detail view, click **Promote to Common Gallery**. A dialog appears with promotion options.
+  </Step>
+  <Step title="Choose Target Gallery">
+    Select an existing common gallery or create a new one. You can also choose to add the individual to an ignored gallery if they should be suppressed from alerts.
+  </Step>
+  <Step title="Review and Confirm">
+    The system pre-fills the entry with the best reference images and any metadata you have already assigned. Review the information, make any adjustments, and click **Confirm**.
+  </Step>
+</Steps>
+
+<Tip>
+  After promotion, the frequent gallery entry is retained with a link to the new common gallery entry. Future detections will match against the common gallery entry, which provides more configuration options for alerts and rules.
+</Tip>
+
+<Warning>
+  Frequent galleries can grow large in high-traffic environments. Monitor the gallery size and adjust frequency thresholds to keep the gallery manageable. Consider scheduling periodic reviews to promote, archive, or remove entries that have accumulated over time.
+</Warning>

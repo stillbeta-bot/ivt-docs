@@ -1,0 +1,144 @@
+---
+title: "Zone Management"
+sidebarTitle: "Zones"
+description: "Create and manage geofenced detection zones with map-based configuration"
+---
+
+## Overview
+
+Zones are geofenced areas within the IVT Platform that define the physical boundaries where
+detection and surveillance rules apply. Using an interactive Google Maps interface, you can
+draw zone boundaries, assign cameras to specific areas, and configure location-based detection
+rules. Zones provide geographic context for your surveillance operations and help organize
+cameras by physical location.
+
+<Note>
+  Zones are essential for location-based alerting. By grouping cameras into zones, you can
+  create targeted rules that only trigger within specific geographic areas, reducing noise
+  and improving response accuracy.
+</Note>
+
+## Creating a New Zone
+
+<Steps>
+  <Step title="Navigate to Zones">
+    Go to **Zones** from the main navigation menu and click the **Create Zone** button.
+  </Step>
+  <Step title="Enter Zone Details">
+    Provide the following information for the new zone:
+    - **Zone name** -- a descriptive label (e.g., "Main Entrance", "Parking Lot B")
+    - **Description** (optional) -- additional context about the zone's purpose
+  </Step>
+  <Step title="Define Zone Boundaries on the Map">
+    Use the interactive Google Maps interface to draw the zone boundary:
+    1. Click on the map to place boundary points around the area you want to define.
+    2. Each click adds a vertex to the polygon shape.
+    3. Close the polygon by clicking on the first point or using the **Complete** button.
+    4. Adjust the boundary by dragging individual points after placement.
+  </Step>
+  <Step title="Assign Cameras to the Zone">
+    Select the cameras that are physically located within or monitoring the zone. You can
+    assign both Eagle Eye and ONVIF cameras to a zone.
+  </Step>
+  <Step title="Save the Zone">
+    Review the zone configuration and click **Save** to create the zone. The zone will
+    appear on the map and in the zone list immediately.
+  </Step>
+</Steps>
+
+## Defining Zone Boundaries
+
+The map-based boundary editor provides a visual way to define the exact geographic area
+covered by a zone.
+
+<CardGroup cols={2}>
+  <Card title="Polygon Drawing" icon="draw-polygon">
+    Click points on the map to create a polygon that outlines the zone boundary. The
+    polygon can be any shape and include as many vertices as needed to match the area.
+  </Card>
+  <Card title="Boundary Adjustment" icon="arrows-up-down-left-right">
+    After drawing, drag any vertex point to fine-tune the boundary. The polygon updates
+    in real time as you adjust the shape.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Use the map's zoom controls to get a closer view when drawing boundaries for precise
+  areas. Satellite view mode can help you align zone boundaries with physical structures
+  like buildings, fences, and parking lots.
+</Tip>
+
+## Assigning Cameras to Zones
+
+Cameras are linked to zones to establish which devices monitor a given area. When a camera is
+assigned to a zone, all detections from that camera are associated with the zone's location.
+
+<Tabs>
+  <Tab title="During Zone Creation">
+    When creating a new zone, use the camera assignment step to select cameras from the
+    available list. Only cameras that are not already assigned to another zone are shown.
+  </Tab>
+  <Tab title="After Zone Creation">
+    To assign cameras to an existing zone:
+    1. Navigate to **Zones** and select the zone you want to modify.
+    2. Click **Edit** and go to the camera assignment section.
+    3. Add or remove cameras as needed.
+    4. Click **Save** to apply the changes.
+  </Tab>
+</Tabs>
+
+<Info>
+  A camera can only be assigned to one zone at a time. If you need to reassign a camera,
+  remove it from its current zone first, then add it to the new zone.
+</Info>
+
+## Zone-Based Detection Rules
+
+Zones enable location-aware detection rules that target specific areas of your operation.
+When configuring detection rules, you can scope them to one or more zones so that alerts
+are only generated for events within the defined boundaries.
+
+<AccordionGroup>
+  <Accordion title="Restricted Area Monitoring">
+    Define a zone around a sensitive area and configure rules to alert when an unrecognized
+    individual is detected by cameras within that zone.
+  </Accordion>
+  <Accordion title="Entry and Exit Tracking">
+    Create zones at entry and exit points to track the movement of recognized individuals
+    as they move between different areas of your facility.
+  </Accordion>
+  <Accordion title="Time-Based Zone Rules">
+    Combine zone-based rules with time schedules to activate detection only during specific
+    hours, such as after-hours monitoring for restricted areas.
+  </Accordion>
+</AccordionGroup>
+
+## Editing and Deleting Zones
+
+### Editing a Zone
+
+To modify an existing zone:
+
+1. Navigate to **Zones** and select the zone from the list or map.
+2. Click **Edit** to open the zone configuration.
+3. Update the name, description, boundaries, or camera assignments.
+4. Click **Save** to apply your changes.
+
+### Deleting a Zone
+
+To remove a zone from the platform:
+
+1. Navigate to **Zones** and select the zone you want to delete.
+2. Click the **Delete** button.
+3. Confirm the deletion in the dialog prompt.
+
+<Warning>
+  Deleting a zone will remove all camera-to-zone associations and disable any detection
+  rules that reference the zone. Cameras previously assigned to the zone will become
+  unassigned and must be reassigned to another zone if needed.
+</Warning>
+
+<Tip>
+  Before deleting a zone, review the detection rules that reference it. Update or reassign
+  those rules to prevent gaps in your surveillance coverage.
+</Tip>

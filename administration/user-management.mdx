@@ -1,0 +1,143 @@
+---
+title: "User Management"
+description: "Manage team members, invitations, and user roles"
+---
+
+## Overview
+
+User management in the IVT Platform allows administrators to control who has access to the
+platform, what actions they can perform, and which resources they can view. You can invite
+new team members, assign roles, manage pending invitations, and remove users who no longer
+require access.
+
+<Note>
+  User management capabilities depend on your portal context. Company admins manage users
+  within their company, reseller admins manage users across their reseller account, and
+  distributor admins manage users at the distributor level.
+</Note>
+
+## Viewing Team Members
+
+Navigate to **Administration > Users** to view all active team members. The user list
+displays the following information for each member:
+
+- **Name** -- the user's full name
+- **Email** -- the login email address
+- **Role** -- the assigned permission role
+- **Status** -- active or pending invitation
+- **Last active** -- the most recent login timestamp
+
+<Tip>
+  Use the search bar and role filter to quickly find specific team members, especially
+  in organizations with large user bases.
+</Tip>
+
+## Inviting New Users
+
+<Steps>
+  <Step title="Open the Invitation Form">
+    Navigate to **Administration > Users** and click the **Invite User** button.
+  </Step>
+  <Step title="Enter User Details">
+    Provide the following information:
+    - **Email address** -- the email where the invitation will be sent
+    - **First name** and **Last name** -- the user's identity
+  </Step>
+  <Step title="Assign a Role">
+    Select the appropriate role for the new user. Available roles depend on your portal
+    type (company, reseller, or distributor). See the [Managing User Roles](#managing-user-roles)
+    section for details on each role.
+  </Step>
+  <Step title="Send the Invitation">
+    Click **Send Invitation**. The user will receive an email with a link to create their
+    account and set a password.
+  </Step>
+</Steps>
+
+<Info>
+  Invitations expire after a defined period. If the recipient does not accept the invitation
+  in time, you can resend it from the pending invitations list.
+</Info>
+
+## Managing User Roles
+
+Roles define the permissions and access level for each user. The available roles vary based
+on the portal context.
+
+<Tabs>
+  <Tab title="Company Roles">
+    | Role | Description |
+    |---|---|
+    | **Company Admin** | Full access to company settings, cameras, devices, zones, and user management |
+    | **Operator** | Access to cameras, live feeds, and detection events; cannot modify settings or manage users |
+    | **Viewer** | Read-only access to dashboards and detection events |
+  </Tab>
+  <Tab title="Reseller Roles">
+    | Role | Description |
+    |---|---|
+    | **Reseller Admin** | Full access to reseller account, company management, licensing, and billing |
+    | **Reseller Support** | Access to company details and device management; cannot manage billing or licenses |
+  </Tab>
+  <Tab title="Distributor Roles">
+    | Role | Description |
+    |---|---|
+    | **Distributor Admin** | Full platform access including reseller management, licensing, and billing |
+    | **Distributor Support** | Access to reseller and company details; limited administrative capabilities |
+  </Tab>
+</Tabs>
+
+<Warning>
+  Assign the **Admin** role only to trusted individuals. Admin users have full control over
+  settings, user management, and resource configuration within their portal scope.
+</Warning>
+
+## Viewing Pending Invitations
+
+Pending invitations are listed in a separate tab or section within the user management page.
+Each pending invitation shows:
+
+- **Email address** of the invited user
+- **Role** assigned to the invitation
+- **Sent date** -- when the invitation was issued
+- **Expiration status** -- whether the invitation is still valid
+
+You can perform the following actions on pending invitations:
+
+<CardGroup cols={2}>
+  <Card title="Resend Invitation" icon="paper-plane">
+    Send a new invitation email to the user. This is useful if the original email was
+    lost or the invitation has expired.
+  </Card>
+  <Card title="Revoke Invitation" icon="ban">
+    Cancel the invitation before the user accepts it. The invitation link will be
+    invalidated immediately.
+  </Card>
+</CardGroup>
+
+## Removing Users
+
+To remove a user from the platform:
+
+1. Navigate to **Administration > Users** and locate the user.
+2. Click the user's entry to open their detail view.
+3. Click the **Remove User** or **Deactivate** button.
+4. Confirm the action in the dialog prompt.
+
+<Warning>
+  Removing a user revokes their access immediately. The user will be logged out of any
+  active sessions and will no longer be able to sign in. This action does not delete
+  historical activity logs or detection events associated with the user.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Can I restore a removed user?">
+    Removed users cannot be restored directly. To re-grant access, send a new invitation
+    to the user's email address. They will need to accept the invitation and may need to
+    create a new account.
+  </Accordion>
+  <Accordion title="What happens to a removed user's configurations?">
+    Detection rules, zone configurations, and other settings created by the removed user
+    remain intact. These are associated with the company or organization, not the
+    individual user account.
+  </Accordion>
+</AccordionGroup>

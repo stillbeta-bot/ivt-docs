@@ -47,7 +47,8 @@
             "group": "Dashboard & Analytics",
             "icon": "chart-line",
             "pages": [
-              "features/dashboard"
+              "features/dashboard",
+              "features/reports"
             ]
           },
           {
@@ -57,6 +58,7 @@
               "features/search/overview",
               "features/search/historic-footage",
               "features/search/real-time-search",
+              "features/search/search-wizard",
               "features/search/photo-search"
             ]
           },
@@ -67,7 +69,8 @@
               "features/galleries/overview",
               "features/galleries/common-galleries",
               "features/galleries/frequent-galleries",
-              "features/galleries/ignored-galleries"
+              "features/galleries/ignored-galleries",
+              "features/galleries/gallery-operations"
             ]
           },
           {
@@ -76,8 +79,23 @@
             "pages": [
               "features/cameras/eagle-eye-cameras",
               "features/cameras/onvif-cameras",
+              "features/cameras/camera-discovery",
+              "features/cameras/bridge-management",
+              "features/video-stream-viewer",
               "features/zones",
-              "features/fmu-devices"
+              "features/fmu-devices",
+              "features/fmu-operations"
+            ]
+          },
+          {
+            "group": "Alerts & Content",
+            "icon": "bell",
+            "pages": [
+              "features/notifications",
+              "features/rapid-sos",
+              "features/contact-person",
+              "features/release-notes",
+              "features/documents"
             ]
           }
         ]
@@ -94,6 +112,7 @@
               "administration/user-management",
               "administration/licensing",
               "administration/billing-and-invoices",
+              "administration/subscription-management",
               "administration/system-settings"
             ]
           },

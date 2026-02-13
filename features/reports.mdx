@@ -1,0 +1,122 @@
+---
+title: "Reports"
+description: "Generate and export platform reports for device performance and client activity analysis"
+---
+
+The Reports feature provides platform administrators with detailed analytics on device performance and client activity. Reports are accessible at `/admin/reports/fmu` and `/admin/reports/client` and are powered by dedicated API endpoints: `getFmuReports`, `getClientReports`, and `getReportsFilters`.
+
+<Note>
+  Reports are available to users with the **admin** role only. Company operators, distributors, and resellers do not have access to the reporting interface.
+</Note>
+
+## Report Types
+
+<CardGroup cols={2}>
+  <Card title="FMU Device Reports" icon="microchip">
+    Performance analytics for Facial Matching Unit (FMU) devices including uptime, detection throughput, and processing metrics.
+  </Card>
+  <Card title="Client Reports" icon="building">
+    Activity analytics for companies on the platform including search usage, gallery statistics, and user engagement trends.
+  </Card>
+</CardGroup>
+
+## FMU Device Reports
+
+FMU reports provide granular insight into the operational health and performance of deployed facial matching devices. Access these at `/admin/reports/fmu`.
+
+### Available Metrics
+
+| Metric | Description |
+|---|---|
+| Device Uptime | Percentage of time the FMU device has been online and operational within the selected period |
+| Detection Count | Total number of facial detections processed by the device |
+| Match Rate | Percentage of detections that resulted in a gallery match |
+| Average Processing Time | Mean time in milliseconds for the FaceVACS engine to process a single detection |
+| Peak Load | Maximum concurrent detections processed during the period |
+| Error Rate | Percentage of detection attempts that resulted in a processing error |
+| Camera Feed Status | Connectivity history for each camera connected to the FMU |
+
+<Tabs>
+  <Tab title="Summary View">
+    The summary view presents aggregated metrics across all FMU devices for the selected time period. Use this view to identify overall platform health trends and compare performance across your device fleet.
+  </Tab>
+  <Tab title="Device Detail View">
+    Drill into individual FMU devices to view per-device metrics, camera-level breakdowns, and historical performance graphs. This view is useful for troubleshooting specific device issues or planning capacity adjustments.
+  </Tab>
+</Tabs>
+
+## Client Reports
+
+Client reports provide visibility into how companies are using the platform. Access these at `/admin/reports/client`.
+
+### Available Metrics
+
+| Metric | Description |
+|---|---|
+| Search Volume | Number of facial recognition searches performed by the company |
+| Active Users | Count of users who logged in during the selected period |
+| Gallery Size | Total number of subjects across all company galleries |
+| Gallery Growth | Net change in gallery subjects over the period (additions minus removals) |
+| Detection Events | Total detection events recorded across all company cameras |
+| API Usage | Number of API calls made by the company's integrations |
+| Storage Consumption | Total storage used for gallery images, video clips, and detection thumbnails |
+
+<Info>
+  Client reports aggregate data across all users and devices within a company. Individual user-level activity is not exposed in these reports to maintain privacy within tenant boundaries.
+</Info>
+
+## Filtering Reports
+
+Both report types support a comprehensive set of filters powered by the `getReportsFilters` endpoint.
+
+<Steps>
+  <Step title="Select report type">
+    Navigate to either **FMU Reports** or **Client Reports** from the admin reports menu.
+  </Step>
+  <Step title="Set date range">
+    Choose a predefined range (last 7 days, 30 days, 90 days, 12 months) or specify custom start and end dates. All metrics are calculated within this window.
+  </Step>
+  <Step title="Apply entity filters">
+    For FMU reports, filter by specific devices, device groups, or geographic regions. For client reports, filter by company, subscription tier, or distributor.
+  </Step>
+  <Step title="Choose metric grouping">
+    Group results by day, week, or month to control the granularity of time-series data in charts and tables.
+  </Step>
+  <Step title="Generate the report">
+    Click **Generate** to load the report with the applied filters. Results are displayed in both chart and tabular formats.
+  </Step>
+</Steps>
+
+<Tip>
+  Save frequently used filter combinations as report presets. Click **Save Preset** after configuring your filters to create a reusable report template accessible from the presets dropdown.
+</Tip>
+
+## Exporting Reports
+
+Generated reports can be exported in multiple formats for offline analysis and stakeholder distribution:
+
+- **CSV** — Raw tabular data suitable for spreadsheet analysis and custom processing
+- **PDF** — Formatted report with charts and summary tables, branded with the platform header
+- **JSON** — Structured data payload for programmatic consumption by external BI tools
+
+Click the **Export** button above the report results and select the desired format. Large exports are processed asynchronously and delivered via download notification.
+
+## Scheduled Reports
+
+Automate recurring report generation and delivery with scheduled reports.
+
+<AccordionGroup>
+  <Accordion title="Creating a schedule">
+    From any generated report, click **Schedule** to configure automated delivery. Set the frequency (daily, weekly, monthly), delivery time, and recipient email addresses.
+  </Accordion>
+  <Accordion title="Report delivery">
+    Scheduled reports are generated at the configured time and delivered as PDF attachments to the specified email recipients. A link to the interactive report in the platform is also included.
+  </Accordion>
+  <Accordion title="Managing schedules">
+    View and manage all active report schedules from **Admin > Reports > Schedules**. Pause, edit, or delete schedules as needed. Each schedule shows its last run time and next scheduled execution.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Scheduled reports contain potentially sensitive operational data. Ensure recipient email addresses are authorized to receive this information and that email delivery channels are encrypted where required by your organization's data policies.
+</Warning>

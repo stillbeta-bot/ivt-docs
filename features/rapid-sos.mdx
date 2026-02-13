@@ -1,0 +1,121 @@
+---
+title: "RapidSOS / 911 Settings"
+sidebarTitle: "911 Settings"
+description: "Configure emergency response integration for automatic 911 dispatch on threat detection"
+---
+
+The RapidSOS integration enables automatic emergency dispatch when the IVT Platform detects a match against a threat watchlist. When configured, a watchlist hit triggers an alert to the RapidSOS emergency data platform, which relays critical information — including location data, subject details, and live camera feeds — directly to 911 dispatchers. Access this feature at `/system/911-settings`.
+
+## What is RapidSOS
+
+RapidSOS is an emergency response data platform that connects enterprise safety systems to 911 dispatch centers. The IVT Platform integrates with RapidSOS to provide:
+
+<CardGroup cols={3}>
+  <Card title="Automatic Dispatch" icon="phone-volume">
+    Watchlist matches automatically trigger an emergency alert without requiring manual 911 calls.
+  </Card>
+  <Card title="Rich Data Sharing" icon="location-dot">
+    Location data, subject photos, camera feeds, and facility information are transmitted to dispatchers.
+  </Card>
+  <Card title="Faster Response" icon="gauge-high">
+    Pre-populated emergency data reduces dispatcher questioning time and accelerates first responder deployment.
+  </Card>
+</CardGroup>
+
+<Warning>
+  RapidSOS integration triggers real emergency responses. Misconfiguration can result in false 911 dispatches, which may carry legal consequences. Ensure all trigger rules and watchlist galleries are thoroughly reviewed before enabling this feature in production.
+</Warning>
+
+## Setting Up RapidSOS
+
+<Steps>
+  <Step title="Navigate to 911 Settings">
+    Go to **System > 911 Settings** from the sidebar. The RapidSOS configuration page displays the current integration status and settings.
+  </Step>
+  <Step title="Enable the integration">
+    Toggle the **Enable RapidSOS** switch to activate the integration. You will be prompted to confirm that you understand the implications of enabling automated emergency dispatch.
+  </Step>
+  <Step title="Configure API credentials">
+    Enter your RapidSOS API credentials — **Client ID** and **Client Secret** — provided by your RapidSOS account representative. The platform validates the credentials against the RapidSOS API before saving.
+  </Step>
+  <Step title="Set trigger rules">
+    Define which gallery matches should trigger an emergency alert. Select one or more galleries designated as threat watchlists. Only matches against these selected galleries will initiate a RapidSOS dispatch.
+  </Step>
+  <Step title="Define location data">
+    Configure the facility location information that will be transmitted with each alert. Enter the physical address, building name, floor plan references, and GPS coordinates for each camera location. Accurate location data is critical for directing first responders.
+  </Step>
+  <Step title="Test the integration">
+    Use the **Send Test Alert** button to transmit a test payload to RapidSOS. Test alerts are flagged as non-emergency in the RapidSOS system and do not trigger actual 911 dispatch. Verify that the test is received successfully before going live.
+  </Step>
+</Steps>
+
+## Configuring Trigger Rules
+
+Trigger rules determine which detection events generate an emergency alert. Fine-tune these rules to minimize false dispatches.
+
+<AccordionGroup>
+  <Accordion title="Gallery selection">
+    Select specific galleries that contain threat subjects. Only matches against these galleries trigger an alert. General-purpose galleries (e.g., employee access) should not be included in trigger rules.
+  </Accordion>
+  <Accordion title="Confidence threshold">
+    Set a minimum match confidence score required to trigger an alert. A higher threshold reduces false positives but may miss lower-confidence matches. The recommended minimum threshold is 85%.
+  </Accordion>
+  <Accordion title="Confirmation window">
+    Configure a confirmation delay (e.g., 30 seconds) during which an operator can cancel the alert before it is dispatched. This provides a human review layer for borderline detections.
+  </Accordion>
+  <Accordion title="Multi-camera correlation">
+    Optionally require that the same subject be detected on multiple cameras within a time window before triggering an alert. This reduces false dispatches from single-camera misidentifications.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  Start with conservative trigger rules — a high confidence threshold and a confirmation window — and adjust based on operational experience. It is better to miss a few alerts initially than to generate false emergency dispatches.
+</Tip>
+
+## Managing Emergency Contacts
+
+Emergency contacts are individuals within your organization who are notified alongside the RapidSOS dispatch. Manage contacts through the **Emergency Contacts** tab on the 911 Settings page.
+
+The platform supports full CRUD operations for contacts via the `/companies/:company/rapid-setting/*` endpoints:
+
+| Field | Description |
+|---|---|
+| Name | Full name of the emergency contact |
+| Role | Their role in the emergency response plan (e.g., Security Director, Facility Manager) |
+| Phone | Primary phone number for immediate notification |
+| Email | Email address for alert details and follow-up information |
+| Priority | Contact priority order — primary contacts are notified first |
+
+<Note>
+  At least one emergency contact must be configured before the RapidSOS integration can be activated. The platform enforces this requirement during the enable step.
+</Note>
+
+## How Alerts Are Dispatched
+
+When a watchlist match triggers a RapidSOS alert, the following sequence occurs:
+
+1. The FaceVACS engine detects a match against a configured trigger gallery
+2. The platform evaluates the match against the trigger rules (confidence threshold, multi-camera correlation)
+3. If a confirmation window is configured, a notification is sent to on-duty operators for manual review
+4. If the alert is not cancelled within the confirmation window (or no window is configured), the platform transmits an alert payload to RapidSOS
+5. RapidSOS routes the alert data to the local 911 dispatch center, including location, subject details, and camera feed access
+6. Emergency contacts receive simultaneous notifications via phone and email
+
+## Resending Alerts from Search Results
+
+If a RapidSOS alert needs to be re-dispatched — for example, if the initial alert was cancelled but the threat is later confirmed — operators can resend the alert directly from the search results page. Click the **Resend RapidSOS Alert** button on any detection result that matches a trigger gallery.
+
+<Info>
+  Resent alerts are logged separately in the audit trail and include a reference to the original alert for dispatch continuity.
+</Info>
+
+## Compliance and Legal Considerations
+
+<Warning>
+  Before enabling RapidSOS integration, consult with your legal team to ensure compliance with local emergency services regulations. Key considerations include:
+
+  - **False alarm liability** — Many jurisdictions impose fines for repeated false 911 dispatches
+  - **Data sharing consent** — Verify that transmitting facial recognition data to emergency services complies with applicable privacy laws
+  - **Record retention** — All RapidSOS alerts are logged in the platform audit trail and may be subject to legal discovery
+  - **Jurisdictional requirements** — RapidSOS availability and 911 center integration vary by region
+</Warning>

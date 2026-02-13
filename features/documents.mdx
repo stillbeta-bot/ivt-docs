@@ -1,0 +1,103 @@
+---
+title: "Document Library"
+sidebarTitle: "Documents"
+description: "Access platform documentation, user guides, and compliance materials"
+---
+
+The Document Library provides centralized access to all platform documentation, training materials, compliance records, and technical references. It is available at `/system/documents` across company, distributor, and reseller portals.
+
+## What the Document Library Contains
+
+<CardGroup cols={2}>
+  <Card title="User Guides" icon="book-open">
+    Step-by-step guides for platform features, device setup, camera configuration, and gallery management workflows.
+  </Card>
+  <Card title="API Documentation" icon="code">
+    Technical references for the IVT REST API, including endpoint specifications, authentication guides, and integration examples.
+  </Card>
+  <Card title="Compliance Documents" icon="shield-check">
+    Regulatory compliance materials including data processing agreements, privacy impact assessments, GDPR documentation, and security certifications.
+  </Card>
+  <Card title="Training Materials" icon="graduation-cap">
+    Onboarding resources, video tutorials, best practice guides, and certification program materials for operators and administrators.
+  </Card>
+</CardGroup>
+
+## Document Categories
+
+Documents are organized into the following categories for easy navigation:
+
+| Category | Description | Typical Audience |
+|---|---|---|
+| Getting Started | Onboarding guides, quickstart tutorials, and initial setup instructions | All users |
+| Administration | User management, company configuration, and billing guides | Admins |
+| Device Management | FMU setup, camera integration, and hardware troubleshooting | Admins, Operators |
+| Facial Recognition | Gallery management, search operations, and detection tuning | Operators |
+| API & Integrations | REST API reference, webhook setup, and third-party integration guides | Developers |
+| Compliance & Legal | Privacy policies, DPAs, security whitepapers, and audit reports | Admins, Legal |
+| Partner Resources | Distributor and reseller program guides, co-branding materials | Distributors, Resellers |
+
+## Browsing and Searching Documents
+
+<Steps>
+  <Step title="Open the Document Library">
+    Navigate to **System > Documents** from the sidebar. The library opens with the category grid view by default.
+  </Step>
+  <Step title="Browse by category">
+    Click on a category card to view all documents within that category. Documents are sorted by most recently updated.
+  </Step>
+  <Step title="Search for documents">
+    Use the search bar at the top of the library to find documents by title, keyword, or content. Search results are ranked by relevance and highlighted within the document preview.
+  </Step>
+  <Step title="Filter results">
+    Apply filters to narrow your search by document type (PDF, video, article), category, or upload date.
+  </Step>
+</Steps>
+
+<Tip>
+  Use the search operator `category:compliance` followed by your keyword to search within a specific category directly from the search bar.
+</Tip>
+
+## Downloading Documents
+
+Documents available for download display a download icon next to the document title. Supported formats include PDF, DOCX, and XLSX.
+
+- Click the **Download** button on any document detail page to save a copy locally
+- Bulk download is available by selecting multiple documents from the list view and clicking **Download Selected**
+- Downloaded documents include a watermark with the downloading user's name and timestamp for audit traceability
+
+<Warning>
+  Downloaded compliance documents may contain sensitive information. Handle these files according to your organization's data handling policies and do not distribute them outside authorized channels.
+</Warning>
+
+## Role-Based Access
+
+The documents visible in the library depend on your role and portal level. This ensures users only see materials relevant to their responsibilities.
+
+<AccordionGroup>
+  <Accordion title="Company-level documents">
+    Company users see user guides, operator manuals, API documentation, and compliance materials relevant to their specific deployment. Company admins have access to the full set of company-tier documents including billing and configuration guides.
+  </Accordion>
+  <Accordion title="Distributor-level documents">
+    Distributor admins have access to all company-level documents plus partner program materials, multi-tenant management guides, white-label configuration documentation, and distributor-specific compliance resources.
+  </Accordion>
+  <Accordion title="Reseller-level documents">
+    Reseller admins can access the complete document library including distributor materials, reseller program guides, pricing and licensing documentation, and co-branding asset packages.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Document access permissions are enforced server-side. Even if a direct URL to a restricted document is shared, users without the appropriate role will receive an access denied response.
+</Note>
+
+## Document Updates
+
+When a document is updated, the previous version is archived and the new version takes its place in the library. Version history is available on the document detail page, allowing you to:
+
+- View the changelog for each document revision
+- Download previous versions if needed for reference
+- See the publication date and author for each version
+
+<Info>
+  Documents marked with a **New** badge have been published or significantly updated within the last 14 days. Check these regularly to stay current with platform changes and updated procedures.
+</Info>

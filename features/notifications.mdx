@@ -1,0 +1,124 @@
+---
+title: "Notifications & Alerts"
+sidebarTitle: "Notifications"
+description: "Configure and manage real-time notifications for detection events, system alerts, and administrative updates"
+---
+
+The IVT Platform delivers real-time notifications to keep your team informed about detection events, system health, and administrative changes. Notifications are accessible via `/system/notifications` across all portals — company, distributor, and reseller.
+
+## Notification Categories
+
+<CardGroup cols={3}>
+  <Card title="Detection Alerts" icon="face-viewfinder">
+    Triggered when the FaceVACS engine detects a face matching a gallery entry, including watchlist hits and access control decisions.
+  </Card>
+  <Card title="System Alerts" icon="server">
+    Automated alerts for device status changes, camera connectivity issues, and license expiration warnings.
+  </Card>
+  <Card title="Administrative" icon="user-gear">
+    Updates related to user invitations, role changes, company configuration updates, and account activity.
+  </Card>
+</CardGroup>
+
+## Notification Types
+
+The platform emits the following notification event types:
+
+| Event Type | Category | Description |
+|---|---|---|
+| `face.detected` | Detection | A face has been detected in a camera feed |
+| `face.matched` | Detection | A detected face matched an entry in a gallery |
+| `face.watchlist_hit` | Detection | A detected face matched a watchlist entry (high priority) |
+| `access.granted` | Detection | Access was granted based on facial recognition |
+| `access.denied` | Detection | Access was denied — no match or blocked individual |
+| `device.online` | System | An FMU device has come online |
+| `device.offline` | System | An FMU device has gone offline |
+| `camera.connected` | System | A camera feed has been successfully connected |
+| `camera.disconnected` | System | A camera feed has been disconnected or lost |
+| `alert.created` | System | A new system-level alert has been generated |
+| `gallery.updated` | Administrative | A gallery has been modified (subjects added, removed, or updated) |
+
+<Warning>
+  `face.watchlist_hit` notifications are treated as critical alerts and bypass mute/snooze settings by default. This ensures threat detections are never silently suppressed.
+</Warning>
+
+## Delivery Channels
+
+<Tabs>
+  <Tab title="In-App">
+    Notifications appear in the bell icon dropdown within the platform header. Unread counts are displayed as a badge. Clicking a notification navigates directly to the relevant event or resource.
+  </Tab>
+  <Tab title="Email">
+    Email notifications are sent to the user's registered email address. Detection alerts include a thumbnail of the matched face and a direct link to the search result. Email delivery supports batching to prevent inbox flooding during high-activity periods.
+  </Tab>
+  <Tab title="SMS">
+    SMS notifications are available for critical alerts such as watchlist hits and device offline events. SMS delivery requires a verified phone number in the user's profile settings.
+  </Tab>
+  <Tab title="Webhook">
+    Webhook delivery posts a JSON payload to a configured endpoint URL. This channel is ideal for integrating IVT alerts into third-party SIEM systems, SOC dashboards, or custom automation workflows.
+  </Tab>
+</Tabs>
+
+## Configuring Notification Preferences
+
+<Steps>
+  <Step title="Navigate to notification settings">
+    Go to **System > Notifications** and click the **Preferences** tab in the top-right corner.
+  </Step>
+  <Step title="Select notification categories">
+    Toggle which categories you want to receive: Detection, System, and Administrative. Each category can be independently enabled or disabled.
+  </Step>
+  <Step title="Choose delivery channels per category">
+    For each enabled category, select one or more delivery channels — in-app, email, SMS, or webhook. Different categories can use different channels.
+  </Step>
+  <Step title="Set severity thresholds">
+    Configure minimum severity levels for each channel. For example, send SMS only for critical watchlist hits while routing all detection events to email.
+  </Step>
+  <Step title="Save preferences">
+    Click **Save** to apply your notification configuration. Changes take effect immediately.
+  </Step>
+</Steps>
+
+## Notification History and Filtering
+
+The notification history view provides a chronological log of all notifications delivered to your account. Use the filter controls to narrow results:
+
+- **By type** — Select one or more event types (e.g., `face.matched`, `device.offline`)
+- **By date range** — Specify a start and end date for the notification window
+- **By read status** — Toggle between all, unread only, or read only
+- **By severity** — Filter by informational, warning, or critical severity levels
+
+<Tip>
+  Use the **Mark all as read** action to clear your unread count after reviewing a batch of notifications.
+</Tip>
+
+## Muting and Snoozing
+
+<AccordionGroup>
+  <Accordion title="Muting notifications">
+    Muting silences all non-critical notifications for a specific category or source. Navigate to **Preferences > Mute Rules** to configure mute rules by category, device, or camera. Muted notifications are still logged in the history but do not trigger delivery.
+  </Accordion>
+  <Accordion title="Snoozing notifications">
+    Snoozing temporarily pauses notifications for a defined duration — 30 minutes, 1 hour, 4 hours, or until end of day. Click the **Snooze** button in the notification dropdown to activate. Snoozed notifications are queued and delivered as a summary when the snooze period expires.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Mute and snooze rules do not apply to `face.watchlist_hit` notifications at the critical severity level. These alerts are always delivered immediately to ensure security responsiveness.
+</Note>
+
+## Role-Based Notification Visibility
+
+Notification visibility is governed by the user's role and portal level:
+
+| Role | Detection Alerts | System Alerts | Administrative |
+|---|---|---|---|
+| Company Admin | All company events | All company devices | Full access |
+| Company Operator | Assigned cameras only | Assigned devices only | Limited (own account) |
+| Distributor Admin | Aggregated across companies | All managed devices | Company management events |
+| Reseller Admin | Aggregated across distributors | All managed devices | Distributor and company events |
+| Platform Admin | Full platform visibility | Full platform visibility | Full access |
+
+<Info>
+  Users only receive notifications for resources within their permission scope. A company operator assigned to specific cameras will not receive detection alerts from other cameras in the same company.
+</Info>

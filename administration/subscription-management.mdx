@@ -1,0 +1,151 @@
+---
+title: "Subscription Management"
+sidebarTitle: "Subscriptions"
+description: "Manage platform subscriptions, payment processing, and billing metrics"
+---
+
+Subscription Management handles the billing lifecycle for all IVT Platform services. It is powered by a dedicated billing service (port 4212) with Stripe integration for payment processing. This section covers subscription status management, billing metrics, and tax configuration.
+
+## Overview
+
+<CardGroup cols={3}>
+  <Card title="Subscription Lifecycle" icon="arrows-spin">
+    Manage subscriptions through active, paused, cancelled, and expired states with full lifecycle controls.
+  </Card>
+  <Card title="Payment Processing" icon="credit-card">
+    Stripe-powered payment processing with automatic invoicing, retry logic, and payment method management.
+  </Card>
+  <Card title="Billing Analytics" icon="chart-line">
+    Track revenue, monthly recurring revenue (MRR), churn rate, and other key billing metrics.
+  </Card>
+</CardGroup>
+
+## Subscription Lifecycle
+
+Every subscription on the platform follows a defined lifecycle with four possible states:
+
+| Status | Description | Platform Access |
+|---|---|---|
+| **Active** | The subscription is current and all payments are up to date | Full access to subscribed services |
+| **Paused** | The subscription has been temporarily suspended by an administrator | Read-only access; no new detections processed |
+| **Cancelled** | The subscription has been terminated; remains accessible until the current billing period ends | Full access until period end, then revoked |
+| **Expired** | The billing period has ended after cancellation or non-payment | No platform access; data retained per retention policy |
+
+<Note>
+  When a subscription transitions to **Expired**, the company's data (galleries, detection history, video clips) is retained for 90 days before permanent deletion. Contact support to extend the retention period if needed.
+</Note>
+
+## Viewing Subscription Status
+
+<Steps>
+  <Step title="Navigate to Subscriptions">
+    Go to **Administration > Subscriptions** from the sidebar. The subscription overview page displays all active and inactive subscriptions.
+  </Step>
+  <Step title="Review subscription details">
+    Click on a subscription to view its details: current status, billing cycle, next payment date, subscribed services, and payment method on file.
+  </Step>
+  <Step title="View billing history">
+    The **Billing History** tab shows all past invoices, payment attempts, and transaction records for the subscription. Each entry links to the corresponding Stripe invoice.
+  </Step>
+</Steps>
+
+## Stopping a Subscription
+
+<Steps>
+  <Step title="Select the subscription">
+    From the subscription list, click on the active subscription you want to stop.
+  </Step>
+  <Step title="Click Stop Subscription">
+    Click the **Stop Subscription** button in the subscription detail header. This invokes the `stopSubscription` endpoint.
+  </Step>
+  <Step title="Select stop behavior">
+    Choose between **Cancel at period end** (the subscription remains active until the current billing cycle completes) or **Cancel immediately** (access is revoked immediately with a prorated refund).
+  </Step>
+  <Step title="Confirm the action">
+    Review the cancellation summary — including the effective date, refund amount (if applicable), and data retention timeline — then click **Confirm Cancellation**. A confirmation email is sent to the company's billing contact.
+  </Step>
+</Steps>
+
+<Warning>
+  Immediate cancellation revokes platform access for all users in the company. Ensure all stakeholders are informed before proceeding. Active camera feeds and detection processing will stop immediately.
+</Warning>
+
+## Renewing a Subscription
+
+Expired or cancelled subscriptions can be renewed through the `renewSubscription` endpoint.
+
+<Steps>
+  <Step title="Open the expired subscription">
+    Navigate to the subscription and click on the expired or cancelled entry.
+  </Step>
+  <Step title="Click Renew Subscription">
+    Click the **Renew** button. The platform verifies that a valid payment method is on file.
+  </Step>
+  <Step title="Review renewal terms">
+    Confirm the subscription plan, billing cycle, and pricing. If the plan has been updated since the original subscription, the new terms are displayed.
+  </Step>
+  <Step title="Process payment">
+    The platform charges the payment method on file for the first billing cycle. Upon successful payment, the subscription transitions to **Active** and platform access is restored immediately.
+  </Step>
+</Steps>
+
+<Info>
+  If the subscription was expired for fewer than 90 days, all previously stored data (galleries, detection history, configurations) is restored automatically upon renewal.
+</Info>
+
+## Billing Metrics Dashboard
+
+The billing metrics dashboard provides financial analytics for platform administrators and resellers.
+
+<Tabs>
+  <Tab title="Revenue Metrics">
+    - **Total Revenue** — Aggregate revenue across all subscriptions for the selected period
+    - **Monthly Recurring Revenue (MRR)** — Sum of all active subscription values normalized to a monthly basis
+    - **Average Revenue Per Account (ARPA)** — MRR divided by the number of active subscriptions
+    - **Net Revenue Retention** — Revenue retained from existing customers including expansion and contraction
+  </Tab>
+  <Tab title="Churn Metrics">
+    - **Customer Churn Rate** — Percentage of subscriptions cancelled during the period
+    - **Revenue Churn Rate** — Percentage of MRR lost to cancellations and downgrades
+    - **Churned Accounts** — List of subscriptions that cancelled or expired with cancellation reasons
+    - **At-Risk Accounts** — Subscriptions with failed payment attempts or declining usage patterns
+  </Tab>
+  <Tab title="Growth Metrics">
+    - **New Subscriptions** — Number and value of subscriptions activated during the period
+    - **Expansion Revenue** — Additional revenue from existing customers upgrading plans or adding services
+    - **Trial Conversions** — Percentage of trial subscriptions that converted to paid plans
+    - **Pipeline Value** — Estimated revenue from pending subscription activations
+  </Tab>
+</Tabs>
+
+## Tax Configuration
+
+Tax settings are configurable per company and reseller to accommodate regional tax requirements. The billing service applies tax calculations to all invoices generated through Stripe.
+
+<AccordionGroup>
+  <Accordion title="Setting tax rates">
+    Navigate to **Administration > Subscriptions > Tax Settings** to configure tax rates. Enter the applicable tax percentage, tax ID type (e.g., VAT, GST, Sales Tax), and the jurisdiction. Multiple tax rates can be stacked for regions with compound taxation.
+  </Accordion>
+  <Accordion title="Tax exemptions">
+    Companies with valid tax-exempt status can be flagged as exempt. Upload the exemption certificate and enter the exemption ID. The billing service skips tax calculation for exempt entities.
+  </Accordion>
+  <Accordion title="Tax reporting">
+    Generate tax reports from the billing metrics dashboard. Reports include total tax collected, broken down by jurisdiction and tax type, suitable for regulatory filing.
+  </Accordion>
+</AccordionGroup>
+
+## Service-Level Billing
+
+Subscriptions can include multiple service tiers with independent billing:
+
+| Service | Description |
+|---|---|
+| **Core Platform** | Base subscription for platform access, user management, and gallery storage |
+| **Detection Processing** | Per-device billing for FMU facial recognition processing capacity |
+| **Video Storage** | Tiered storage billing based on retention duration and total footage volume |
+| **API Access** | Usage-based billing for API calls exceeding the base allocation |
+| **Premium Support** | Optional add-on for priority support SLA with dedicated account management |
+
+<Tip>
+  Review the service breakdown on each invoice to identify opportunities for cost optimization. Companies with low API usage may benefit from removing the API Access add-on and using only the base allocation.
+</Tip>

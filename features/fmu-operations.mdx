@@ -1,0 +1,156 @@
+---
+title: "FMU Operations"
+sidebarTitle: "Device Operations"
+description: "Advanced FMU device management: reboot, repair, transfer, SSH access, and maintenance"
+---
+
+## Overview
+
+Beyond routine monitoring, the IVT Platform provides a suite of advanced operations for
+managing FMU (NUC) devices. These operations allow administrators and distributors to remotely
+reboot, repair, clean, transfer, and access devices without requiring physical presence at
+the deployment site.
+
+<Warning>
+  Several operations on this page are destructive or disruptive. Rebooting interrupts active
+  processing, cleaning erases data, and transferring a device removes it from its current
+  company. Always confirm the target device and understand the consequences before executing
+  these actions.
+</Warning>
+
+## Device Operations
+
+<CardGroup cols={3}>
+  <Card title="Reboot" icon="power-off">
+    Remotely restart the FMU device to resolve software issues or apply pending updates.
+  </Card>
+  <Card title="Repair" icon="wrench">
+    Trigger a remote repair to fix configuration drift, restart failed services, and
+    re-synchronize the device with the platform.
+  </Card>
+  <Card title="Clean" icon="broom">
+    Clear cached data and temporary files from the device while preserving database schemas
+    and core configuration.
+  </Card>
+</CardGroup>
+
+### Rebooting a Device
+
+A remote reboot restarts the FMU hardware and all running services. Use this operation when
+the device is unresponsive, experiencing degraded performance, or after a software update
+that requires a restart.
+
+<Steps>
+  <Step title="Select the Device">
+    Navigate to **FMU Devices** and select the target device from the list.
+  </Step>
+  <Step title="Initiate Reboot">
+    Click **Reboot** from the device actions menu. Confirm the operation in the dialog.
+  </Step>
+  <Step title="Wait for Restart">
+    The device will go offline briefly and return to **Online** status once the reboot
+    completes. This typically takes 2 to 5 minutes.
+  </Step>
+</Steps>
+
+### Repairing a Device
+
+The repair operation diagnoses and corrects common issues on the FMU, including stalled
+recognition services, configuration mismatches, and failed gallery synchronizations. It
+re-applies the expected configuration without erasing stored data.
+
+<Note>
+  Repair is a non-destructive operation. It restores services and configuration to the
+  expected state without removing detection history or gallery data on the device.
+</Note>
+
+### Cleaning Device Data
+
+The clean operation removes cached detection data, temporary processing files, and log
+archives from the FMU. Database schemas and core configuration are preserved, so the device
+remains operational after cleaning.
+
+<Warning>
+  Cleaning a device removes locally cached detection events that have not yet been
+  synchronized to the platform. Ensure the device has a stable connection and has completed
+  any pending sync before running this operation.
+</Warning>
+
+## Device Transfer and Detachment
+
+### Transferring a Device
+
+Transfer moves an FMU device from one company to another. This is commonly used by
+distributors when reassigning hardware between client organizations.
+
+<Steps>
+  <Step title="Select the Device">
+    Navigate to the device detail page for the FMU you want to transfer.
+  </Step>
+  <Step title="Choose Transfer">
+    Click **Transfer** from the device actions menu.
+  </Step>
+  <Step title="Select Target Company">
+    Choose the destination company from the list of available organizations.
+  </Step>
+  <Step title="Confirm Transfer">
+    Review the transfer details and confirm. The device will be disassociated from the
+    current company and assigned to the new one.
+  </Step>
+</Steps>
+
+### Detaching a Device
+
+Detaching (unattaching) removes an FMU from its associated company without transferring it
+to another organization. The device returns to an unassigned state and can be re-enrolled
+or reassigned later.
+
+## Remote Access
+
+<Tabs>
+  <Tab title="SSH Access">
+    The platform can generate a secure SSH link for direct terminal access to an FMU device.
+    This is used for advanced troubleshooting, log inspection, and manual configuration that
+    cannot be performed through the platform interface.
+
+    To obtain an SSH link, select the device and click **SSH Access** from the actions menu.
+    The generated link provides time-limited access to the device shell.
+  </Tab>
+  <Tab title="Camera Preview">
+    Request a live preview image from any camera connected to the FMU. This is useful for
+    verifying camera positioning and image quality without accessing the full video stream.
+
+    Select the device, choose a connected camera, and click **Preview** to retrieve a
+    current snapshot.
+  </Tab>
+</Tabs>
+
+## Device Enrollment
+
+New FMU devices must be enrolled before they can be assigned and activated. Enrollment
+registers the device with the platform and provisions it with the necessary credentials.
+
+<Steps>
+  <Step title="Generate Install Link">
+    From the device management area, click **Get Install Link** to generate a unique
+    provisioning URL for the new device.
+  </Step>
+  <Step title="Run Installer on Device">
+    Access the FMU hardware and open the install link in a browser or execute the provided
+    setup script. This registers the device with the platform.
+  </Step>
+  <Step title="Assign to Company">
+    Once enrolled, assign the device to a company and location from the platform interface.
+  </Step>
+</Steps>
+
+<Info>
+  Device operations availability depends on your portal role. Distributors and platform
+  administrators have access to all operations, while company administrators may only
+  have access to reboot and camera preview for devices assigned to their organization.
+</Info>
+
+<Tip>
+  Schedule maintenance operations such as reboot and clean during off-peak hours to minimize
+  disruption to active surveillance and recognition workflows.
+</Tip>

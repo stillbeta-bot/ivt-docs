@@ -1,0 +1,136 @@
+---
+title: "Bridge Management"
+sidebarTitle: "Bridges"
+description: "Manage network bridge devices that connect camera networks to the platform"
+---
+
+## Overview
+
+Bridges are network gateway devices that connect camera subnets to the IVT Platform. They
+serve as intermediaries between your on-premise camera infrastructure and the cloud platform,
+routing video streams and management commands across network boundaries. Bridges are
+particularly relevant in deployments that integrate with Eagle Eye Networks or span multiple
+network segments.
+
+<Note>
+  A bridge is not the same as an FMU device. While FMU devices perform on-device facial
+  recognition, bridges focus on network connectivity -- ensuring that camera streams from
+  isolated subnets are accessible to the platform and to FMU devices that need to process
+  them.
+</Note>
+
+## Viewing Connected Bridges
+
+Navigate to your company's bridge management section to view all registered bridge devices.
+The bridge list displays each device along with its current status and connection details.
+
+<CardGroup cols={2}>
+  <Card title="Bridge Status" icon="signal">
+    Each bridge reports its connectivity state: **Online** (actively routing traffic),
+    **Offline** (unreachable), or **Degraded** (experiencing connectivity issues).
+  </Card>
+  <Card title="Connected Cameras" icon="camera">
+    View the list of cameras accessible through each bridge. This shows which camera
+    subnets the bridge is serving and how many streams are actively routed.
+  </Card>
+</CardGroup>
+
+## Bridge Details
+
+Selecting a bridge from the list displays its full configuration and operational details.
+
+| Field | Description |
+|---|---|
+| **IP Address** | The network address of the bridge device |
+| **Status** | Current connectivity state (Online, Offline, Degraded) |
+| **Firmware Version** | The software version running on the bridge hardware |
+| **Connected Cameras** | Number and list of cameras routed through this bridge |
+| **Last Heartbeat** | Timestamp of the most recent status report from the bridge |
+| **Uptime** | Duration since the last bridge restart |
+
+## Configuring Bridge Settings
+
+Click the **Settings** button on a bridge detail page to open the bridge configuration modal.
+Bridge settings control how the device routes traffic and communicates with the platform.
+
+<Steps>
+  <Step title="Open Bridge Settings">
+    Navigate to the bridge detail page and click the **Settings** icon or button to open
+    the configuration modal.
+  </Step>
+  <Step title="Configure Network Parameters">
+    Adjust the bridge's network settings, including routing rules, port assignments, and
+    connection timeouts as needed for your network topology.
+  </Step>
+  <Step title="Save and Apply">
+    Click **Save** to apply the updated configuration. The bridge will apply the new settings
+    and may briefly reconnect to the platform.
+  </Step>
+</Steps>
+
+## Bridges and Camera Integrations
+
+<Tabs>
+  <Tab title="Eagle Eye Networks">
+    Bridges play a central role in Eagle Eye Networks integrations. The Eagle Eye bridge
+    device connects your local camera network to the Eagle Eye cloud, which in turn
+    integrates with the IVT Platform. The bridge handles video routing, bandwidth
+    management, and local storage for Eagle Eye-connected cameras.
+  </Tab>
+  <Tab title="ONVIF Cameras">
+    For ONVIF camera deployments across multiple subnets, bridges enable FMU devices to
+    access cameras that are not on the same local network segment. The bridge routes
+    RTSP streams from the camera subnet to the FMU's subnet, enabling facial recognition
+    processing without direct network adjacency.
+  </Tab>
+</Tabs>
+
+## Bridge Health Monitoring
+
+The platform continuously monitors bridge health through periodic heartbeat signals and
+connectivity checks.
+
+<AccordionGroup>
+  <Accordion title="Heartbeat Monitoring">
+    Each bridge sends regular heartbeat messages to the platform. If a heartbeat is missed,
+    the bridge status transitions to **Offline** and an alert may be generated for the
+    system administrator.
+  </Accordion>
+  <Accordion title="Throughput Metrics">
+    Monitor the data throughput passing through each bridge to identify bandwidth bottlenecks.
+    High throughput with many connected cameras may indicate that the bridge hardware or
+    network link is approaching capacity.
+  </Accordion>
+  <Accordion title="Firmware Updates">
+    Bridge firmware can be updated remotely through the platform when new versions are
+    available. Firmware updates may include security patches, performance improvements,
+    and new feature support.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Bridge Shows Offline">
+    Verify that the bridge hardware is powered on and connected to the network. Check that
+    the bridge can reach the platform's cloud endpoints. Firewall rules or proxy
+    configurations may block outbound traffic from the bridge.
+  </Accordion>
+  <Accordion title="Cameras Not Visible Through Bridge">
+    Ensure that the cameras are on a subnet that the bridge is configured to serve. Verify
+    that the bridge's routing rules include the camera subnet and that no firewall rules
+    block traffic between the camera network and the bridge.
+  </Accordion>
+  <Accordion title="Intermittent Connectivity">
+    Intermittent bridge connectivity is often caused by network instability, insufficient
+    bandwidth, or hardware issues. Review the bridge's heartbeat history to identify
+    patterns. Consider upgrading the network link or replacing the bridge hardware if
+    the issue persists.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Losing bridge connectivity will interrupt video streams for all cameras routed through
+  that bridge. Plan bridge maintenance during off-peak hours and ensure redundant network
+  paths where possible to minimize surveillance downtime.
+</Warning>

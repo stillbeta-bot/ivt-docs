@@ -1,0 +1,143 @@
+---
+title: "Gallery Operations"
+sidebarTitle: "Advanced Operations"
+description: "Advanced gallery management: copy images, reassign licenses, search within galleries, and manage limits"
+---
+
+## Overview
+
+Beyond basic gallery creation and face enrollment, the IVT Platform provides advanced
+operations for managing gallery content at scale. These operations include copying images
+between galleries, activating and deactivating galleries, searching within gallery contents,
+editing image metadata, and managing gallery limits.
+
+## Copying Images Between Galleries
+
+You can copy face entries from one gallery to another without re-uploading the original
+images. This is useful when an individual needs to appear in multiple galleries -- for
+example, moving a person from a Frequent gallery to a Common gallery for active tracking.
+
+<Steps>
+  <Step title="Select the Source Image">
+    Navigate to the gallery containing the face entry you want to copy. Click on the
+    individual's profile to open the detail view.
+  </Step>
+  <Step title="Open the Copy Dialog">
+    Click the **Copy to Gallery** action to open the copy image modal.
+  </Step>
+  <Step title="Choose the Target Gallery">
+    Select the destination gallery from the list of available galleries. You can copy to
+    any gallery type (Common, Frequent, or Ignored) within your organization.
+  </Step>
+  <Step title="Confirm the Copy">
+    Review the source and target galleries and click **Confirm**. The face entry, including
+    all reference photos and biometric templates, is duplicated in the target gallery.
+  </Step>
+</Steps>
+
+<Note>
+  Copying creates an independent entry in the target gallery. Changes made to the copy
+  do not affect the original entry, and vice versa.
+</Note>
+
+## Gallery Activation and Deactivation
+
+Galleries can be activated or deactivated to control whether they participate in facial
+recognition matching.
+
+<Tabs>
+  <Tab title="Activation">
+    Activating a gallery makes it available for matching in real-time monitoring and search
+    sessions. Activation may require a valid license assignment depending on your subscription
+    tier. When a gallery is activated, its biometric templates are distributed to the relevant
+    FMU devices.
+  </Tab>
+  <Tab title="Deactivation">
+    Deactivating a gallery removes it from active matching without deleting its contents.
+    Deactivated galleries retain all face entries and metadata, but are excluded from
+    recognition processing. This frees up license capacity and reduces FMU processing load.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Deactivate galleries that are not currently needed rather than deleting them. This
+  preserves your curated face data and allows rapid reactivation when required.
+</Tip>
+
+## Searching Within Galleries
+
+Use the gallery search function to locate specific individuals within a gallery by matching
+a face image against the gallery contents.
+
+<CardGroup cols={2}>
+  <Card title="Search by Image" icon="magnifying-glass">
+    Upload a face photo to search for matching entries across one or more galleries. The
+    system returns all entries that exceed the configured similarity threshold.
+  </Card>
+  <Card title="Search by Metadata" icon="tag">
+    Filter gallery entries by name, tags, or notes to quickly locate specific individuals
+    without performing a biometric comparison.
+  </Card>
+</CardGroup>
+
+## Gallery Types
+
+The platform supports three gallery types, each designed for a distinct operational purpose.
+
+| Type | Purpose | Population Method |
+|---|---|---|
+| **Common** | Track and identify specific persons of interest | Manual enrollment |
+| **Frequent** | Identify individuals who appear repeatedly across cameras | Automatic system detection |
+| **Ignored** | Suppress alerts for known individuals (staff, regulars) | Manual enrollment |
+
+## Gallery Limits
+
+Each gallery and organization is subject to configurable capacity limits that govern how
+many face entries can be stored.
+
+<AccordionGroup>
+  <Accordion title="Per-Gallery Limits">
+    Each gallery has a maximum number of face entries determined by your subscription tier
+    and license allocation. When a gallery reaches its limit, new entries cannot be added
+    until existing entries are removed or the limit is increased.
+  </Accordion>
+  <Accordion title="Per-Company Limits">
+    Your organization has an overall limit on the total number of gallery entries across all
+    galleries. This limit is tied to your active license count and subscription plan.
+  </Accordion>
+  <Accordion title="Checking Current Usage">
+    View your current gallery usage and remaining capacity on the gallery overview page. Each
+    gallery displays its entry count alongside the configured maximum.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Approaching or exceeding gallery limits may prevent automatic enrollment in Frequent
+  galleries. Monitor your usage regularly and contact your distributor to increase limits
+  if your operational needs grow.
+</Warning>
+
+## Bulk Operations
+
+### Bulk Gallery Updates
+
+Administrators can apply changes across multiple galleries in a single operation. Bulk
+updates support modifying activation status, matching thresholds, and alert configurations
+for selected galleries simultaneously.
+
+### Image Metadata Editing
+
+Each face entry supports editable metadata fields that help organize and identify individuals.
+
+- **Name** -- the display name for the gallery entry
+- **Tags** -- categorical labels for filtering and grouping (e.g., "VIP," "Contractor")
+- **Notes** -- freeform text for additional context about the individual
+
+To edit metadata, open the face entry detail view and click **Edit**. Update the desired
+fields and save your changes.
+
+<Info>
+  Metadata changes are propagated to FMU devices during the next gallery synchronization
+  cycle. Biometric templates are not affected by metadata edits, so recognition accuracy
+  remains unchanged.
+</Info>

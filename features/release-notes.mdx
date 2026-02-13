@@ -1,0 +1,103 @@
+---
+title: "Release Notes"
+description: "Stay informed about platform updates, new features, and improvements"
+---
+
+The Release Notes page provides a chronological record of all IVT Platform updates, including new features, improvements, bug fixes, and breaking changes. Access release notes at `/system/release-notes` in any portal — company, distributor, or reseller.
+
+## Overview
+
+Release notes are managed through a headless CMS (Strapi) and published directly to the platform. This ensures content is always up to date and can be maintained by the product team without requiring a code deployment.
+
+<CardGroup cols={3}>
+  <Card title="New Features" icon="sparkles">
+    Announcements of new platform capabilities, integrations, and tools added to the system.
+  </Card>
+  <Card title="Improvements" icon="arrow-up-right">
+    Enhancements to existing features including performance optimizations, UX refinements, and expanded functionality.
+  </Card>
+  <Card title="Bug Fixes" icon="bug-slash">
+    Resolved issues and defects with details on affected areas and corrective actions taken.
+  </Card>
+</CardGroup>
+
+## Browsing Release Notes
+
+Release notes are organized by version number and release date, with the most recent update displayed first. Each entry includes:
+
+- **Version number** — Semantic versioning format (e.g., `v3.12.0`)
+- **Release date** — The date the update was deployed to production
+- **Category tags** — Labels indicating the type of changes (feature, improvement, fix, security, breaking change)
+- **Summary** — A concise description of the update and its impact
+- **Detailed changelog** — A full breakdown of individual changes included in the release
+
+<Steps>
+  <Step title="Navigate to Release Notes">
+    Go to **System > Release Notes** from the sidebar navigation in any portal.
+  </Step>
+  <Step title="Browse or search entries">
+    Scroll through the chronological list or use the search bar to find release notes by keyword, version number, or feature name.
+  </Step>
+  <Step title="Filter by category">
+    Use the category filter to view only specific types of changes — features, improvements, bug fixes, or security updates.
+  </Step>
+  <Step title="Expand entry details">
+    Click on any release note entry to expand the full changelog and view individual line items with their descriptions.
+  </Step>
+</Steps>
+
+## Version History
+
+The version history section provides a complete archive of all past releases. Use the timeline navigation to jump to a specific version or date range.
+
+<Tip>
+  Bookmark specific release notes by copying the URL with the version anchor (e.g., `/system/release-notes#v3.12.0`) for easy reference in support tickets or team communications.
+</Tip>
+
+## CMS-Powered Content
+
+Release note content is authored and managed through Strapi, the platform's headless CMS. This architecture provides several benefits:
+
+- **Rich formatting** — Release notes support headings, lists, code blocks, images, and embedded media
+- **Scheduled publishing** — Entries can be drafted and scheduled for publication alongside a deployment
+- **Revision history** — All content changes are tracked within the CMS for audit purposes
+- **Multi-portal delivery** — A single release note can be published to all portals simultaneously or targeted to specific portal types
+
+<Note>
+  Release note content is cached on the client side for performance. New entries may take up to 5 minutes to appear after publication. Use a hard refresh to force an immediate update.
+</Note>
+
+## Role-Based Visibility
+
+Not all release notes are visible to every user. The CMS supports role-based visibility controls:
+
+| Audience | Visible Content |
+|---|---|
+| Company Users | General features, bug fixes, and improvements relevant to end-user workflows |
+| Distributor Admins | All company-visible content plus distributor management updates and API changes |
+| Reseller Admins | All distributor-visible content plus reseller billing, licensing, and partner program updates |
+| Platform Admins | Full visibility including internal platform changes, infrastructure updates, and migration notes |
+
+<Info>
+  Breaking changes are highlighted with a prominent banner and are visible to all roles that may be affected. These entries include migration guides and action items where applicable.
+</Info>
+
+## Subscribing to Update Notifications
+
+Stay informed about new releases without manually checking the release notes page.
+
+<AccordionGroup>
+  <Accordion title="In-app notifications">
+    When a new release note is published, a notification badge appears on the Release Notes menu item. An in-app notification is delivered to users whose role matches the entry's visibility settings.
+  </Accordion>
+  <Accordion title="Email digest">
+    Subscribe to the release notes email digest from **System > Notifications > Preferences**. Choose between immediate delivery for each release or a weekly summary of all updates.
+  </Accordion>
+  <Accordion title="Webhook integration">
+    Configure a webhook endpoint in your notification preferences to receive release note payloads programmatically. This is useful for posting updates to Slack channels or internal wikis automatically.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Entries tagged as **security updates** are always delivered as immediate notifications regardless of your digest preferences. Review these promptly and follow any recommended actions.
+</Warning>

@@ -1,0 +1,124 @@
+---
+title: "Camera Discovery"
+sidebarTitle: "Discovery"
+description: "Automatically discover ONVIF cameras on your network via FMU device scanning"
+---
+
+## Overview
+
+Camera Discovery allows you to automatically find ONVIF-compatible IP cameras on your local
+network without manually entering each camera's connection details. The IVT Platform leverages
+your deployed FMU (NUC) devices to scan the local subnet for cameras that support the ONVIF
+protocol, returning detailed information about each discovered device.
+
+<Note>
+  Camera Discovery relies on your FMU device being connected to the same network segment as
+  the cameras you want to find. The FMU broadcasts ONVIF discovery probes (WS-Discovery) on
+  its local subnet and collects responses from compatible devices.
+</Note>
+
+## How Network Scanning Works
+
+When you initiate a camera discovery scan, the platform instructs a selected FMU device to
+perform a network-level probe. The FMU sends multicast WS-Discovery messages across its
+local subnet and listens for responses from ONVIF-compliant devices. Each responding camera
+reports its capabilities, connection details, and hardware information.
+
+<CardGroup cols={2}>
+  <Card title="Subnet Scanning" icon="network-wired">
+    The FMU scans its local network segment using ONVIF WS-Discovery. Only cameras on the
+    same subnet or reachable via configured network routes will respond to the probe.
+  </Card>
+  <Card title="Device Identification" icon="camera-cctv">
+    Each discovered camera returns its manufacturer, model, firmware version, available
+    RTSP streams, and network address -- giving you all the information needed to add it
+    to the platform.
+  </Card>
+</CardGroup>
+
+## Discovering Cameras
+
+<Steps>
+  <Step title="Navigate to ONVIF Cameras">
+    Go to **Cameras > ONVIF** from the main navigation menu.
+  </Step>
+  <Step title="Open the Find Cameras Dialog">
+    Click the **Find Cameras** button to open the camera discovery modal.
+  </Step>
+  <Step title="Select the FMU Device">
+    Choose the FMU (NUC) device that will perform the network scan. Select the device that
+    is connected to the same network segment as the cameras you want to discover.
+  </Step>
+  <Step title="Wait for the Scan to Complete">
+    The FMU scans the local subnet for ONVIF devices. This typically takes 10 to 30 seconds
+    depending on network size and the number of responding devices.
+  </Step>
+  <Step title="Review Discovered Cameras">
+    The scan results display all detected cameras with the following details:
+
+    | Field | Description |
+    |---|---|
+    | **IP Address** | The camera's network address on the local subnet |
+    | **Port** | The ONVIF service port reported by the camera |
+    | **Manufacturer** | The camera hardware manufacturer |
+    | **Model** | The specific camera model identifier |
+    | **RTSP URL** | The discovered streaming endpoint for the camera |
+  </Step>
+  <Step title="Add Selected Cameras">
+    Select one or more discovered cameras from the results list and click **Add** to register
+    them in the platform. The discovered connection details are pre-populated automatically.
+  </Step>
+</Steps>
+
+## Discovery vs. Manual Addition
+
+<Tabs>
+  <Tab title="Automatic Discovery">
+    - Pre-populates IP address, port, manufacturer, model, and RTSP URL from the scan results
+    - Ideal when deploying multiple cameras at once on the same network
+    - Requires an FMU device on the same subnet as the target cameras
+    - Discovers all responding ONVIF cameras in a single operation
+  </Tab>
+  <Tab title="Manual Addition">
+    - You enter all connection details by hand (IP, port, credentials, RTSP URL)
+    - Suitable for cameras on remote subnets not reachable by the FMU scan
+    - Useful when adding a single camera with known connection parameters
+    - Required for cameras that do not support ONVIF WS-Discovery
+  </Tab>
+</Tabs>
+
+<Tip>
+  After adding cameras via discovery, you will still need to provide authentication credentials
+  (username and password) for each camera. Discovery identifies cameras on the network but
+  cannot retrieve device credentials.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No Cameras Found">
+    If the scan returns no results, verify that the FMU device and cameras are on the same
+    network subnet. Cameras on different VLANs or behind routers will not respond to the
+    multicast discovery probe unless your network is configured to forward WS-Discovery traffic.
+  </Accordion>
+  <Accordion title="ONVIF Disabled on Camera">
+    Some cameras ship with the ONVIF service disabled by default. Access the camera's web
+    administration interface and enable ONVIF under the network or integration settings.
+    Restart the camera after enabling the service.
+  </Accordion>
+  <Accordion title="Firewall Blocking Discovery">
+    Network firewalls or camera-level firewalls may block WS-Discovery multicast traffic
+    (UDP port 3702). Ensure that this port is open between the FMU device and the camera
+    network segment.
+  </Accordion>
+  <Accordion title="FMU Device Offline">
+    The selected FMU must be online and connected to the platform to perform a scan. Verify
+    the device status on the **FMU Devices** page before initiating discovery.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Camera Discovery exposes all ONVIF-compatible devices on the scanned subnet. In shared
+  network environments, you may discover cameras belonging to other tenants or departments.
+  Only add cameras that your organization owns and is authorized to monitor.
+</Warning>

@@ -1,0 +1,131 @@
+---
+title: "Video Stream Viewer"
+sidebarTitle: "Stream Viewer"
+description: "View live and recorded video streams with detection event playback"
+---
+
+The Video Stream Viewer is the platform's embedded video player for viewing live camera feeds and recorded footage associated with detection events. It is accessible at `/company/:companyId/stream/:resultId/camera/:cameraId` and serves as the primary interface for reviewing facial recognition results in their full video context.
+
+## Overview
+
+<CardGroup cols={2}>
+  <Card title="Live Streams" icon="video">
+    View real-time camera feeds from Eagle Eye and ONVIF-compatible cameras connected to your deployment.
+  </Card>
+  <Card title="Recorded Playback" icon="clock-rotate-left">
+    Review recorded footage linked to detection events with timeline scrubbing and clip extraction.
+  </Card>
+</CardGroup>
+
+When a facial recognition detection occurs, the platform records the associated video segment. The Stream Viewer allows you to watch this footage, see the full-frame context of the detection, and extract video clips for evidence or review purposes.
+
+## Accessing the Stream Viewer
+
+<Steps>
+  <Step title="Perform a search">
+    Run a facial recognition search from the **Search** page using a probe image or gallery subject.
+  </Step>
+  <Step title="Review search results">
+    Browse the returned detection results. Each result includes a thumbnail, match score, timestamp, and camera source.
+  </Step>
+  <Step title="Click a detection result">
+    Click on any detection result card to open the Stream Viewer. The player loads the video segment corresponding to the detection event and positions the playhead at the exact moment of detection.
+  </Step>
+</Steps>
+
+## Live Stream Viewing
+
+The Stream Viewer supports real-time video from two camera integration types:
+
+<Tabs>
+  <Tab title="Eagle Eye Networks">
+    Eagle Eye cameras stream through the Eagle Eye VMS cloud platform. The viewer connects to the Eagle Eye API to retrieve the live feed and render it within the embedded player. Authentication is handled transparently through the IVT platform's Eagle Eye integration credentials.
+  </Tab>
+  <Tab title="ONVIF Cameras">
+    ONVIF-compatible cameras stream directly from the local network via the FMU device. The viewer establishes a connection through the FMU's RTSP relay, providing low-latency local streaming with platform-level access controls.
+  </Tab>
+</Tabs>
+
+<Note>
+  Live stream availability depends on the camera's current connectivity status. If a camera is offline or disconnected, the viewer displays the last known status and offers access to the most recent recorded footage instead.
+</Note>
+
+## Recorded Video Playback
+
+For detection events, the Stream Viewer loads the recorded video segment and provides a full playback interface:
+
+- **Play/Pause** — Standard playback controls with keyboard shortcut support (spacebar)
+- **Timeline scrubbing** — Drag the playhead along the timeline to navigate to any point in the recording
+- **Playback speed** — Adjust speed from 0.25x to 4x for detailed review or rapid scanning
+- **Frame-by-frame** — Step through individual frames using arrow keys for precise analysis
+- **Detection markers** — The timeline displays markers at each point where a detection event occurred within the video segment
+
+<Tip>
+  Use the keyboard shortcut `[` and `]` to jump between detection markers on the timeline, allowing rapid review of multiple events within the same recording.
+</Tip>
+
+## Video Clip Extraction
+
+Extract specific portions of recorded footage for evidence collection, reporting, or sharing.
+
+<Steps>
+  <Step title="Set clip boundaries">
+    Use the trim handles on the timeline to define the start and end points of the clip you want to extract.
+  </Step>
+  <Step title="Preview the clip">
+    Click **Preview** to review the selected segment before extraction.
+  </Step>
+  <Step title="Export the clip">
+    Click **Export Clip** to generate the video file. The platform calls the `getSearchVideoClip` endpoint to process and package the footage. The exported clip is available for download once processing completes.
+  </Step>
+</Steps>
+
+<Info>
+  Exported video clips include embedded metadata such as the camera ID, timestamp, detection event ID, and company information. This metadata supports chain-of-custody requirements for evidentiary use.
+</Info>
+
+## Full-Frame Detection View
+
+The Stream Viewer includes a full-frame detection panel that displays:
+
+- **Detection thumbnail** — The cropped face image captured by the FaceVACS engine
+- **Full-frame capture** — The complete camera frame at the moment of detection, showing the subject's full body and surrounding environment
+- **Match details** — Gallery subject name, match confidence score, and gallery source
+- **Event metadata** — Timestamp, camera name, camera location, and FMU device identifier
+
+Toggle between the cropped detection view and the full-frame view using the expand button in the detection panel.
+
+## Camera Information Overlay
+
+Enable the camera overlay to display persistent information on top of the video feed:
+
+| Overlay Element | Description |
+|---|---|
+| Camera name | The configured display name of the camera |
+| Timestamp | Current timestamp of the displayed frame |
+| Camera location | Physical location label assigned to the camera |
+| FMU device | The FMU device processing the camera feed |
+| Stream status | Live indicator or recording playback status |
+
+<Warning>
+  Camera overlays are rendered client-side and are not embedded in exported video clips. If you require overlay information in exported footage, include the metadata report generated alongside the clip export.
+</Warning>
+
+## Stream Quality Options
+
+Adjust the stream quality based on your network conditions and viewing requirements:
+
+<AccordionGroup>
+  <Accordion title="Auto (recommended)">
+    The player automatically adjusts stream quality based on available bandwidth. This is the default setting and provides the best balance between visual clarity and smooth playback.
+  </Accordion>
+  <Accordion title="High (1080p)">
+    Full HD resolution. Recommended for detailed facial analysis and evidence review on high-bandwidth connections.
+  </Accordion>
+  <Accordion title="Medium (720p)">
+    Standard HD resolution. Suitable for general monitoring and review on moderate bandwidth connections.
+  </Accordion>
+  <Accordion title="Low (480p)">
+    Reduced resolution for low-bandwidth or mobile connections. Facial details may be less distinct at this quality level.
+  </Accordion>
+</AccordionGroup>

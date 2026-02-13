@@ -1,0 +1,117 @@
+---
+title: "Contact Person"
+description: "Manage primary contact information for your organization"
+---
+
+## Overview
+
+Each company in the IVT Platform can designate a primary contact person. This individual
+serves as the main point of contact for the organization in matters related to system
+administration, emergency notifications, billing correspondence, and technical support. The
+contact person record is referenced across the platform whenever communication with the
+organization is required.
+
+<Note>
+  The contact person is distinct from individual user accounts. While multiple users may have
+  access to the platform, the contact person represents the single authoritative point of
+  contact for the organization as a whole.
+</Note>
+
+## Setting Up Contact Information
+
+<Steps>
+  <Step title="Navigate to Company Settings">
+    Go to **Settings > Company** or access your organization's profile from the administration
+    panel.
+  </Step>
+  <Step title="Open the Contact Person Dialog">
+    Click the **Contact Person** section or the **Edit** button next to the current contact
+    information to open the contact person modal.
+  </Step>
+  <Step title="Enter Contact Details">
+    Fill in the following fields:
+
+    - **Full name** -- the contact person's first and last name
+    - **Email address** -- primary email for correspondence and notifications
+    - **Phone number** -- direct phone number for urgent communications
+    - **Role / Title** -- the contact person's position within the organization
+
+  </Step>
+  <Step title="Save Contact Information">
+    Click **Save** to store the contact details. The information takes effect immediately
+    across all platform communication channels.
+  </Step>
+</Steps>
+
+## Editing Contact Details
+
+To update the contact person or modify existing contact information, reopen the contact
+person modal from the company settings and update the relevant fields. All changes are
+saved immediately and reflected in subsequent platform communications.
+
+<Tip>
+  Keep the contact person information up to date, especially the email address and phone
+  number. Outdated contact details can delay critical emergency notifications and support
+  responses.
+</Tip>
+
+## How Contact Information Is Used
+
+The contact person record is referenced throughout the platform in several operational
+contexts.
+
+<CardGroup cols={2}>
+  <Card title="Emergency Notifications" icon="bell">
+    Critical alerts -- such as device failures, security breaches, or system outages -- are
+    routed to the contact person's email and phone number to ensure rapid response.
+  </Card>
+  <Card title="Billing Correspondence" icon="file-invoice">
+    License renewals, subscription changes, and billing inquiries are directed to the
+    contact person as the organization's administrative representative.
+  </Card>
+  <Card title="System Alerts" icon="triangle-exclamation">
+    Platform-level notifications such as scheduled maintenance windows, service updates, and
+    policy changes are communicated to the designated contact person.
+  </Card>
+  <Card title="Technical Support" icon="headset">
+    When support cases are opened, the contact person is included in correspondence to
+    maintain organizational awareness of ongoing issues and resolutions.
+  </Card>
+</CardGroup>
+
+## RapidSOS Integration
+
+The IVT Platform integrates with RapidSOS to deliver emergency contact information to first
+responders. When an emergency event is triggered through the platform, the contact person's
+details may be transmitted to RapidSOS to facilitate rapid coordination with law enforcement
+or emergency services.
+
+<Info>
+  RapidSOS integration availability depends on your subscription tier and geographic region.
+  Contact your distributor to verify whether this feature is enabled for your organization.
+</Info>
+
+## Contact Person Per Company
+
+Each company in the platform hierarchy maintains its own contact person record. In
+multi-tenant deployments, this ensures that communications are routed to the correct
+organization.
+
+<Tabs>
+  <Tab title="Company Administrators">
+    Company administrators can view and update the contact person for their own organization.
+    Only users with administrative privileges can modify the contact record.
+  </Tab>
+  <Tab title="Distributors and Resellers">
+    Distributors and resellers can view and manage contact person records for all companies
+    under their management. This enables centralized contact administration across the
+    client portfolio.
+  </Tab>
+</Tabs>
+
+<Warning>
+  The contact person's email address and phone number may be shared with external emergency
+  services through the RapidSOS integration during critical events. Ensure that the
+  designated contact person is aware of this and consents to having their information
+  used for emergency response purposes.
+</Warning>

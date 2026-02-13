@@ -44,9 +44,9 @@ Selecting the right search mode ensures you get results efficiently. The table b
   </Tab>
 </Tabs>
 
-## FaceVACS AI Engine
+## Cognetic FaceVACS Engine
 
-All search modes are powered by the FaceVACS facial recognition engine, which provides the core detection and matching capabilities within IVT.
+All search modes are powered by the **Cognetic FaceVACS** facial recognition engine — a commercial biometric platform that runs locally on each FMU device. FaceVACS does not operate in the cloud; all face detection and matching is performed on-premise by the FMU's local FaceVACS VideoScan instance.
 
 <AccordionGroup>
   <Accordion title="Face Detection">
@@ -65,6 +65,40 @@ All search modes are powered by the FaceVACS facial recognition engine, which pr
 
 <Info>
   FaceVACS processes biometric templates, not raw images, during matching operations. This approach ensures high-speed comparisons even when searching across millions of stored detections.
+</Info>
+
+## How Search Processing Works
+
+Understanding where processing occurs is important for evaluating the platform's security and performance characteristics.
+
+<Tabs>
+  <Tab title="Real-Time Search">
+    In real-time monitoring, the entire detection and matching pipeline runs **on the FMU device**:
+
+    1. Camera streams video via RTSP to the FMU's Camera Capture Service (CCS)
+    2. CCS extracts frames and sends them to the Video Scan Consumer
+    3. The Video Scan Consumer submits frames to the local FaceVACS engine via SOAP API
+    4. FaceVACS detects faces, generates templates, and matches against locally stored galleries
+    5. Match results are published to RabbitMQ and delivered to the cloud platform
+    6. The cloud platform triggers notifications to subscribed users
+
+    Video frames never leave the local network. Only lightweight detection metadata (thumbnails, match scores, timestamps) is transmitted to the cloud.
+  </Tab>
+  <Tab title="Historic & Photo Search">
+    Historic and photo searches are coordinated by the cloud but processed on FMU devices:
+
+    1. The user uploads a probe image or selects a time range in the cloud interface
+    2. The cloud distributes the search request to the relevant FMU device(s) via RabbitMQ
+    3. Each FMU generates a biometric template from the probe using its local FaceVACS instance
+    4. FaceVACS searches against stored detection templates on the device
+    5. Results are returned to the cloud and aggregated for display
+
+    This distributed processing model means search performance scales with the number of deployed FMU devices rather than cloud compute capacity.
+  </Tab>
+</Tabs>
+
+<Info>
+  Because all biometric processing happens on isolated FMU devices, each company's facial recognition data is physically separated. An FMU assigned to Company A has no access to Company B's galleries or detection data. See [How It Works](/getting-started/how-it-works) for the full architecture.
 </Info>
 
 ## Search Permissions

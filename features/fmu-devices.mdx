@@ -37,6 +37,64 @@ FMU devices provide several advantages over purely cloud-based processing archit
   </Card>
 </CardGroup>
 
+## Cognetic FaceVACS Engine
+
+Every FMU device runs an instance of the **Cognetic FaceVACS VideoScan** engine — the commercial biometric recognition platform that powers all facial detection and matching in the IVT Platform. FaceVACS is not a cloud service; it runs locally on each FMU device, processing video frames directly on the hardware.
+
+<Tabs>
+  <Tab title="Software Stack">
+    Each FMU runs a complete, self-contained software stack as Docker containers:
+
+    | Component | Purpose |
+    |---|---|
+    | **FaceVACS VideoScan** | Core Cognetic biometric engine for face detection, template generation, and 1:N gallery matching |
+    | **CCS (Camera Capture Service)** | Captures RTSP video frames from connected cameras and feeds them into the recognition pipeline |
+    | **Video Scan Consumer** | Orchestration service that routes frames to FaceVACS, processes results, and communicates with the cloud |
+    | **PostgreSQL** | Stores Cognetic's biometric template database and enrollment records |
+    | **MongoDB** | Stores gallery metadata, detection events, and device operational data |
+    | **RabbitMQ** | Message broker for cloud-to-FMU synchronization and result delivery |
+    | **Redis** | Caching layer for configuration data and performance optimization |
+  </Tab>
+  <Tab title="How FaceVACS Processes Faces">
+    The Cognetic engine processes each video frame through a multi-stage pipeline:
+
+    1. **Frame capture** — CCS extracts frames from RTSP camera streams at up to 30 fps
+    2. **Face detection** — FaceVACS locates all faces within the frame, regardless of angle or partial occlusion
+    3. **Quality assessment** — Each detected face receives a quality score based on resolution, pose, blur, and illumination
+    4. **Template generation** — Qualifying faces are converted into compact biometric templates (mathematical embeddings)
+    5. **Gallery matching** — Templates are compared against all enrolled gallery entries using 1:N matching
+    6. **Result publication** — Match results, confidence scores, and detection metadata are published for delivery to the cloud platform
+  </Tab>
+  <Tab title="Communication Protocol">
+    The IVT Platform communicates with FaceVACS through a **SOAP/XML API**. All biometric operations — face enrollment, template generation, gallery management, and matching — are executed via SOAP requests to the local FaceVACS instance on each FMU.
+
+    This means the FMU does not depend on any external biometric service. All recognition processing happens entirely within the device.
+  </Tab>
+</Tabs>
+
+## Per-Company Data Isolation
+
+Each FMU device is assigned to exactly one company and stores data exclusively for that company. This architectural decision ensures strict multi-tenant data isolation at the physical device level.
+
+<CardGroup cols={2}>
+  <Card title="Dedicated Databases" icon="database">
+    Each FMU maintains its own PostgreSQL and MongoDB instances containing only the assigned company's biometric templates, gallery data, and detection records.
+  </Card>
+  <Card title="Isolated Message Queues" icon="envelope">
+    Company-specific RabbitMQ queues (e.g., `video-scan-company-{companyId}`) ensure that gallery updates and detection results are routed exclusively to and from the correct company.
+  </Card>
+  <Card title="Local Processing" icon="lock">
+    Video frames are processed entirely on the local FMU. Biometric data never traverses the network to another company's device or to a shared processing server.
+  </Card>
+  <Card title="Gallery Scoping" icon="images">
+    Only the assigned company's galleries are synchronized to the FMU. The device has no knowledge of or access to any other company's face data.
+  </Card>
+</CardGroup>
+
+<Info>
+  This isolation model means that if an FMU device is physically compromised, only the assigned company's data is at risk — no other tenant's biometric information is stored on the device.
+</Info>
+
 ## FMU Lifecycle
 
 Each FMU device follows a defined lifecycle from initial enrollment to active operation.

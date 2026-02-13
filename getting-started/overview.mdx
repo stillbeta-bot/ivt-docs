@@ -51,7 +51,7 @@ The IVT Platform uses a hybrid cloud-edge architecture that balances the scalabi
   <Tab title="Cloud Platform">
     The cloud layer handles:
     - **User management** and authentication across the multi-tenant hierarchy
-    - **Gallery storage** for enrolled face templates and metadata
+    - **Gallery storage** and synchronization of face templates to FMU devices via RabbitMQ
     - **Search orchestration** across multiple FMU devices and camera feeds
     - **Dashboard and reporting** for security operations
     - **API services** for third-party integrations
@@ -60,14 +60,16 @@ The IVT Platform uses a hybrid cloud-edge architecture that balances the scalabi
     The cloud platform is accessible via a web-based interface and a RESTful API.
   </Tab>
   <Tab title="Edge Devices (FMU)">
-    Facial Matching Units (FMUs) are deployed on-premises at each monitored location:
-    - **Local facial detection** extracts faces from camera streams in real time
-    - **Template generation** converts detected faces into mathematical embeddings
-    - **Gallery matching** compares detected faces against locally cached gallery data
-    - **Result synchronization** pushes match events and metadata to the cloud
-    - **Offline resilience** continues operating when cloud connectivity is interrupted
+    Facial Matching Units (FMUs) are deployed on-premises at each monitored location. Each FMU runs a full instance of the **Cognetic FaceVACS VideoScan** engine — the commercial biometric platform that powers all facial recognition in IVT.
 
-    FMUs reduce bandwidth requirements and ensure sub-second recognition latency.
+    - **Local facial detection** — FaceVACS extracts faces from camera streams in real time via the Camera Capture Service (CCS)
+    - **Template generation** — the Cognetic engine converts detected faces into mathematical biometric embeddings
+    - **Gallery matching** — FaceVACS performs 1:N matching against locally stored gallery data via its SOAP API
+    - **Result synchronization** — only detection metadata and thumbnails are pushed to the cloud; raw video stays local
+    - **Offline resilience** — FMUs continue operating when cloud connectivity is interrupted, queuing results for later sync
+    - **Per-company isolation** — each FMU is assigned to a single company and stores only that company's biometric data
+
+    FMUs reduce bandwidth requirements and ensure sub-second recognition latency. For a deep dive into the internal architecture, see [How It Works](/getting-started/how-it-works).
   </Tab>
   <Tab title="Camera Layer">
     The platform integrates with cameras through two primary channels:
@@ -130,5 +132,8 @@ Each brand can customize the platform logo, color scheme, login page, email temp
   </Card>
   <Card title="Understand Roles" icon="shield-halved" href="/getting-started/roles-and-permissions">
     Learn about the role-based permission system.
+  </Card>
+  <Card title="How It Works" icon="gears" href="/getting-started/how-it-works">
+    Learn how the Cognetic engine, FMU devices, and cloud platform work together.
   </Card>
 </CardGroup>
